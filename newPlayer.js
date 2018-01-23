@@ -8,6 +8,11 @@ module.exports = function () {
     this.luck = rollDie(1) + 6;
     this.provisions = 10;
     this.gold = 0;
+    this.inv = {
+        potOfSkill: 0,
+        potOfStamina: 0,
+        potOfFortune: 0
+    };
     console.log(`\x1Bc`);
     console.log(`Welcome ${this.name}!`);
     console.log(`Your SKILL is ${this.skill}`);

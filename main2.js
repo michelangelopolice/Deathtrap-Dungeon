@@ -14,5 +14,6 @@ const manticoreTest = {
     stamina:11
 };
 
+
 // Test Battle
 battle(player, manticoreTest);
