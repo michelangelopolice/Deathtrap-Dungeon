@@ -1,3 +1,5 @@
+const readlineSync = require(`readline-sync`);
+const rollDie = require(`./rollDie`);
 module.exports = function battle(player,monster) {
     console.log(`\x1Bc`);
     console.log(`You encounter a ${monster.type}!   SKILL: ${monster.skill}  STAMINA: ${monster.stamina}\n`);
