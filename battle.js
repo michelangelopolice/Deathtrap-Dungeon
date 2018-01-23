@@ -1,48 +1,4 @@
-// Require libraries
-const readlineSync = require(`readline-sync`);
-const rooms = require(`./rooms`);
-const rollDie = require(`./rollDie`);
-const battle = require(`./battle`);
-// Test objects
-/*
-const manticoreTest = {
-    type:`MANTICORE`,
-    skill:11,
-    stamina:11
-};
-*/
-// ***NEW GAME***
-// Wait for user to input name
-//console.log(`\x1Bc`);
-//const username = readlineSync.question(`Enter your name: `).toUpperCase();
-// Setup player stats
-//const player = newGameSetup(username);
-
-// START GAME
-//rooms.background();
-//rooms.room1();
-// Test Manticore battle
-battle(player, manticoreTest);
-
-
-/*
-function newGameSetup(username) {
-    const player = {
-      type: `Human`,
-      name: username,
-      skill: rollDie(1) + 6,
-      stamina: rollDie(2) + 12,
-      luck: rollDie(1) + 6,
-      gold: 0
-    }
-    console.log(`Your SKILL is ${player.skill}`)
-    console.log(`Your STAMINA is ${player.stamina}`)
-    console.log(`Your LUCK is ${player.luck}`)
-
-    return player;
-  }
-
-function battle(player,monster) {
+module.exports = function battle(player,monster) {
     console.log(`\x1Bc`);
     console.log(`You encounter a ${monster.type}!   SKILL: ${monster.skill}  STAMINA: ${monster.stamina}\n`);
     readlineSync.keyInPause();
@@ -79,4 +35,3 @@ function battle(player,monster) {
         readlineSync.keyInPause();
     }
 }
-*/
