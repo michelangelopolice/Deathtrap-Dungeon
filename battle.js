@@ -14,11 +14,11 @@ module.exports = function battle(player,monster) {
         console.log(player.name + `'s attack is: ` + playerAttack + `\n`);
         if (monsterAttack > playerAttack) {
             player.stamina -= 2;
-            console.log(`You got hit! Your health is now: ${player.stamina}\n`);
+            console.log(`You got hit! Your STAMINA is now: ${player.stamina}\n`);
         }
         else if (playerAttack > monsterAttack) {
             monster.stamina -= 2;
-            console.log(`You hit the ${monster.type} It's stamina is now: ${monster.stamina}\n`);
+            console.log(`You hit the ${monster.type} It's STAMINA is now: ${monster.stamina}\n`);
         }
         else {
             console.log(`You both miss!\n`);

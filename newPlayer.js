@@ -6,6 +6,7 @@ module.exports = function () {
     this.skill = rollDie(1) + 6;
     this.stamina = rollDie(2) + 12;
     this.luck = rollDie(1) + 6;
+    this.provisions = 10;
     this.gold = 0;
     console.log(`\x1Bc`);
     console.log(`Welcome ${this.name}!`);
