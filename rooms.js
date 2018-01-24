@@ -29,7 +29,7 @@ const rooms = {
 const getRoom = (num) => {
   const room = rooms[`room${num}`];
   if (room) {
-    return room();
+    return room;
   }
   return 'room not found';
 };
