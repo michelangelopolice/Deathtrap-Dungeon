@@ -1,5 +1,8 @@
 const readlineSync = require('readline-sync');
 
+
+// create a room object
+// user a switch statement to decide where to go next
 const room1 = () => {
   console.log('\x1Bc');
   console.log('Welcome to Room 1.\n');
@@ -14,12 +17,21 @@ const room2 = () => {
   console.log('\x1Bc');
   console.log('This is Room 2.\n');
   readlineSync.keyInPause();
+  return 4;
 };
 
 const room3 = () => {
   console.log('\x1Bc');
   console.log('This is Room 3.\n');
   readlineSync.keyInPause();
+  return 4;
+};
+
+const room4 = () => {
+  console.log('\x1Bc');
+  console.log('This is Room 4.\n');
+  readlineSync.keyInPause();
+  return '';
 };
 
 const rooms = {
@@ -29,13 +41,16 @@ const rooms = {
 const getRoom = (num) => {
   const room = rooms[`room${num}`];
   if (room) {
-    return room;
+    return room();
   }
   return 'room not found';
 };
 
 module.exports = {
   getRoom,
+  room1,
+  room2,
+  room3,
   background() {
     console.log('\x1Bc');
     console.log('Despite its name, Fang was an ordinary small town in the Northern Province of Chiang Mai. Situated on the banks of the River Kok it made a convenient stop over for river traders and passengers throughout most of the year. A few barges, rafts and sometimes even a large sail boat could usually be found moored at Fang. But all that was long ago, before the creation of the Trial of Champions. Now once a year the river is crammed with boats as people arrive from hundreds of miles around, hoping to witness the breaking of an ancient tradition in Fang and see a victor in the Trial of Champions.\n');

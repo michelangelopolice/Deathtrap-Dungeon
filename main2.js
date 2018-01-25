@@ -18,7 +18,6 @@ const manticoreTest = {
 
 let nextRoom = rooms.background();
 nextRoom = rooms.getRoom(nextRoom);
-nextRoom = nextRoom();
 
 // Test Battle
 // battle(player, manticoreTest);
