@@ -1,6 +1,5 @@
 const readlineSync = require('readline-sync');
-
-
+const main2 = require('./main2');
 // create a room object
 // user a switch statement to decide where to go next
 
@@ -40,12 +39,15 @@ const rooms = {
   },
   room1: () => {
     console.log('\x1Bc');
-    console.log('Welcome to Room 1.\n');
-    const choice = readlineSync.keyInYNStrict();
-    if (choice) {
-      return 2;
+    console.log('The clamour of the excited spectators gradually fades behind you as you venture deep into the gloom of the cavern tunnel.\n\nLarge crystals hang from the tunnel roof at twenty metre intervals, radiating a soft light, just enough for you to see your way. As your eyes gradually become accustomed to the near darkness, you begin to see movement all around. Spiders and beetles crawling up and down the chiselled walls disappear quickly into cracks and crevices as they sense your approach; rats and mice scurry along the floor ahead of you. Droplets of water drip into small pools with an eerie plopping sound which echoes down the tunnel. The air is cold, moist and dank. After walking slowly along the tunnel for about five minutes, you arrive at a stone table standing against the wall to your left. On it there are six boxes, one of which has your name painted on its lid.\n');
+    const options = ['Open the box', 'Continue walking NORTH'];
+    const index = readlineSync.keyInSelect(options, 'What do you do?');
+    switch(index) {
+      case 0:
+        return 270;
+      case 1:
+        return 66;
     }
-    return 3;
   },
   room2: () => {
     console.log('\x1Bc');
@@ -65,6 +67,19 @@ const rooms = {
     readlineSync.keyInPause();
     return -1;
   },
+  room66: () => {
+    console.log('\x1Bc');
+    console.log('you travel north and die.');
+    readlineSync.keyInPause();
+    return -1;
+  },
+  room270: () => {
+    console.log('\x1Bc');
+    console.log('The lid of the box lifts off easily. Inside you find two Gold Pieces and a note written on a small piece of parchment addressed to you. After placing the gold in your pocket, you read the message, which says: \'Well done. At least you have the sense to stop and take advantage of the token aid given to you. Now I can advise you that you will need to find and use several items if you hope to pass triumphantly through my Deathtrap Dungeon. Signed Sukumvit.\' Memorising the advice on the note, you tear it into tiny pieces and continue north along the tunnel.\n');
+    main2.pla
+    readlineSync.keyInPause();
+    return 66;
+  },
 };
 
 const getRoom = (room) => {
@@ -76,25 +91,15 @@ const getRoom = (room) => {
     case 0:
       choice = rooms.room0();
       break;
-    case 1:
-      choice = rooms.room1();
-      break;
-    case 2:
-      choice = rooms.room2();
-      break;
-    case 3:
-      choice = rooms.room3();
-      break;
-    case 4:
-      choice = rooms.room4();
-      break;
     default:
-      console.log('Room Not Found!');
-      choice = 'death';
+      choice = selectedRoom(room)();
   }
   return choice;
 };
 
+const selectedRoom = (index) => {
+  return rooms[`room${index}`];
+}
 module.exports = {
   getRoom,
   rooms,

@@ -10,7 +10,7 @@ console.log('\x1Bc');
 const player = new Player();
 readlineSync.keyInPause();
 gameInProgress = true;
-let nextRoom = 1;
+let nextRoom = 0;
 
 // Test Monster
 const manticoreTest = {
