@@ -3,55 +3,15 @@ const readlineSync = require('readline-sync');
 
 // create a room object
 // user a switch statement to decide where to go next
-const room1 = () => {
-  console.log('\x1Bc');
-  console.log('Welcome to Room 1.\n');
-  const choice = readlineSync.keyInYNStrict();
-  if (choice) {
-    return 2;
-  }
-  return 3;
-};
-
-const room2 = () => {
-  console.log('\x1Bc');
-  console.log('This is Room 2.\n');
-  readlineSync.keyInPause();
-  return 4;
-};
-
-const room3 = () => {
-  console.log('\x1Bc');
-  console.log('This is Room 3.\n');
-  readlineSync.keyInPause();
-  return 4;
-};
-
-const room4 = () => {
-  console.log('\x1Bc');
-  console.log('This is Room 4.\n');
-  readlineSync.keyInPause();
-  return '';
-};
 
 const rooms = {
-  room1, room2, room3,
-};
-
-const getRoom = (num) => {
-  const room = rooms[`room${num}`];
-  if (room) {
-    return room();
-  }
-  return 'room not found';
-};
-
-module.exports = {
-  getRoom,
-  room1,
-  room2,
-  room3,
-  background() {
+  gameover: () => {
+    console.log('\x1Bc');
+    console.log('GAME OVER.\n');
+    readlineSync.keyInPause();
+    return 'death';
+  },
+  room0: () => {
     console.log('\x1Bc');
     console.log('Despite its name, Fang was an ordinary small town in the Northern Province of Chiang Mai. Situated on the banks of the River Kok it made a convenient stop over for river traders and passengers throughout most of the year. A few barges, rafts and sometimes even a large sail boat could usually be found moored at Fang. But all that was long ago, before the creation of the Trial of Champions. Now once a year the river is crammed with boats as people arrive from hundreds of miles around, hoping to witness the breaking of an ancient tradition in Fang and see a victor in the Trial of Champions.\n');
     readlineSync.keyInPause();
@@ -78,5 +38,65 @@ module.exports = {
     readlineSync.keyInPause();
     return 1;
   },
+  room1: () => {
+    console.log('\x1Bc');
+    console.log('Welcome to Room 1.\n');
+    const choice = readlineSync.keyInYNStrict();
+    if (choice) {
+      return 2;
+    }
+    return 3;
+  },
+  room2: () => {
+    console.log('\x1Bc');
+    console.log('This is Room 2.\n');
+    readlineSync.keyInPause();
+    return 4;
+  },
+  room3: () => {
+    console.log('\x1Bc');
+    console.log('This is Room 3.\n');
+    readlineSync.keyInPause();
+    return 4;
+  },
+  room4: () => {
+    console.log('\x1Bc');
+    console.log('This is Room 4.\n');
+    readlineSync.keyInPause();
+    return -1;
+  },
+};
+
+const getRoom = (room) => {
+  let choice = 0;
+  switch (room) {
+    case -1:
+      choice = rooms.gameover();
+      break;
+    case 0:
+      choice = rooms.room0();
+      break;
+    case 1:
+      choice = rooms.room1();
+      break;
+    case 2:
+      choice = rooms.room2();
+      break;
+    case 3:
+      choice = rooms.room3();
+      break;
+    case 4:
+      choice = rooms.room4();
+      break;
+    default:
+      console.log('Room Not Found!');
+      choice = 'death';
+  }
+  return choice;
+};
+
+module.exports = {
+  getRoom,
+  rooms,
 };
 
