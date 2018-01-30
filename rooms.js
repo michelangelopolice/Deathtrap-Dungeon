@@ -1,5 +1,6 @@
 const readlineSync = require('readline-sync')
 const battle = require('./battle')
+const { Orc } = require('./monsters')
 
 // test monster object
 const manticoreTest = {
@@ -76,9 +77,10 @@ const rooms = {
   },
   room66: (player) => {
     console.log('\x1Bc')
-    console.log('You see a MANTICORE! Prepare for battle.')
+    const monster = new Orc(11, 11)
+    console.log(`You see a ${monster.type}! Prepare for battle.`)
     readlineSync.keyInPause()
-    const outcome = battle(player, manticoreTest)
+    const outcome = battle(player, monster)
     switch (outcome) {
       case 0:
         return -1
