@@ -92,7 +92,7 @@ const rooms = {
         console.log('error')
         break
     }
-    console.log('you continue on')
+    console.log('you continue on but eventually die anyway')
     readlineSync.keyInPause()
     return -1
   },
