@@ -1,1 +1,1 @@
-moudle.exports = 
+module.exports = {}
