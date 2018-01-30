@@ -15,10 +15,17 @@ class Orc extends Monster {
   }
 }
 
+class Manticore extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'MANTICORE'
+  }
+}
 const test = new Orc(5, 5)
 console.log(test)
 
 module.exports = {
   Monster,
-  Orc
+  Orc,
+  Manticore
 }

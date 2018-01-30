@@ -1,13 +1,7 @@
 const readlineSync = require('readline-sync')
+const testYourLuck = require('testYourLuck')
 const battle = require('./battle')
-const { Orc } = require('./monsters')
-
-// test monster object
-const manticoreTest = {
-  type: 'MANTICORE',
-  skill: 11,
-  stamina: 11
-}
+const { Orc, Manticore } = require('./monsters')
 
 const rooms = {
   gameover: () => {
@@ -59,29 +53,72 @@ const rooms = {
   },
   room2: () => {
     console.log('\x1Bc')
-    console.log('This is Room 2.\n')
-    readlineSync.keyInPause()
-    return 4
-  },
-  room3: () => {
-    console.log('\x1Bc')
-    console.log('This is Room 3.\n')
-    readlineSync.keyInPause()
-    return 4
-  },
-  room4: () => {
-    console.log('\x1Bc')
-    console.log('This is Room 4.\n')
+    console.log('The Scorpion manages to hold you in its pincers long enough to flick its segmented tail forward over its head and sting you with its poisonous barb. The effect is fatal and you slump to ground in the Arena of Death, wondering whether Throm will win through.\n')
     readlineSync.keyInPause()
     return -1
   },
-  room66: (player) => {
+  room3: () => {
     console.log('\x1Bc')
-    const monster = new Orc(11, 11)
-    console.log(`You see a ${monster.type}! Prepare for battle.`)
+    console.log(`The Gnome shakes his head and says, 'I am afraid you have failed the Trial of Champions. Baron Sukumvit's Deathtrap Dungeon will keep its secrets for another year, as you will not be allowed to leave here. You are appointed my servant for the rest of your days, to prepare and modify the dungeon for future contestants. Perhaps in another life you will succeed . . .\n`)
     readlineSync.keyInPause()
-    const outcome = battle(player, monster)
-    switch (outcome) {
+    return -1
+  },
+  room4: () => {
+    console.log('\x1Bc')
+    console.log(`In the total darkness you do not see the pipe's downward turn. You slip and, unable to get a grip on the slimy pipe, slide over the edge. Your screams echo down the pipe as you fall fifty metres to the bottom. You have failed the Trial of Champions.\n`)
+    readlineSync.keyInPause()
+    return -1
+  },
+  room5: (player) => {
+    console.log('\x1Bc')
+    console.log('You crawl along the floor and find yourself in the lair of a tribe of TROGLODYTES. As you creep past them, your scabbard bangs against a rock on the floor.')
+    readlineSync.keyInPause()
+    const luck = testYourLuck()
+    if (luck === 'lucky') {
+      return 185
+    } else {
+      return 395
+    }
+  },
+  room6: (player) => {
+    console.log('\x1Bc')
+    console.log('Knowing that the Manticore will fire the spikes in its tail at you, you run for cover behind one of the pillars. Before you reach it, a volley of spikes flies through the air and one of them sinks into your arm.')
+    player.stamina -= 2;
+    console.log(`Your stamina is now: ${player.stamina}.`)
+    if (player.stamina <= 0) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log('You waste no time and attack the MANTICORE with your sword before it has time to unleash more of its deadly spikes.')
+      readlineSync.keyInPause();
+      const monster = new Manticore(11, 11)
+      const outcome = battle(player, monster)
+      switch (outcome) {
+        case 0:
+        return -1
+        case 1:
+        return 364
+      }
+    }
+  },
+  room7: () => {
+    console.log('\x1Bc')
+    console.log('Before you have time to reach a doorway, the boulder is upon you. You cry out in pain and terror as it crushes you to the floor. Your adventure ends here.')
+    readlineSync.keyInPause();
+    return -1
+  },
+  room8: () => {
+    console.log('\x1Bc')
+    console.log('The MIRROR DEMON grabs you by the wrist. Immediately it starts to pull you towards the mirror. Its strengh is incredible, and, despite all your efforts, you cannot prevent it from pulling you relentlessly towards the mirror. When it touches the mirror, it seems to disappear straight through it. With horror you see your own arm disappear, followed by the rest of your body. You are now in a mirror world of another dimension, from which you can never return.')
+    readlineSync.keyInPause();
+    return -1
+  },
+  room66: () => {
+    /*const monster = new Orc(11, 11)
+    //console.log(`You see a ${monster.type}! Prepare for battle.`)
+    //readlineSync.keyInPause()
+    //const outcome = battle(player, monster)
+    /switch (outcome) {
       case 0:
         return -1
       case 1:
@@ -94,8 +131,24 @@ const rooms = {
     }
     console.log('you continue on but eventually die anyway')
     readlineSync.keyInPause()
-    return -1
+    return -1*/
+    console.log('\x1Bc')
+    console.log('After walking down the tunnel for a few minutes, you come to a junction. A white arrow painted on one wall points WEST. On the floor you can see wet footprints made by those who entered before you. It is hard to be sure, but it looks as though three of them followed the direction of the arrow, while one decided to go EAST.')
+    const options = ['Head WEST', 'Head EAST']
+    const index = readlineSync.keyInSelect(options, 'Which way do you choose?')
+    switch (index) {
+      case 0:
+        return 239
+      case 1:
+        return 119
+      default:
+        return 66
+    }
   },
+  room119: () => {
+
+  },
+  room239: () => {},
   room270: (player) => {
     console.log('\x1Bc')
     console.log(`You start with ${player.gold} gold.`)
