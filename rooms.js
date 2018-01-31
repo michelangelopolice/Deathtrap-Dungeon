@@ -1,7 +1,7 @@
 const readlineSync = require('readline-sync')
 const testYourLuck = require('testYourLuck')
 const battle = require('./battle')
-const { Orc, Manticore } = require('./monsters')
+const { Manticore } = require('./monsters')
 
 const rooms = {
   gameover: () => {
@@ -83,55 +83,80 @@ const rooms = {
   room6: (player) => {
     console.log('\x1Bc')
     console.log('Knowing that the Manticore will fire the spikes in its tail at you, you run for cover behind one of the pillars. Before you reach it, a volley of spikes flies through the air and one of them sinks into your arm.')
-    player.stamina -= 2;
+    player.stamina -= 2
     console.log(`Your stamina is now: ${player.stamina}.`)
     if (player.stamina <= 0) {
       return -1
     } else {
       console.log('\x1Bc')
       console.log('You waste no time and attack the MANTICORE with your sword before it has time to unleash more of its deadly spikes.')
-      readlineSync.keyInPause();
+      readlineSync.keyInPause()
       const monster = new Manticore(11, 11)
       const outcome = battle(player, monster)
       switch (outcome) {
         case 0:
-        return -1
+          return -1
         case 1:
-        return 364
+          return 364
       }
     }
   },
   room7: () => {
     console.log('\x1Bc')
     console.log('Before you have time to reach a doorway, the boulder is upon you. You cry out in pain and terror as it crushes you to the floor. Your adventure ends here.')
-    readlineSync.keyInPause();
+    readlineSync.keyInPause()
     return -1
   },
   room8: () => {
     console.log('\x1Bc')
     console.log('The MIRROR DEMON grabs you by the wrist. Immediately it starts to pull you towards the mirror. Its strengh is incredible, and, despite all your efforts, you cannot prevent it from pulling you relentlessly towards the mirror. When it touches the mirror, it seems to disappear straight through it. With horror you see your own arm disappear, followed by the rest of your body. You are now in a mirror world of another dimension, from which you can never return.')
-    readlineSync.keyInPause();
+    readlineSync.keyInPause()
     return -1
   },
-  room66: () => {
-    /*const monster = new Orc(11, 11)
-    //console.log(`You see a ${monster.type}! Prepare for battle.`)
-    //readlineSync.keyInPause()
-    //const outcome = battle(player, monster)
-    /switch (outcome) {
+  room9: () => {
+    console.log('\x1Bc')
+    console.log('The HOBGOBLINS have nothing of any use to you on them, so you decide to open the bag on the floor. Inside you find a corked earthenware jug. You uncork it and sniff the liquid inside. It smells sharp and acrid.')
+    const options = ['Drink some of the liquid', 'Dip a piece of cloth in it.']
+    const index = readlineSync.keyInPause(options, 'What do you do?')
+    switch (index) {
       case 0:
-        return -1
+        return 158
       case 1:
-        console.log(`Well done. Your STAMINA is now at: ${player.stamina}`)
-        readlineSync.keyInPause()
-        break
+        return 375
       default:
-        console.log('error')
-        break
+        return 9
     }
-    console.log('you continue on but eventually die anyway')
+  },
+  room10: (player) => {
+    console.log('\x1Bc')
+    console.log('Still running as fast as you can, you reach into your backpack and pull out the wooden tube. You plan to lie under the surface of the water, breathing through the tube. With luck, the TROGLODYTES will assume that you will be swept to your death down-river as the torrent disappears into the depths of the mountain. You seize the tube between your teeth and lower yourself into the water. Holding onto one of the underwater bridge pillars, you keep perfectly still for ten minutes. When you finally think the Troglodytes have gone, you rise to the surface and look around.')
     readlineSync.keyInPause()
-    return -1*/
+    console.log('\x1Bc')
+    player.provisions = 0
+    console.log('There is nobody to be seen, so you climb out of the river and cross the bridge to the northern bank. Any remaining Provisions you may have are now sodden and inedible. You continue to walk through the vast cavern until at least you see a tunnel in the far wall. You walk down it until you come to a heavy wooden door, which is locked.')
+    readlineSync.keyInPause()
+    if (player.inv.ironKey === 1) {
+      return 86
+    } else {
+      return 276
+    }
+  },
+  room11: (player) => {
+    console.log('\x1Bc')
+    player.inv.emeraldEye++
+    console.log(`You look down and see the crumpled bodies of the FLYING GUARDIANS lying motionless on the floor. You start to prise out the idol's emerald eye with the tip of your sword. At last it comes free, and you are surprised by its weight. Hoping that it may be of use later, you put it in your backpack.`)
+    const options = ['Prise out right eye', 'Climb down the idol']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do next?')
+    switch (index) {
+      case 0:
+        return 140
+      case 1:
+        return 46
+      default:
+        return 11
+    }
+  },
+  room66: () => {
     console.log('\x1Bc')
     console.log('After walking down the tunnel for a few minutes, you come to a junction. A white arrow painted on one wall points WEST. On the floor you can see wet footprints made by those who entered before you. It is hard to be sure, but it looks as though three of them followed the direction of the arrow, while one decided to go EAST.')
     const options = ['Head WEST', 'Head EAST']

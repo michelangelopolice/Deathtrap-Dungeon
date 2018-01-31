@@ -28,14 +28,16 @@ module.exports = function () {
   this.inv = {
     potOfSkill: 0,
     potOfStrength: 0,
-    potOfFortune: 0
+    potOfFortune: 0,
+    emeraldEye: 0,
+    ironKey: 1
   }
   console.log('\x1Bc')
   console.log(`Welcome ${this.name}!`)
   console.log(`Your SKILL is ${this.skill}`)
   console.log(`Your STAMINA is ${this.stamina}`)
   console.log(`Your LUCK is ${this.luck}\n`)
-  readlineSync.keyInPause();
+  readlineSync.keyInPause()
   console.log('\x1Bc')
   console.log(`You start your adventure with a sword, leather armour and a shield, a backpack containing ${this.provisions} provisions and a lantern to light your way. Provisions can restore 4 points to your STAMINA but you may eat only ONE meal at a time, so use them wisely!`)
   console.log('You may also take a magical potion which will aid you on your quest. Each bottle of potion contains enough for TWO measures, i.e. it can only be used twice during an adventure.')
@@ -61,5 +63,5 @@ module.exports = function () {
       console.log('Error.')
       break
   }
-  readlineSync.keyInPause();
+  readlineSync.keyInPause()
 }
