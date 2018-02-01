@@ -1,18 +1,20 @@
 const readlineSync = require('readline-sync')
-const testYourLuck = require('testYourLuck')
+const chalk = require('chalk')
+const rollDie = require('./rollDie')
+const testYourLuck = require('./testYourLuck')
 const battle = require('./battle')
 const { Manticore } = require('./monsters')
 
 const rooms = {
   gameover: () => {
     console.log('\x1Bc')
-    console.log('GAME OVER.\n')
+    console.log(chalk.white.bgRed('GAME OVER') + '\n')
     readlineSync.keyInPause()
     return 'death'
   },
   room0: () => {
     console.log('\x1Bc')
-    console.log('INTRODUCTION\n\nDespite its name, Fang was an ordinary small town in the Northern Province of Chiang Mai. Situated on the banks of the River Kok it made a convenient stop over for river traders and passengers throughout most of the year. A few barges, rafts and sometimes even a large sail boat could usually be found moored at Fang. But all that was long ago, before the creation of the Trial of Champions. Now once a year the river is crammed with boats as people arrive from hundreds of miles around, hoping to witness the breaking of an ancient tradition in Fang and see a victor in the Trial of Champions.\n')
+    console.log(chalk.black.bgWhite.bold('INTRODUCTION') + '\n\nDespite its name, Fang was an ordinary small town in the Northern Province of Chiang Mai. Situated on the banks of the River Kok it made a convenient stop over for river traders and passengers throughout most of the year. A few barges, rafts and sometimes even a large sail boat could usually be found moored at Fang. But all that was long ago, before the creation of the Trial of Champions. Now once a year the river is crammed with boats as people arrive from hundreds of miles around, hoping to witness the breaking of an ancient tradition in Fang and see a victor in the Trial of Champions.\n')
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log('On the first of May each year, warriors and heroes come to Fang to face the test of their lives. Survival is unlikely, yet many take the risk, for the prize is great - a purse of 10,000 Gold Pieces and the freedom of Chiang Mai forever. However, to become Champion is no easy task. Some years ago, a powerful baron of Fang called Sukumvit decided to bring attention to his town by creating the ultimate contest. With the help of the townspeople, he constructed a labyrinth deep in the hillside behind Fang, from which there was only one exit. The labyrinth was filled with all kinds of deadly tricks and traps and loathsome monsters. Sukumvit had designed it in meticulous detail so that anybody hoping to face it’s challenge would have to use their wits as well as weapon skill. When he was finally satisfied that all was complete, he put his labyrinth to the test. He picked ten of his finest guards and, fully armed, they marched into the labyrinth. They were never seen again. The tale of the ill-fated guards soon spread throughout the land, and it was then that Sukumvit announced the first Trial of Champions. Messengers and news-sheets carried his challenge – 10,000 Gold Pieces and the freedom of Chiang Mai forever to any person surviving the perils of the labyrinth of Fang. The first year, seventeen brave warriors attempted \'The Walk\', as it later came to be known. Not one reappeared As the years passed and the Trial of Champions continued, it attracted more and more challengers and spectators. Fang prospered and would prepare itself months in advance for the spectacle it hosted each May. The town would be decorated, tents erected, dining-halls built, musicians, dancers, fire-eaters, illusionists and every sort of entertainer hired, and entries registered from hopeful individuals intent on making \'The Walk\'. The last week of April found the people of Fang and its visitors in wild celebration. Everybody sang, drank, danced and laughed until day broke on the first of May, when the town thronged to the gates of the labyrinth to watch the first challenger of the year step forward to face the Trial of Champions.\n')
@@ -85,6 +87,7 @@ const rooms = {
     console.log('Knowing that the Manticore will fire the spikes in its tail at you, you run for cover behind one of the pillars. Before you reach it, a volley of spikes flies through the air and one of them sinks into your arm.')
     player.stamina -= 2
     console.log(`Your stamina is now: ${player.stamina}.`)
+    readlineSync.keyInPause()
     if (player.stamina <= 0) {
       return -1
     } else {
@@ -144,7 +147,7 @@ const rooms = {
   room11: (player) => {
     console.log('\x1Bc')
     player.inv.emeraldEye++
-    console.log(`You look down and see the crumpled bodies of the FLYING GUARDIANS lying motionless on the floor. You start to prise out the idol's emerald eye with the tip of your sword. At last it comes free, and you are surprised by its weight. Hoping that it may be of use later, you put it in your backpack.`)
+    console.log(`You look down and see the crumpled bodies of the FLYING GUARDIANS lying motionless on the floor. You start to prise out the idol's ` + chalk.green('emerald') + ` eye with the tip of your sword. At last it comes free, and you are surprised by its weight. Hoping that it may be of use later, you put it in your backpack.`)
     const options = ['Prise out right eye', 'Climb down the idol']
     const index = readlineSync.keyInSelect(options, 'What do you wish to do next?')
     switch (index) {
@@ -156,6 +159,289 @@ const rooms = {
         return 11
     }
   },
+  room12: () => {
+    console.log('\x1Bc')
+    console.log(`The door opens into a large, candle-lit room filled with the most extraordinary lifelike statues of knights and warriors. A white-haired old man dressed in tattered rags suddenly jumps out from behind one of the statues and starts to giggle. Though he looks like a fool, the sparkle in his eyes makes you think there is more to him than is apparent. In a high-pitched voice he says, 'Oh good, another stone for my garden. I'm glad you havecome to join your friends. Now, I'm a fair man and so I'll ask you a question. If you answer correctly, I'll let you go free - but if your answer is wrong, I'll turn you to stone!' He starts to chuckle again, obviously pleased with your arrival.\n`)
+    const options = ['Wait for his question', 'Attack him with your sword', 'Make a run for the door']
+    const index = readlineSync.keyInSelect(options, 'What do you do?')
+    switch (index) {
+      case 0:
+        return 382
+      case 1:
+        return 195
+      case 2:
+        return 250
+      default:
+        return 12
+    }
+  },
+  room13: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel makes a sudden turn to the left and heads NORTH for as far as you can see. The footprints you are following start to peter out as the tunnel becomes gradually drier. Soon you are beyond the dripping roof and the pools on the floor. You notice the air becoming hotter and you find yourself panting even though you are walking quite slowly. In a small recess on the left-hand wall you see a section of bamboo standing on its end. Lifting it down, you see it is filled with a clear liquid. Your throat is painfully dry and you feel a little dizzy from the heat in the tunnel.\n')
+    const options = ['Drink the liquid', 'Do not risk drinking the liquid and continue NORTH']
+    const index = readlineSync.keyInSelect(options, 'What will you do?')
+    switch (index) {
+      case 0:
+        return 147
+      case 1:
+        return 182
+      default:
+        return 13
+    }
+  },
+  room14: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel leads into a dark chamber covered in thick cobwebs. Clawing your way through them, you trip over a wooden casket.\n')
+    const options = ['Try and open the casket', 'Continue NORTH']
+    const index = readlineSync.keyInSelect(options, 'What do you do?')
+    switch (index) {
+      case 0:
+        return 157
+      case 1:
+        return 310
+      default:
+        return 14
+    }
+  },
+  room15: () => {
+    console.log('\x1Bc')
+    console.log('A tickling sensation runs down your spine as you crawl carefully out of the roon. Back in the tunnel you heave a sigh of relief, throw the skull back into the room and slam the door shut. Pleased with your good fortune, you set off WEST once again.\n')
+    readlineSync.keyInPause()
+    return 74
+  },
+  room16: (player) => {
+    console.log('\x1Bc')
+    console.log(`You just have time to hear the GNOME say, 'Three skulls' before a white bolt of energy shoots out from the lock into your chest, knocking you unconscious.\n`)
+    player.stamina -= (rollDie.rollDie(1) + 1)
+    console.log(chalk.red(`Your stamina is now: ${player.stamina}.`))
+    readlineSync.keyInPause()
+    if (player.stamina <= 0) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log(`You come to and are told by the GNOME to try again. You chose the wrong gems last time, so you won't that combination again.\n`)
+      const options = ['Emerald\tDiamond\tSapphire', 'Diamond\tSapphire\tEmerald', 'Sapphire\tEmerald\tDiamond', 'Emerald\tSapphire\tDiamond', 'Diamond\tEmerald\tSapphire', 'Sapphire\tDiamond\tEmerald']
+      const index = readlineSync.keyInSelect(options, 'What do you choose?')
+      switch (index) {
+        case 0:
+          return 16
+        case 1:
+          return 392
+        case 2:
+          return 177
+        case 3:
+          return 287
+        case 4:
+          return 132
+        case 5:
+          return 249
+        default:
+          return 16
+      }
+    }
+  },
+  room17: () => {
+    console.log('\x1Bc')
+    console.log('You are not strong enough to force open the heavy door. The water is now waist-high and you are exhausted from your efforts. The water level rises quickly and you find yourself floating ever upwards until your face is pressed against the ceiling. You are soon completely immersed and unable to hold your breath any longer. Your adventure ends here.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
+  room18: (player) => {
+    console.log('\x1Bc')
+    console.log(`Luckily for you, the cobra's fangs sink into your leather wristband. The snake recoils quickly, ready to strike again, as the DWARF tells you to have another try.\n`)
+    readlineSync.keyInPause()
+    const skillTest = rollDie.rollDie(2)
+    if (skillTest <= player.skill) {
+      return 55
+    } else {
+      return 202
+    }
+  },
+  room19: () => {
+    console.log('\x1Bc')
+    console.log(`You cannot resist the MEDUSA's beguiling gaze as she looks into your eyes. You feel your limbs begin to stiffen and you panic helplessly as you turn to stone. Your adventure ends here.\n`)
+    readlineSync.keyInPause()
+    return -1
+  },
+  room20: (player) => {
+    console.log('\x1Bc')
+    console.log(`Only your incredible strength could withstand the poisonous spider's bite. However, you are weakened and you notice your hand trembling as you pocket the Gold Piece. You curse the person who dropped the backpack and set off NORTH again.\n`)
+    player.gold++
+    player.skill--
+    console.log(chalk.red(`Your SKILL is now: ${player.skill}. You now have ${player.gold} Gold Pieces.`))
+    console.log(chalk.yellow(`You now have ${player.gold} Gold Pieces.`))
+    readlineSync.keyInPause()
+    return 279
+  },
+  room21: (player) => {
+    // * * * * * ADVANCED COMBAT ROOM * * * * *
+    console.log('\x1Bc')
+    console.log('The wound has had no effect on the BLOODBEAST, and it continues to attack you as furiously as before.')
+  },
+  room22: () => {
+    console.log('\x1Bc')
+    console.log(`Although you are slightly uneasy in each other's company, knowing that there can only be one winner in the Trial of Champions, you are both content to share in the benefits of a temporary alliance. You begin to tell each other of your exploits so far, of the monsters and traps encountered and the dangers overcome. Walking along, you soon come to the edge of a wide pit. It is too deep and dark to see the bottom. The BARBARIAN offers to lower you to the bottom with his rope, saying he has a torch which he can light for you to use.\n`)
+    const options = [`Accept the BARBARIAN's offer`, 'Offer to lower him down if he is so eager to investigate the pit', 'Suggest that you both jump over the pit instead']
+    const index = readlineSync.keyInSelect(options, 'What will you do?')
+    switch (index) {
+      case 0:
+        return 63
+      case 1:
+        return 184
+      case 2:
+        return 311
+      default:
+        return 22
+    }
+  },
+  room23: () => {
+    console.log('\x1Bc')
+    console.log(`The paper bears a simple warning written in dried blood: 'Beware the Trialmasters'. You replace the paper on its nail and run back down the tunnel to rejoin the BARBARIAN.\n`)
+    readlineSync.keyInPause()
+    return 154
+  },
+  room24: () => {
+    console.log('\x1Bc')
+    console.log('Set back in an arched alcove in the tunnel wall you see an ornate wooden chair carved in the shape of a demon-like bird of prey.\n')
+    const options = ['Sit in the chair', 'Keep going NORTH']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?')
+    switch (index) {
+      case 0:
+        return 324
+      case 1:
+        return 188
+      default:
+        return 24
+    }
+  },
+  room25: () => {
+    console.log('\x1Bc')
+    console.log('Although the temperature in the tunnel is higher than you could normally tolerate, the liquid from the bamboo pipe keeps you alive.\n')
+    readlineSync.keyInPause()
+    return 197
+  },
+  room26: (player) => {
+    console.log('\x1Bc')
+    console.log('The pill makes you feel dull and lethargic.')
+    console.log(chalk.red(`Your SKILL is now ${player.skill}`))
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log('The DWARF tells you that you can now progress to the second stage of the test. He reaches for a wicker basket and tells you that there is a snake inside it. He tips up the basket and the snake drops to the floor; it is a cobra and it rears up into the air ready to strike. The DWARF says he wants to test your reactions. You must grasp the cobra bare-handed below its head, avoiding its deadly fangs. You crouch down on the floor, tensing yourself for the moment at which to seize it.\n')
+    readlineSync.keyInPause()
+    const skillTest = rollDie.rollDie(2)
+    if (skillTest <= player.skill) {
+      return 55
+    } else {
+      return 202
+    }
+  },
+  room27: () => {
+    console.log('\x1Bc')
+    console.log('You step up to the frightened man and cleave the chain with your sword. He drops to his kneeds and bows, thanking you over and over again. He tells you that four years ago he entered the Trial of Champions but failed. He fell down a pit and had to be rescued by a Trialmaster, one of Baron Sukumvit\'s dungeon administrators. He was offered a choice between death or servitude in Deathtrap Dungeon as the Trialmaster\'s minion. Choosing the latter, he worked like a slave until he could stand it no longer and tried to escape. Alas, he was unsuccessful and was captured by the Trialmaster\'s wandering ORC guards. To teach him a lesson, they cut off his hand and condemned him to a year\'s imprisonment in this cell.\n')
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log('You ask him whether he has any information that might be of use to you. He scratches his head. \'Well, I haven\'t exactly done very well here myself,\' he says, \'but I do know that you need to collect ' + chalk.yellow('precious stones') + 'if you hope to get out. I don\'t know why, but there it is.\' Without another word, the ragged prisoner dashes out of the room, turning left into the tunnel.\n')
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log('You decide to keep heading NORTH and turn right into the tunnel.\n')
+    readlineSync.keyInPause()
+    return 78
+  },
+  room28: (player) => {
+    console.log('\x1Bc')
+    console.log('The DWARF\'s chainmail coat is of finest-quality iron, obviously made by a master armourer. You strip it from his body and place it over your head.\n')
+    player.skill++
+    player.inv.chainmailCoat++
+    console.log(chalk.green(`Your SKILL is now: ${player.skill}`))
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log('There is nothing else of use to you in the chamber, so you decide to investigate the new tunnel.\n')
+    readlineSync.keyInPause()
+    return 213
+  },
+  room29: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel leads NORTH for some distance before coming to a dead end. The mouth of a chute protudes from the tunnel\'s eastern wall. It seems to be the only way out. You decide to risk it and climb into the chute. You slide gently down and come out in a room, landing on your back.\n')
+    readlineSync.keyInPause()
+    return 90
+  },
+  room30: () => {
+    console.log('\x1Bc')
+    console.log('Taking a step forward, you leap towards the far edge of the pit.\n')
+    const luck = testYourLuck()
+    if (luck === 'lucky') {
+      return 160
+    } else {
+      return 319
+    }
+  },
+  room31: (player) => {
+    console.log('\x1Bc')
+    console.log('The GNOME smiles and says, \'Good. Now, have you a ' + chalk.blue('sapphire') + ' in your poession?\'\n')
+    readlineSync.keyInPause()
+    if (player.inv.sapphire) {
+      return 376
+    } else {
+      return 3
+    }
+  },
+  room32: () => {
+    console.log('\x1Bc')
+    console.log('You soon come to another junction in the tunnel. One branch leads EAST, but the wet footprints you have been following continue NORTH and you decide to follow their trail.\n')
+    readlineSync.keyInPause()
+    return 37
+  },
+  room33: (player) => {
+    console.log('\x1Bc')
+    console.log('It was a mistake to reach into the hole with your sword arm. It is covered with round sucker marks and feels as if it has been crushed.\n')
+    player.skill -= 3
+    console.log(chalk.red(`Your SKILL is now: ${player.skill}`))
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log('You peer into the hole and see the bleeding tentacle stump hanging limply. You carefully pull out the grappling iron and leather pouch, in which you find a tiny brass bell. You pack away your new posessions and head NORTH.\n')
+    player.inv.grapplingIron++
+    player.inv.brassBell++
+    player.inv.leatherPouch++
+    readlineSync.keyInPause()
+    return 292
+  },
+  room34: () => {
+    console.log('\x1Bc')
+    console.log('You try to force the point of your sword under the ' + chalk.green('emerald') + 'eye. Much to your surprise, the ' + chalk.green('emerald') + 'shatters on contact, releasing a jet of poisonous gas straight into your face. The gas knocks you out and you release the rope, bounce down the idol and crash on to the stone floor. Your adventure ends here.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
+  room35: () => {},
+  room36: () => {},
+  room37: () => {},
+  room38: () => {},
+  room39: () => {},
+  room40: () => {},
+  room41: () => {},
+  room42: () => {},
+  room43: () => {},
+  room44: () => {},
+  room45: () => {},
+  room46: () => {},
+  room47: () => {},
+  room48: () => {},
+  room49: () => {},
+  room50: () => {},
+  room51: () => {},
+  room52: () => {},
+  room53: () => {},
+  room54: () => {},
+  room55: () => {},
+  room56: () => {},
+  room57: () => {},
+  room58: () => {},
+  room59: () => {},
+  room60: () => {},
+  room61: () => {},
+  room62: () => {},
+  room63: () => {},
+  room64: () => {},
+  room65: () => {},
   room66: () => {
     console.log('\x1Bc')
     console.log('After walking down the tunnel for a few minutes, you come to a junction. A white arrow painted on one wall points WEST. On the floor you can see wet footprints made by those who entered before you. It is hard to be sure, but it looks as though three of them followed the direction of the arrow, while one decided to go EAST.')
@@ -170,17 +456,73 @@ const rooms = {
         return 66
     }
   },
-  room119: () => {
-
+  room67: () => {},
+  room68: () => {},
+  room69: () => {},
+  room70: () => {},
+  room71: () => {},
+  room72: () => {},
+  room73: () => {},
+  room74: () => {},
+  room75: () => {},
+  room76: () => {},
+  room77: () => {},
+  room78: () => {},
+  room79: () => {},
+  room80: () => {},
+  room81: () => {},
+  room82: () => {},
+  room83: () => {},
+  room84: () => {},
+  room85: () => {},
+  room86: () => {},
+  room87: () => {},
+  room88: () => {},
+  room89: () => {},
+  room90: () => {},
+  room91: () => {},
+  room92: () => {},
+  room93: () => {},
+  room94: () => {},
+  room95: () => {},
+  room96: () => {},
+  room97: () => {},
+  room98: () => {},
+  room99: () => {},
+  room100: () => {},
+  room101: () => {},
+  room102: () => {},
+  room103: () => {},
+  room104: () => {},
+  room105: () => {},
+  room106: () => {},
+  room107: () => {},
+  room108: () => {},
+  room109: () => {},
+  room110: () => {},
+  room111: () => {},
+  room112: () => {},
+  room113: () => {},
+  room114: () => {},
+  room115: () => {},
+  room116: () => {},
+  room117: () => {},
+  room118: () => {},
+  room119: () => {},
+  room120: () => {},
+  room121: () => {},
+  room140: () => {
+    console.log('\x1Bc')
+    console.log('You try to force the point of your sword under the ' + chalk.green('emerald') + 'eye. Much to your surprise, it shatters on contact, releasing a jet of poisonous gas straight into your face. The gas knocks you out and you fall backwards, bouncing down the idol to land on the stone floor. Your adventure ends here.\n')
+    readlineSync.keyInPause()
+    return -1
   },
   room239: () => {},
   room270: (player) => {
     console.log('\x1Bc')
-    console.log(`You start with ${player.gold} gold.`)
     console.log('The lid of the box lifts off easily. Inside you find two Gold Pieces and a note written on a small piece of parchment addressed to you. After placing the gold in your pocket, you read the message, which says: \'Well done. At least you have the sense to stop and take advantage of the token aid given to you. Now I can advise you that you will need to find and use several items if you hope to pass triumphantly through my Deathtrap Dungeon. Signed Sukumvit.\' Memorising the advice on the note, you tear it into tiny pieces and continue north along the tunnel.\n')
     player.gold += 2
-    readlineSync.keyInPause()
-    console.log(`You now have ${player.gold} gold.`)
+    console.log(chalk.black.bgYellow(`\nYou now have ${player.gold} gold.\n`))
     readlineSync.keyInPause()
     return 66
   }

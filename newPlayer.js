@@ -1,9 +1,10 @@
 const readlineSync = require('readline-sync')
+const chalk = require('chalk')
 const rollDie = require('./rollDie')
 
 module.exports = function () {
   this.type = 'Human'
-  this.name = readlineSync.question('Enter your name: ').toUpperCase()
+  this.name = readlineSync.question(chalk.red('Enter your name: ')).toUpperCase()
   switch (this.name) {
     case 'GRUBBS':
       this.skill = 12
@@ -29,8 +30,13 @@ module.exports = function () {
     potOfSkill: 0,
     potOfStrength: 0,
     potOfFortune: 0,
+    brassBell: 0,
     emeraldEye: 0,
-    ironKey: 1
+    chainmailCoat: 0,
+    grapplingIron: 0,
+    ironKey: 0,
+    leatherPouch: 0,
+    sapphire: 0
   }
   console.log('\x1Bc')
   console.log(`Welcome ${this.name}!`)

@@ -2,6 +2,7 @@
   "name": "",
   "version": "",
   "dependencies": {
+    "chalk": "^2.3.0",
     "readline-sync": "^1.4.7"
   },
   "devDependencies": {
