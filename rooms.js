@@ -502,7 +502,7 @@ const rooms = {
   room41: () => {
     console.log('\x1Bc')
     console.log('You walk slowly over to the alcove, carefully checking the floor for any more hidden traps. You see that the goblet contains a sparkling liquid.\n')
-    const options = ['Drink the red liquid', 'Leave the goblet and walk back to search the Barbarian', 'Leave the chamber to continue WEST']
+    const options = ['Drink the red liquid', 'Leave the goblet and walk back to search the BARBARIAN', 'Leave the chamber to continue WEST']
     const index = readlineSync.keyInSelect(options, 'What will you do?')
     switch (index) {
       case 0:
