@@ -3,7 +3,7 @@ const chalk = require('chalk')
 const rollDie = require('./rollDie')
 const testYourLuck = require('./testYourLuck')
 const battle = require('./battle')
-const { Manticore } = require('./monsters')
+const { Manticore, Giantfly, Minotaur } = require('./monsters')
 
 const rooms = {
   gameover: () => {
@@ -84,15 +84,15 @@ const rooms = {
   },
   room6: (player) => {
     console.log('\x1Bc')
-    console.log('Knowing that the Manticore will fire the spikes in its tail at you, you run for cover behind one of the pillars. Before you reach it, a volley of spikes flies through the air and one of them sinks into your arm.')
+    console.log('Knowing that the MANTICORE will fire the spikes in its tail at you, you run for cover behind one of the pillars. Before you reach it, a volley of spikes flies through the air and one of them sinks into your arm.\n')
     player.stamina -= 2
-    console.log(`Your stamina is now: ${player.stamina}.`)
+    console.log(chalk.red(`Your stamina is now: ${player.stamina}.`))
     readlineSync.keyInPause()
     if (player.stamina <= 0) {
       return -1
     } else {
       console.log('\x1Bc')
-      console.log('You waste no time and attack the MANTICORE with your sword before it has time to unleash more of its deadly spikes.')
+      console.log('You waste no time and attack the MANTICORE with your sword before it has time to unleash more of its deadly spikes.\n')
       readlineSync.keyInPause()
       const monster = new Manticore(11, 11)
       const outcome = battle(player, monster)
@@ -106,13 +106,13 @@ const rooms = {
   },
   room7: () => {
     console.log('\x1Bc')
-    console.log('Before you have time to reach a doorway, the boulder is upon you. You cry out in pain and terror as it crushes you to the floor. Your adventure ends here.')
+    console.log('Before you have time to reach a doorway, the boulder is upon you. You cry out in pain and terror as it crushes you to the floor. Your adventure ends here.\n')
     readlineSync.keyInPause()
     return -1
   },
   room8: () => {
     console.log('\x1Bc')
-    console.log('The MIRROR DEMON grabs you by the wrist. Immediately it starts to pull you towards the mirror. Its strengh is incredible, and, despite all your efforts, you cannot prevent it from pulling you relentlessly towards the mirror. When it touches the mirror, it seems to disappear straight through it. With horror you see your own arm disappear, followed by the rest of your body. You are now in a mirror world of another dimension, from which you can never return.')
+    console.log('The MIRROR DEMON grabs you by the wrist. Immediately it starts to pull you towards the mirror. Its strengh is incredible, and, despite all your efforts, you cannot prevent it from pulling you relentlessly towards the mirror. When it touches the mirror, it seems to disappear straight through it. With horror you see your own arm disappear, followed by the rest of your body. You are now in a mirror world of another dimension, from which you can never return.\n')
     readlineSync.keyInPause()
     return -1
   },
@@ -147,7 +147,7 @@ const rooms = {
   room11: (player) => {
     console.log('\x1Bc')
     player.inv.emeraldEye++
-    console.log(`You look down and see the crumpled bodies of the FLYING GUARDIANS lying motionless on the floor. You start to prise out the idol's ` + chalk.green('emerald') + ` eye with the tip of your sword. At last it comes free, and you are surprised by its weight. Hoping that it may be of use later, you put it in your backpack.`)
+    console.log(`You look down and see the crumpled bodies of the FLYING GUARDIANS lying motionless on the floor. You start to prise out the idol's ` + chalk.green('emerald') + ` eye with the tip of your sword. At last it comes free, and you are surprised by its weight. Hoping that it may be of use later, you put it in your backpack.\n`)
     const options = ['Prise out right eye', 'Climb down the idol']
     const index = readlineSync.keyInSelect(options, 'What do you wish to do next?')
     switch (index) {
@@ -407,18 +407,118 @@ const rooms = {
   },
   room34: () => {
     console.log('\x1Bc')
-    console.log('You try to force the point of your sword under the ' + chalk.green('emerald') + 'eye. Much to your surprise, the ' + chalk.green('emerald') + 'shatters on contact, releasing a jet of poisonous gas straight into your face. The gas knocks you out and you release the rope, bounce down the idol and crash on to the stone floor. Your adventure ends here.\n')
+    console.log('You try to force the point of your sword under the ' + chalk.green('emerald') + ' eye. Much to your surprise, the ' + chalk.green('emerald') + 'shatters on contact, releasing a jet of poisonous gas straight into your face. The gas knocks you out and you release the rope, bounce down the idol and crash on to the stone floor. Your adventure ends here.\n')
     readlineSync.keyInPause()
     return -1
   },
-  room35: () => {},
-  room36: () => {},
-  room37: () => {},
-  room38: () => {},
-  room39: () => {},
-  room40: () => {},
-  room41: () => {},
-  room42: () => {},
+  room35: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel continues WEST for several hundred metres, finally ending at some steps leading up to a closed trapdoor. You climb the steps slowly, hearing muffled voices above you. In the dim light you can see that the trapdoor is not locked.\n')
+    const options = ['Knock on the trapdoor', 'Burst through the trapdoor with your sword drawn']
+    const index = readlineSync.keyInSelect(options, 'What do you do?')
+    switch (index) {
+      case 0:
+        return 333
+      case 1:
+        return 124
+      default:
+        return 35
+    }
+  },
+  room36: (player) => {
+    console.log('\x1Bc')
+    console.log('You run faster than you have ever run in your life before, but still the boulder is catching up on you.\n')
+    readlineSync.keyInPause()
+    const survival = rollDie.rollDie(2)
+    if (survival <= player.skill && survival <= player.stamina) {
+      return 340
+    } else {
+      return 7
+    }
+  },
+  room37: () => {
+    console.log('\x1Bc')
+    console.log('The passage opens out into a wide cavern which is darker but much drier. Ahead you see the footprints gradually fade, then disappear. There is a large idon in the centre of the cavern, standing approximately six metres high. It has jewelled eyes, each as big as your fist. There are two giant stuffed bird-like creatures standing on either side of the idol.\n')
+    const options = ['Climb the idol to take the jewels', 'Walk through the cavern to the tunnel in the opposite wall']
+    const index = readlineSync.keyInSelect(options, 'What do you do?')
+    switch (index) {
+      case 0:
+        return 351
+      case 1:
+        return 239
+      default:
+        return 37
+    }
+  },
+  room38: (player) => {
+    console.log('\x1Bc')
+    console.log('The man stands by silently while you gulp the water and wolf down the bread. A sharp pain grips your stomach and you fall to your knees. The old man looks at you scornfully and says, \'Well, if you will eat poisoned food, what do you expect?\'\n')
+    console.log(chalk.red(`\nYour STAMINA is now ${player.stamina}\n`))
+    readlineSync.keyInPause()
+    if (player.stamina <= 0) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log('He shuffles off, leaving you writhing in pain on the floor. You eventually regain enough of your strength to continue WEST.\n')
+      readlineSync.keyInPause()
+      return 109
+    }
+  },
+  room39: (player) => {
+    console.log('\x1Bc')
+    console.log('You manage to evade the outstretched legs of the diving GIANT FLY. Stepping back, you draw your sword and prepare to fight the hideous insect as it turns to attack you again.\n')
+    const options = ['Fight the GIANT FLY', 'Escape']
+    const index = readlineSync.keyInSelect(options, 'What do you do?')
+    switch (index) {
+      case 0:
+        const monster = new Giantfly(7, 8)
+        const outcome = battle(player, monster)
+        switch (outcome) {
+          case 0:
+            return -1
+          case 1:
+            break
+        }
+        return 111
+      case 1:
+        return 267
+      default:
+        return 39
+    }
+  },
+  room40: (player) => {
+    console.log('\x1Bc')
+    console.log('You call out to the DWARF that you are ready to fight the MINOTAUR. THe wooden door rises slowly and you see the fearsome beast, half man, half bull, step into the arena. Steam blows from its nostrils as it works itself up into a rage, ready to attack. Suddenly it rushes forward, swinging its double-headed axe.\n')
+    readlineSync.keyInPause()
+    const monster = new Minotaur(9, 9)
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        return 163
+    }
+  },
+  room41: () => {
+    console.log('\x1Bc')
+    console.log('You walk slowly over to the alcove, carefully checking the floor for any more hidden traps. You see that the goblet contains a sparkling liquid.\n')
+    const options = ['Drink the red liquid', 'Leave the goblet and walk back to search the Barbarian', 'Leave the chamber to continue WEST']
+    const index = readlineSync.keyInSelect(options, 'What will you do?')
+    switch (index) {
+      case 0:
+        return 98
+      case 1:
+        return 126
+      case 2:
+        return 83
+      default:
+        return 41
+    }
+  },
+  room42: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
   room43: () => {},
   room44: () => {},
   room45: () => {},

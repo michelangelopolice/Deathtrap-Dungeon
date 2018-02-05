@@ -21,11 +21,27 @@ class Manticore extends Monster {
     this.type = 'MANTICORE'
   }
 }
+
+class GiantFly extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'GIANT FLY'
+  }
+}
+
+class Minotaur extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'MINOTAUR'
+  }
+}
 const test = new Orc(5, 5)
 console.log(test)
 
 module.exports = {
   Monster,
   Orc,
-  Manticore
+  Manticore,
+  GiantFly,
+  Minotaur
 }
