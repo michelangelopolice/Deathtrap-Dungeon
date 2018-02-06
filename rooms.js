@@ -519,32 +519,101 @@ const rooms = {
     console.log('\x1Bc')
     console.log('')
   },
-  room43: () => {},
-  room44: () => {},
-  room45: () => {},
-  room46: () => {},
-  room47: () => {},
-  room48: () => {},
-  room49: () => {},
-  room50: () => {},
-  room51: () => {},
-  room52: () => {},
-  room53: () => {},
-  room54: () => {},
-  room55: () => {},
-  room56: () => {},
-  room57: () => {},
-  room58: () => {},
-  room59: () => {},
-  room60: () => {},
-  room61: () => {},
-  room62: () => {},
-  room63: () => {},
-  room64: () => {},
-  room65: () => {},
+  room43: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room44: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room45: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room46: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room47: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room48: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room49: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room50: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room51: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room52: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room53: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room54: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room55: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room56: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room57: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room58: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room59: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room60: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room61: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room62: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room63: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room64: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room65: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
   room66: () => {
     console.log('\x1Bc')
-    console.log('After walking down the tunnel for a few minutes, you come to a junction. A white arrow painted on one wall points WEST. On the floor you can see wet footprints made by those who entered before you. It is hard to be sure, but it looks as though three of them followed the direction of the arrow, while one decided to go EAST.')
+    console.log('After walking down the tunnel for a few minutes, you come to a junction. A white arrow painted on one wall points WEST. On the floor you can see wet footprints made by those who entered before you. It is hard to be sure, but it looks as though three of them followed the direction of the arrow, while one decided to go EAST.\n')
     const options = ['Head WEST', 'Head EAST']
     const index = readlineSync.keyInSelect(options, 'Which way do you choose?')
     switch (index) {
@@ -556,68 +625,384 @@ const rooms = {
         return 66
     }
   },
-  room67: () => {},
-  room68: () => {},
-  room69: () => {},
-  room70: () => {},
-  room71: () => {},
-  room72: () => {},
-  room73: () => {},
-  room74: () => {},
-  room75: () => {},
-  room76: () => {},
-  room77: () => {},
-  room78: () => {},
-  room79: () => {},
-  room80: () => {},
-  room81: () => {},
-  room82: () => {},
-  room83: () => {},
-  room84: () => {},
-  room85: () => {},
-  room86: () => {},
-  room87: () => {},
-  room88: () => {},
-  room89: () => {},
-  room90: () => {},
-  room91: () => {},
-  room92: () => {},
-  room93: () => {},
-  room94: () => {},
-  room95: () => {},
-  room96: () => {},
-  room97: () => {},
-  room98: () => {},
-  room99: () => {},
-  room100: () => {},
-  room101: () => {},
-  room102: () => {},
-  room103: () => {},
-  room104: () => {},
-  room105: () => {},
-  room106: () => {},
-  room107: () => {},
-  room108: () => {},
-  room109: () => {},
-  room110: () => {},
-  room111: () => {},
-  room112: () => {},
-  room113: () => {},
-  room114: () => {},
-  room115: () => {},
-  room116: () => {},
-  room117: () => {},
-  room118: () => {},
-  room119: () => {},
-  room120: () => {},
+  room67: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room68: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room69: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room70: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room71: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room72: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room73: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room74: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room75: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room76: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room77: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room78: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room79: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room80: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room81: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room82: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room83: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room84: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room85: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room86: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room87: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room88: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room89: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room90: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room91: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room92: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room93: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room94: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room95: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room96: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room97: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room98: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room99: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room100: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room101: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room102: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room103: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room104: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room105: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room106: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room107: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room108: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room109: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room110: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room111: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room112: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room113: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room114: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room115: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room116: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room117: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room118: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room119: (player) => {
+    console.log('\x1Bc')
+    console.log('')
+  },
+  room120: (player) => {
+    console.log('\x1Bc')
+    console.log('')
+  },
   room121: () => {},
+  room122: () => {},
+  room123: () => {},
+  room124: () => {},
+  room125: () => {},
+  room126: () => {},
+  room127: () => {},
+  room128: () => {},
+  room129: () => {},
+  room130: () => {},
+  room131: () => {},
+  room132: () => {},
+  room133: () => {},
+  room134: () => {},
+  room135: () => {},
+  room136: () => {},
+  room137: () => {},
+  room138: () => {},
+  room139: () => {},
   room140: () => {
     console.log('\x1Bc')
     console.log('You try to force the point of your sword under the ' + chalk.green('emerald') + 'eye. Much to your surprise, it shatters on contact, releasing a jet of poisonous gas straight into your face. The gas knocks you out and you fall backwards, bouncing down the idol to land on the stone floor. Your adventure ends here.\n')
     readlineSync.keyInPause()
     return -1
   },
-  room239: () => {},
+  room141: () => {},
+  room142: () => {},
+  room143: () => {},
+  room144: () => {},
+  room145: () => {},
+  room146: () => {},
+  room147: () => {},
+  room148: () => {},
+  room149: () => {},
+  room150: () => {},
+  room151: () => {},
+  room152: () => {},
+  room153: () => {},
+  room154: () => {},
+  room155: () => {},
+  room156: () => {},
+  room157: () => {},
+  room158: () => {},
+  room159: () => {},
+  room160: () => {},
+  room161: () => {},
+  room162: () => {},
+  room163: () => {},
+  room164: () => {},
+  room165: () => {},
+  room166: () => {},
+  room167: () => {},
+  room168: () => {},
+  room169: () => {},
+  room170: () => {},
+  room171: () => {},
+  room172: () => {},
+  room173: () => {},
+  room174: () => {},
+  room175: () => {},
+  room176: () => {},
+  room177: () => {},
+  room178: () => {},
+  room179: () => {},
+  room180: () => {},
+  room181: () => {},
+  room182: () => {},
+  room183: () => {},
+  room184: () => {},
+  room185: () => {},
+  room186: () => {},
+  room187: () => {},
+  room188: () => {},
+  room189: () => {},
+  room190: () => {},
+  room191: () => {},
+  room192: () => {},
+  room193: () => {},
+  room194: () => {},
+  room195: () => {},
+  room196: () => {},
+  room197: () => {},
+  room198: () => {},
+  room199: () => {},
+  room200: () => {},
+  room201: () => {},
+  room202: () => {},
+  room203: () => {},
+  room204: () => {},
+  room205: () => {},
+  room206: () => {},
+  room207: () => {},
+  room208: () => {},
+  room209: () => {},
+  room210: () => {},
+  room211: () => {},
+  room212: () => {},
+  room213: () => {},
+  room214: () => {},
+  room215: () => {},
+  room216: () => {},
+  room217: () => {},
+  room218: () => {},
+  room219: () => {},
+  room220: () => {},
+  room221: () => {},
+  room222: () => {},
+  room223: () => {},
+  room224: () => {},
+  room225: () => {},
+  room226: () => {},
+  room227: () => {},
+  room228: () => {},
+  room229: () => {},
+  room230: () => {},
+  room231: () => {},
+  room232: () => {},
+  room233: () => {},
+  room234: () => {},
+  room235: () => {},
+  room236: () => {},
+  room237: () => {},
+  room238: () => {},
+  room239: () => {
+    console.log('\x1Bc')
+    console.log('ROOM 239.\n')
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log(chalk.green(`YOU FUCKIN DIE BITCH!\n`))
+    readlineSync.keyInPause()
+    return -1
+  },
+  room240: () => {},
+  room241: () => {},
+  room242: () => {},
+  room243: () => {},
+  room244: () => {},
+  room245: () => {},
+  room246: () => {},
+  room247: () => {},
+  room248: () => {},
+  room249: () => {},
+  room250: () => {},
+  room251: () => {},
+  room252: () => {},
+  room253: () => {},
+  room254: () => {},
+  room255: () => {},
+  room256: () => {},
+  room257: () => {},
+  room258: () => {},
+  room259: () => {},
+  room260: () => {},
+  room261: () => {},
+  room262: () => {},
+  room263: () => {},
+  room264: () => {},
+  room265: () => {},
+  room266: () => {},
+  room267: () => {},
+  room268: () => {},
+  room269: () => {},
   room270: (player) => {
     console.log('\x1Bc')
     console.log('The lid of the box lifts off easily. Inside you find two Gold Pieces and a note written on a small piece of parchment addressed to you. After placing the gold in your pocket, you read the message, which says: \'Well done. At least you have the sense to stop and take advantage of the token aid given to you. Now I can advise you that you will need to find and use several items if you hope to pass triumphantly through my Deathtrap Dungeon. Signed Sukumvit.\' Memorising the advice on the note, you tear it into tiny pieces and continue north along the tunnel.\n')
@@ -625,7 +1010,137 @@ const rooms = {
     console.log(chalk.black.bgYellow(`\nYou now have ${player.gold} gold.\n`))
     readlineSync.keyInPause()
     return 66
-  }
+  },
+  room271: () => {},
+  room272: () => {},
+  room273: () => {},
+  room274: () => {},
+  room275: () => {},
+  room276: () => {},
+  room277: () => {},
+  room278: () => {},
+  room279: () => {},
+  room280: () => {},
+  room281: () => {},
+  room282: () => {},
+  room283: () => {},
+  room284: () => {},
+  room285: () => {},
+  room286: () => {},
+  room287: () => {},
+  room288: () => {},
+  room289: () => {},
+  room290: () => {},
+  room291: () => {},
+  room292: () => {},
+  room293: () => {},
+  room294: () => {},
+  room295: () => {},
+  room296: () => {},
+  room297: () => {},
+  room298: () => {},
+  room299: () => {},
+  room300: () => {},
+  room301: () => {},
+  room302: () => {},
+  room303: () => {},
+  room304: () => {},
+  room305: () => {},
+  room306: () => {},
+  room307: () => {},
+  room308: () => {},
+  room309: () => {},
+  room310: () => {},
+  room311: () => {},
+  room312: () => {},
+  room313: () => {},
+  room314: () => {},
+  room315: () => {},
+  room316: () => {},
+  room317: () => {},
+  room318: () => {},
+  room319: () => {},
+  room320: () => {},
+  room321: () => {},
+  room322: () => {},
+  room323: () => {},
+  room324: () => {},
+  room325: () => {},
+  room326: () => {},
+  room327: () => {},
+  room328: () => {},
+  room329: () => {},
+  room330: () => {},
+  room331: () => {},
+  room332: () => {},
+  room333: () => {},
+  room334: () => {},
+  room335: () => {},
+  room336: () => {},
+  room337: () => {},
+  room338: () => {},
+  room339: () => {},
+  room340: () => {},
+  room341: () => {},
+  room342: () => {},
+  room343: () => {},
+  room344: () => {},
+  room345: () => {},
+  room346: () => {},
+  room347: () => {},
+  room348: () => {},
+  room349: () => {},
+  room350: () => {},
+  room351: () => {},
+  room352: () => {},
+  room353: () => {},
+  room354: () => {},
+  room355: () => {},
+  room356: () => {},
+  room357: () => {},
+  room358: () => {},
+  room359: () => {},
+  room360: () => {},
+  room361: () => {},
+  room362: () => {},
+  room363: () => {},
+  room364: () => {},
+  room365: () => {},
+  room366: () => {},
+  room367: () => {},
+  room368: () => {},
+  room369: () => {},
+  room370: () => {},
+  room371: () => {},
+  room372: () => {},
+  room373: () => {},
+  room374: () => {},
+  room375: () => {},
+  room376: () => {},
+  room377: () => {},
+  room378: () => {},
+  room379: () => {},
+  room380: () => {},
+  room381: () => {},
+  room382: () => {},
+  room383: () => {},
+  room384: () => {},
+  room385: () => {},
+  room386: () => {},
+  room387: () => {},
+  room388: () => {},
+  room389: () => {},
+  room390: () => {},
+  room391: () => {},
+  room392: () => {},
+  room393: () => {},
+  room394: () => {},
+  room395: () => {},
+  room396: () => {},
+  room397: () => {},
+  room398: () => {},
+  room399: () => {},
+  room400: () => {}
 }
 const selectedRoom = index => rooms[`room${index}`]
 
