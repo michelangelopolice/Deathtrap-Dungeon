@@ -212,7 +212,7 @@ const rooms = {
   room16: (player) => {
     console.log('\x1Bc')
     console.log(`You just have time to hear the GNOME say, 'Three skulls' before a white bolt of energy shoots out from the lock into your chest, knocking you unconscious.\n`)
-    player.stamina -= (rollDie.rollDie(1) + 1)
+    player.stamina -= (rollDie(1) + 1)
     console.log(chalk.red(`Your stamina is now: ${player.stamina}.`))
     readlineSync.keyInPause()
     if (player.stamina <= 0) {
@@ -250,7 +250,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`Luckily for you, the cobra's fangs sink into your leather wristband. The snake recoils quickly, ready to strike again, as the DWARF tells you to have another try.\n`)
     readlineSync.keyInPause()
-    const skillTest = rollDie.rollDie(2)
+    const skillTest = rollDie(2)
     if (skillTest <= player.skill) {
       return 55
     } else {
@@ -328,7 +328,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The DWARF tells you that you can now progress to the second stage of the test. He reaches for a wicker basket and tells you that there is a snake inside it. He tips up the basket and the snake drops to the floor; it is a cobra and it rears up into the air ready to strike. The DWARF says he wants to test your reactions. You must grasp the cobra bare-handed below its head, avoiding its deadly fangs. You crouch down on the floor, tensing yourself for the moment at which to seize it.\n')
     readlineSync.keyInPause()
-    const skillTest = rollDie.rollDie(2)
+    const skillTest = rollDie(2)
     if (skillTest <= player.skill) {
       return 55
     } else {
@@ -350,7 +350,9 @@ const rooms = {
   room28: (player) => {
     console.log('\x1Bc')
     console.log('The DWARF\'s chainmail coat is of finest-quality iron, obviously made by a master armourer. You strip it from his body and place it over your head.\n')
-    player.skill++
+    if (player.skill < player.initialSkill) {
+      player.skill++
+    }
     player.inv.chainmailCoat++
     console.log(chalk.green(`Your SKILL is now: ${player.skill}`))
     readlineSync.keyInPause()
@@ -429,7 +431,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You run faster than you have ever run in your life before, but still the boulder is catching up on you.\n')
     readlineSync.keyInPause()
-    const survival = rollDie.rollDie(2)
+    const survival = rollDie(2)
     if (survival <= player.skill && survival <= player.stamina) {
       return 340
     } else {
@@ -453,6 +455,7 @@ const rooms = {
   room38: (player) => {
     console.log('\x1Bc')
     console.log('The man stands by silently while you gulp the water and wolf down the bread. A sharp pain grips your stomach and you fall to your knees. The old man looks at you scornfully and says, \'Well, if you will eat poisoned food, what do you expect?\'\n')
+    player.stamina -= 3
     console.log(chalk.red(`\nYour STAMINA is now ${player.stamina}\n`))
     readlineSync.keyInPause()
     if (player.stamina <= 0) {
@@ -541,7 +544,9 @@ const rooms = {
   },
   room48: () => {
     console.log('\x1Bc')
-    console.log('')
+    console.log('Only your immense strength and grim determination keep you from falling unconscious to the floor. You grit your teeth and press on resolutely.\n')
+    readlineSync.keyInPause()
+    return 197
   },
   room49: () => {
     console.log('\x1Bc')
@@ -573,7 +578,17 @@ const rooms = {
   },
   room56: () => {
     console.log('\x1Bc')
-    console.log('')
+    console.log('You see that the obstruction is a large, brown, boulder-like object. You touch it with your hand and are surprised to find that it is soft and spongy.\n')
+    const options = ['Climb over it', 'Slice it open with your sword']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?')
+    switch (index) {
+      case 0:
+        return 373
+      case 1:
+        return 215
+      default:
+        return 56
+    }
   },
   room57: () => {
     console.log('\x1Bc')
@@ -833,13 +848,33 @@ const rooms = {
     console.log('\x1Bc')
     console.log('')
   },
-  room119: (player) => {
+  room119: () => {
     console.log('\x1Bc')
-    console.log('')
+    console.log('Ahead you can see a large obstruction on the tunnel floor, although it is too dark to make out exactly what it is. The wet footprints you have been following carry on towards the obstruction.\n')
+    const options = ['Continue EAST', 'Go back to the junction and head WEST']
+    const index = readlineSync.keyInSelect(options, 'Which would you rather do?')
+    switch (index) {
+      case 0:
+        return 56
+      case 1:
+        return 293
+      default:
+        return 119
+    }
   },
-  room120: (player) => {
+  room120: () => {
     console.log('\x1Bc')
-    console.log('')
+    console.log(chalk`Lying in a hole about a metre deep, you see a {bold grappling iron} and a {bold leather pouch}.\n`)
+    const options = ['Reach down for them', 'Ignore them and continue NORTH']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?')
+    switch (index) {
+      case 0:
+        return 228
+      case 1:
+        return 292
+      default:
+        return 120
+    }
   },
   room121: () => {},
   room122: () => {},
@@ -872,7 +907,20 @@ const rooms = {
   room144: () => {},
   room145: () => {},
   room146: () => {},
-  room147: () => {},
+  room147: (player) => {
+    console.log('\x1Bc')
+    console.log('The water in the bamboo pipe is welcomingly refreshing.\n')
+    if (player.stamina < player.initialStamina) {
+      player.stamina++
+    }
+    console.log(chalk.green(`Your STAMINA is now ${player.stamina}.\n`))
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    player.abilities.withstandHeat++
+    console.log('It also contains a magical solution which will enable you to be exposed to melting-point temperature without harm. Discarding the bamboo, you start off NORTH again in good spirits.\n')
+    readlineSync.keyInPause()
+    return 182
+  },
   room148: () => {},
   room149: () => {},
   room150: () => {},
@@ -907,7 +955,16 @@ const rooms = {
   room179: () => {},
   room180: () => {},
   room181: () => {},
-  room182: () => {},
+  room182: (player) => {
+    console.log('\x1Bc')
+    console.log('The temperature continues to rise and you find yourself dripping with sweat. As you struggle on, the heat intensifies until it feels like white heat and becomes so unbearable that you begin to pass out.\n')
+    readlineSync.keyInPause()
+    if(player.abilities.withstandHeat) {
+      return 25
+    } else {
+      return 242
+    }
+  },
   room183: () => {},
   room184: () => {},
   room185: () => {},
@@ -922,7 +979,22 @@ const rooms = {
   room194: () => {},
   room195: () => {},
   room196: () => {},
-  room197: () => {},
+  room197: () => {
+    console.log('\x1Bc')
+    console.log('Mercifully, the temperature now starts to drop rapidly, and soon it feels almost cool again. On the left-hand side of the tunnel is a closed door. It has a small iron plate in it, which m ight possible slide open.\n')
+    const options = ['Try to open the door', 'Try to slide the iron plate', 'Continue NORTH up the tunnel']
+    const index = readlineSync.keyInSelect(options, 'What will you do?')
+    switch (index) {
+      case 0:
+        return 171
+      case 1:
+        return 156
+      case 2:
+        return 326
+      default:
+        return 197
+    }
+  },
   room198: () => {},
   room199: () => {},
   room200: () => {},
@@ -940,7 +1012,21 @@ const rooms = {
   room212: () => {},
   room213: () => {},
   room214: () => {},
-  room215: () => {},
+  room215: (player) => {
+    console.log('\x1Bc')
+    console.log('Your sword easily pierces the thin outer casing of the giant spore ball. A thick brown cloud of spores bursts out of the ball and envelopes you. Some of the spores stick to your skin and start to itch terribly. Great lumps come up on your face and arms, and your skin feels as if it is on fire.\n')
+    player.stamina -= 2
+    console.log(chalk.red(`Your STAMINA is now ${player.stamina}.`))
+    readlineSync.keyInPause()
+    if (player.stamina <= 0) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log('Frantically scatching your itching lumps, you step over the now deflated spore ball and head EAST.\n')
+      readlineSync.keyInPause()
+      return 13
+    }
+  },
   room216: () => {},
   room217: () => {},
   room218: () => {},
@@ -975,7 +1061,17 @@ const rooms = {
   },
   room240: () => {},
   room241: () => {},
-  room242: () => {},
+  room242: (player) => {
+    console.log('\x1Bc')
+    console.log('You shake your head, trying desperately to stop yourself from blacking out, but the heat is too much for you and you fall unconscious to the floor.\n')
+    readlineSync.keyInPause()
+    const skillTest = rollDie(2)
+    if (skillTest <= player.skill) {
+      return 48
+    } else {
+      return 366
+    }
+  },
   room243: () => {},
   room244: () => {},
   room245: () => {},
@@ -1106,14 +1202,24 @@ const rooms = {
   room363: () => {},
   room364: () => {},
   room365: () => {},
-  room366: () => {},
+  room366: () => {
+    console.log('\x1Bc')
+    console.log('The temperature continues to rise steadily, far beyond the limits of human tolerance. Lying on the near-molten floor of the tunnel, you fail to regain consciousness. Your adventure ends here.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
   room367: () => {},
   room368: () => {},
   room369: () => {},
   room370: () => {},
   room371: () => {},
   room372: () => {},
-  room373: () => {},
+  room373: () => {
+    console.log('\x1Bc')
+    console.log('You clamber on to the soft boulder, half expecting to be engulfed by it at any moment. Getting over it is difficult, as your limbs sink into its soft casing, but eventually you manage to struggle over it. Relieved to be back on firm ground, you head EAST.\n')
+    readlineSync.keyInPause()
+    return 13
+  },
   room374: () => {},
   room375: () => {},
   room376: () => {},

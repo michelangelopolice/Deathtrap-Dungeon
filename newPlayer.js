@@ -7,23 +7,25 @@ module.exports = function () {
   this.name = readlineSync.question(chalk.red('Enter your name: ')).toUpperCase()
   switch (this.name) {
     case 'GRUBBS':
-      this.skill = 12
-      this.stamina = 24
-      this.luck = 12
+      this.initialSkill = 12
+      this.initialStamina = 24
+      this.initialLuck = 12
       break
     case 'JAMIE':
     case 'DILLIPS':
-      this.skill = 1
-      this.stamina = 1
-      this.luck = 1
+      this.initialSkill = 1
+      this.initialStamina = 1
+      this.initialLuck = 1
       break
     default:
-      this.skill = rollDie(1) + 6
-      this.stamina = rollDie(2) + 12
-      this.luck = rollDie(1) + 6
+      this.initialSkill = rollDie(1) + 6
+      this.initialStamina = rollDie(2) + 12
+      this.initialLuck = rollDie(1) + 6
       break
   }
-  console.log('\x1Bc')
+  this.skill = this.initialSkill
+  this.stamina = this.initialStamina
+  this.luck = this.initialLuck
   this.provisions = 10
   this.gold = 0
   this.inv = {
@@ -37,6 +39,9 @@ module.exports = function () {
     ironKey: 0,
     leatherPouch: 0,
     sapphire: 0
+  }
+  this.abilities = {
+    withstandHeat: 0
   }
   console.log('\x1Bc')
   console.log(`Welcome ${this.name}!`)
