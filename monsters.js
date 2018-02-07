@@ -35,6 +35,14 @@ class Minotaur extends Monster {
     this.type = 'MINOTAUR'
   }
 }
+
+class Caveman extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'CAVEMAN'
+  }
+}
+
 const test = new Orc(5, 5)
 console.log(test)
 
@@ -43,5 +51,6 @@ module.exports = {
   Orc,
   Manticore,
   GiantFly,
-  Minotaur
+  Minotaur,
+  Caveman
 }

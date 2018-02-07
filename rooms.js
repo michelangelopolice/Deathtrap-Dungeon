@@ -4,7 +4,7 @@ const rollDie = require('./rollDie')
 const statChange = require('./statChange')
 const testYourLuck = require('./testYourLuck')
 const battle = require('./battle')
-const { Manticore, Giantfly, Minotaur } = require('./monsters')
+const { Manticore, Giantfly, Minotaur, Caveman } = require('./monsters')
 
 const rooms = {
   gameover: () => {
@@ -623,7 +623,7 @@ const rooms = {
     const index = readlineSync.keyInSelect(options, 'Which way do you choose?')
     switch (index) {
       case 0:
-        return 239
+        return 293
       case 1:
         return 119
       default:
@@ -820,7 +820,17 @@ const rooms = {
   },
   room114: () => {
     console.log('\x1Bc')
-    console.log('')
+    console.log('The CAVEMAN is wearing a leather wristband with four small rats\' skulls hanging from it.\n')
+    const options = ['Put it on your own wrist', 'Set off NORTH again']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?')
+    switch (index) {
+      case 0:
+        return 336
+      case 1:
+        return 298
+      default:
+        return 114
+    }
   },
   room115: () => {
     console.log('\x1Bc')
@@ -1113,7 +1123,20 @@ const rooms = {
   room290: () => {},
   room291: () => {},
   room292: () => {},
-  room293: () => {},
+  room293: () => {
+    console.log('\x1Bc')
+    console.log('Following the three sets of wet footprints along the WEST passage of the tunnel, you soon arrive at a junction.\n')
+    const options = ['Continue WEST, following two sets of footprints', 'Head NORTH, following the third set of footprints']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?')
+    switch (index) {
+      case 0:
+        return 137
+      case 1:
+        return 387
+      default:
+        return 293
+    }
+  },
   room294: () => {},
   room295: () => {},
   room296: () => {},
@@ -1217,7 +1240,19 @@ const rooms = {
   room384: () => {},
   room385: () => {},
   room386: () => {},
-  room387: () => {},
+  room387: (player) => {
+    console.log('\x1Bc')
+    console.log('Ahead you hear the thud of heavy footsteps approaching. Out of the gloom steps a large, primitive being dressed in animal hide and carrying a stone club. On seeing you, he grunts and spits on the floor, then raises his club and lumbers on towards you, looking anything but friendly.\n\nYou draw your sword and prepare to fight the CAVEMAN.\n')
+    readlineSync.keyInPause()
+    const monster = new Caveman(7, 7)
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        return 114
+    }
+  },
   room388: () => {},
   room389: () => {},
   room390: () => {},
