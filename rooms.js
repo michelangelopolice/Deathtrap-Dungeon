@@ -1,6 +1,7 @@
 const readlineSync = require('readline-sync')
 const chalk = require('chalk')
 const rollDie = require('./rollDie')
+const statChange = require('./statChange')
 const testYourLuck = require('./testYourLuck')
 const battle = require('./battle')
 const { Manticore, Giantfly, Minotaur } = require('./monsters')
@@ -85,10 +86,8 @@ const rooms = {
   room6: (player) => {
     console.log('\x1Bc')
     console.log('Knowing that the MANTICORE will fire the spikes in its tail at you, you run for cover behind one of the pillars. Before you reach it, a volley of spikes flies through the air and one of them sinks into your arm.\n')
-    player.stamina -= 2
-    console.log(chalk.red(`Your stamina is now: ${player.stamina}.`))
-    readlineSync.keyInPause()
-    if (player.stamina <= 0) {
+    const alive = statChange(player, 'stamina', -2)
+    if (!alive) {
       return -1
     } else {
       console.log('\x1Bc')
@@ -267,8 +266,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`Only your incredible strength could withstand the poisonous spider's bite. However, you are weakened and you notice your hand trembling as you pocket the Gold Piece. You curse the person who dropped the backpack and set off NORTH again.\n`)
     player.gold++
-    player.skill--
-    console.log(chalk.red(`Your SKILL is now: ${player.skill}. You now have ${player.gold} Gold Pieces.`))
+    statChange(player, 'skill', -1)
     console.log(chalk.yellow(`You now have ${player.gold} Gold Pieces.`))
     readlineSync.keyInPause()
     return 279
@@ -350,12 +348,8 @@ const rooms = {
   room28: (player) => {
     console.log('\x1Bc')
     console.log('The DWARF\'s chainmail coat is of finest-quality iron, obviously made by a master armourer. You strip it from his body and place it over your head.\n')
-    if (player.skill < player.initialSkill) {
-      player.skill++
-    }
     player.inv.chainmailCoat++
-    console.log(chalk.green(`Your SKILL is now: ${player.skill}`))
-    readlineSync.keyInPause()
+    statChange(player, 'skill', 1)
     console.log('\x1Bc')
     console.log('There is nothing else of use to you in the chamber, so you decide to investigate the new tunnel.\n')
     readlineSync.keyInPause()
@@ -396,9 +390,7 @@ const rooms = {
   room33: (player) => {
     console.log('\x1Bc')
     console.log('It was a mistake to reach into the hole with your sword arm. It is covered with round sucker marks and feels as if it has been crushed.\n')
-    player.skill -= 3
-    console.log(chalk.red(`Your SKILL is now: ${player.skill}`))
-    readlineSync.keyInPause()
+    statChange(player, 'skill', -3)
     console.log('\x1Bc')
     console.log('You peer into the hole and see the bleeding tentacle stump hanging limply. You carefully pull out the grappling iron and leather pouch, in which you find a tiny brass bell. You pack away your new posessions and head NORTH.\n')
     player.inv.grapplingIron++
@@ -455,10 +447,8 @@ const rooms = {
   room38: (player) => {
     console.log('\x1Bc')
     console.log('The man stands by silently while you gulp the water and wolf down the bread. A sharp pain grips your stomach and you fall to your knees. The old man looks at you scornfully and says, \'Well, if you will eat poisoned food, what do you expect?\'\n')
-    player.stamina -= 3
-    console.log(chalk.red(`\nYour STAMINA is now ${player.stamina}\n`))
-    readlineSync.keyInPause()
-    if (player.stamina <= 0) {
+    const alive = statChange(player, 'stamina', -3)
+    if (!alive) {
       return -1
     } else {
       console.log('\x1Bc')
@@ -910,11 +900,7 @@ const rooms = {
   room147: (player) => {
     console.log('\x1Bc')
     console.log('The water in the bamboo pipe is welcomingly refreshing.\n')
-    if (player.stamina < player.initialStamina) {
-      player.stamina++
-    }
-    console.log(chalk.green(`Your STAMINA is now ${player.stamina}.\n`))
-    readlineSync.keyInPause()
+    statChange(player, 'stamina', 1)
     console.log('\x1Bc')
     player.abilities.withstandHeat++
     console.log('It also contains a magical solution which will enable you to be exposed to melting-point temperature without harm. Discarding the bamboo, you start off NORTH again in good spirits.\n')
@@ -959,7 +945,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The temperature continues to rise and you find yourself dripping with sweat. As you struggle on, the heat intensifies until it feels like white heat and becomes so unbearable that you begin to pass out.\n')
     readlineSync.keyInPause()
-    if(player.abilities.withstandHeat) {
+    if (player.abilities.withstandHeat) {
       return 25
     } else {
       return 242
@@ -1015,10 +1001,8 @@ const rooms = {
   room215: (player) => {
     console.log('\x1Bc')
     console.log('Your sword easily pierces the thin outer casing of the giant spore ball. A thick brown cloud of spores bursts out of the ball and envelopes you. Some of the spores stick to your skin and start to itch terribly. Great lumps come up on your face and arms, and your skin feels as if it is on fire.\n')
-    player.stamina -= 2
-    console.log(chalk.red(`Your STAMINA is now ${player.stamina}.`))
-    readlineSync.keyInPause()
-    if (player.stamina <= 0) {
+    const alive = statChange(player, 'stamina', -2)
+    if (!alive) {
       return -1
     } else {
       console.log('\x1Bc')
