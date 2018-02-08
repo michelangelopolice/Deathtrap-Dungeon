@@ -32,12 +32,16 @@ module.exports = function () {
     potOfSkill: 0,
     potOfStrength: 0,
     potOfFortune: 0,
+    acid: 0,
+    boneCharm: 0,
     brassBell: 0,
-    emeraldEye: 0,
     chainmailCoat: 0,
+    emeraldEye: 0,
     grapplingIron: 0,
+    hollowWoodenTube: 0,
     ironKey: 0,
     leatherPouch: 0,
+    mirror: 0,
     sapphire: 0
   }
   this.abilities = {
@@ -71,7 +75,7 @@ module.exports = function () {
       console.log('You have added the Potion of Fortune to your inventory.')
       break
     default:
-      console.log('Error.')
+      console.log('You do not take a potion.')
       break
   }
   readlineSync.keyInPause()

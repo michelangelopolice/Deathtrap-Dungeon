@@ -43,8 +43,12 @@ class Caveman extends Monster {
   }
 }
 
-const test = new Orc(5, 5)
-console.log(test)
+class Hobgoblin extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'HOBGOBLIN'
+  }
+}
 
 module.exports = {
   Monster,
@@ -52,5 +56,6 @@ module.exports = {
   Manticore,
   GiantFly,
   Minotaur,
-  Caveman
+  Caveman,
+  Hobgoblin
 }
