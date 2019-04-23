@@ -89,17 +89,17 @@ module.exports = function () {
     case 0:
       console.log('\x1Bc')
       this.inv.potOfSkill++
-      console.log('You have added the Potion of Skill to your inventory.')
+      console.log('You have added the Potion of Skill to your inventory.\n')
       break
     case 1:
       console.log('\x1Bc')
       this.inv.potOfStrength++
-      console.log('You have added the Potion of Strength to your inventory.')
+      console.log('You have added the Potion of Strength to your inventory\n.')
       break
     case 2:
       console.log('\x1Bc')
       this.inv.potOfFortune++
-      console.log('You have added the Potion of Fortune to your inventory.')
+      console.log('You have added the Potion of Fortune to your inventory\n.')
       break
     default:
     console.log('\x1Bc')  

@@ -510,7 +510,7 @@ const rooms = {
       }
     }
   },
-  room42: () => {
+  room42: (player) => {
     console.log('\x1Bc')
     console.log('The cobra\'s fangs sink deep into your wrist and you feel its poison starting to creep through your body.\n ')
     const alive = statChange(player, 'stamina', -5)
