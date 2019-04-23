@@ -50,6 +50,76 @@ class Hobgoblin extends Monster {
   }
 }
 
+class CaveTroll extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'CAVE TROLL'
+  }
+}
+
+class Scorpion extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'SCORPION'
+  }
+}
+
+class FlyingGuardian extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'FLYING GUARDIAN'
+  }
+}
+
+class Ivy extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'IVY'
+  }
+}
+
+class Dwarf extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'DWARF'
+  }
+}
+
+class GuardDog extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'GUARD DOG'
+  }
+}
+
+class Imitator extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'IMITATOR'
+  }
+}
+
+class Skeleton extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'SKELETON WARRIOR'
+  }
+}
+
+class PitFiend extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'PIT FIEND'
+  }
+}
+
+class Throm extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'THROM'
+  }
+}
+
 module.exports = {
   Monster,
   Orc,
@@ -57,5 +127,15 @@ module.exports = {
   GiantFly,
   Minotaur,
   Caveman,
-  Hobgoblin
+  Hobgoblin,
+  CaveTroll,
+  Scorpion,
+  FlyingGuardian,
+  Ivy,
+  Dwarf,
+  GuardDog,
+  Imitator,
+  Skeleton,
+  PitFiend,
+  Throm
 }
