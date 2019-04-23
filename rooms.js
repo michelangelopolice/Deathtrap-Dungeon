@@ -1949,14 +1949,28 @@ const rooms = {
       return 275
     }
   },
-  room159: () => { },
+  room159: (player) => {
+    console.log('\x1Bc')
+    console.log('Your reactions are still slow because of the poison in your system, and although you try to jump over the outstretched tongue, your legs let you down. The sticky tongue wraps itself around your leg, flipping you over, and starts to pull you towards the pool. Your sword has slipped out of your hand and you start to panic.\n')
+    if (player.inv.opalDagger) {
+      return 294
+    } else {
+      return 334
+    }
+  },
   room160: () => {
     console.log('\x1Bc')
     console.log('Your armour and sword weigh you down, but you just manage to land safely on the far edge of the pit. You waste no time and head east.\n')
     readlineSync.keyInPause()
     return 237
   },
-  room161: () => { },
+  room161: () => {
+    console.log('\x1Bc')
+    console.log('You push past the two LEPRECHAUNS and head off north, the noise of jeering and laughter ringing in your ears. Further up the tunnel you stop to rest and check your belongings. If you had any gems, they are now gone; the LEPRECHAUN who landed on your back stole them from your backpack. You curse the thieving LEPRECHAUNS and set off north again.\n')
+    player.inv.diamond, player.inv.emerald, player.inv.ruby, player.inv.sapphire, player.inv.topaz = 0
+    readlineSync.keyInPause()
+    return 29
+  },
   room162: (player) => {
     console.log('\x1Bc')
     console.log(`Removing the box lid by the light of the tunnel, you find an iron key and a large gem. It is a ${chalk.blue('sapphire')}.\n`)
@@ -1969,7 +1983,10 @@ const rooms = {
     readlineSync.keyInPause()
     return 142
   },
-  room163: () => { },
+  room163: () => {
+    console.log('\x1Bc')
+    console.log('')
+  },
   room164: () => {
     console.log('\x1Bc')
     console.log('As you walk along, droplets of water again start falling from the tunnel ceiling. You see wet footprints, made by the same boots that you followed earlier, heading west. The footprints lead to a closed iron door in the right-hand wall of the tunnel, but do not seem to go any further.\n')
