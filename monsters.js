@@ -141,6 +141,20 @@ class Throm extends Monster {
   }
 }
 
+class Ninja extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'NINJA'
+  }
+}
+
+class MirrorDemon extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'MIRROR DEMON'
+  }
+}
+
 module.exports = {
   Monster,
   Orc,
@@ -161,5 +175,7 @@ module.exports = {
   RockGrub,
   PitFiend,
   Bloodbeast,
-  Throm
+  Throm,
+  Ninja,
+  MirrorDemon
 }

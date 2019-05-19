@@ -41,6 +41,7 @@ module.exports = function () {
     diamond: 0,
     doppelgangerPotion: 0,
     emerald: 0,
+    garnet: 0,
     goblet: 0,
     grapplingIron: 0,
     hollowWoodenTube: 0,
@@ -73,6 +74,8 @@ module.exports = function () {
     alcoveSearched: false,
     pixieFountainDrank: false,
     hagFountainDrank: false,
+    ninjaRationsAte: false,
+    ninjaOintmentRubbed: false,
     crippledServantSpokenTo: false,
     unarmed: false
   }
@@ -104,8 +107,8 @@ module.exports = function () {
       console.log('You have added the Potion of Fortune to your inventory\n.')
       break
     default:
-    console.log('\x1Bc')  
-    console.log('You do not take a potion.')
+      console.log('\x1Bc')
+      console.log('You do not take a potion.')
       break
   }
   readlineSync.keyInPause()

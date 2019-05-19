@@ -4,7 +4,7 @@ const rollDie = require('./rollDie')
 const statChange = require('./statChange')
 const testYourLuck = require('./testYourLuck')
 const battle = require('./battle')
-const { Orc, Goblin, Manticore, Giantfly, Minotaur, Caveman, Hobgoblin, CaveTroll, Scorpion, FlyingGuardian, Ivy, Dwarf, GuardDog, Imitator, Skeleton, RockGrub, PitFiend, Bloodbeast, Throm } = require('./monsters')
+const { Orc, Goblin, Manticore, Giantfly, Minotaur, Caveman, Hobgoblin, CaveTroll, Scorpion, FlyingGuardian, Ivy, Dwarf, GuardDog, Imitator, Skeleton, RockGrub, PitFiend, Bloodbeast, Throm, Ninja, MirrorDemon } = require('./monsters')
 
 const rooms = {
   winner: () => {
@@ -1045,9 +1045,10 @@ const rooms = {
     readlineSync.keyInPause()
     return -1
   },
-  room86: () => {
+  room86: (player) => {
     console.log('\x1Bc')
     console.log(`The key turns in the lock and the door opens into a four-way intersection of the tunnel. There is nothing to be seen either to east or to west apart from  the now familiar ceiling crystals giving off their dim light. Suddenly you hear a voice calling you.`)
+    player.inv.ironKey--
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log(`"This way, this way. You are on the right track."\n\nIt seems to be coming from somewhere directly ahead of you. Your curiosity gets the better of you and you decide to walk towards the beckoning voice.\n`)
@@ -3298,10 +3299,27 @@ const rooms = {
   },
   room269: (player) => {
     console.log('\x1Bc')
-    console.log('You empty the contents of the jar into your hand and apply them to your wounds. Their healing powers take immediate effect and you feel yourself growing stronger.\n')
-    statChange(player, 'stamina', 3)
-    readlineSync.keyInPause()
-    // ** CHECK TO EAT RICE
+    if (!player.abilities.ninjaOintmentRubbed) {
+      player.abilities.ninjaOintmentRubbed = true
+      console.log('You empty the contents of the jar into your hand and apply them to your wounds. Their healing powers take immediate effect and you feel yourself growing stronger.\n')
+      statChange(player, 'stamina', 3)
+      readlineSync.keyInPause()
+    }
+    console.log('\x1Bc')
+    if (player.abilities.ninjaRationsAte) {
+      console.log(`You leave the hall, taking the ${chalk.white('diamond')} with you.`)
+      readlineSync.keyInPause()
+      return 127
+    } else {
+      const options = ['Eat the rice and drink the water', `Leave the hall, taking just the ${chalk.white('diamond')}`]
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
+      switch (index) {
+        case 0:
+          return 330
+        case 1:
+          return 127
+      }
+    }
   },
   room270: (player) => {
     console.log('\x1Bc')
@@ -3311,7 +3329,14 @@ const rooms = {
     readlineSync.keyInPause()
     return 66
   },
-  room271: () => { },
+  room271: (player) => {
+    console.log('\x1Bc')
+    console.log('Just as you are about to release the shield and throw it over the pit, it slips from your fingers and rolls away. You are unable to catch it before it falls over the edge of the put, clattering down its sides to the bottom. The loss of your shield reduces your fighting ability.\n')
+    statChange(player, 'skill', -1)
+    console.log('Cursing your own clumsiness, you step forward, leap across the pit and land safely on the other side. You waste no time but head off east.\n')
+    readlineSync.keyInPause()
+    return 237
+  },
   room272: () => {
     console.log('\x1Bc')
     console.log('Although the BLOODBEAST is too bulbous and heavy to climb out of its pool, its long tongue stretches and wraps itself around your leg. Still unconscious, you are dragged into its pool of slime, the hideous BLOODBEAST will consume at its leisure.\n')
@@ -3684,7 +3709,15 @@ const rooms = {
       return 148
     }
   },
-  room306: () => { },
+  room306: (player) => {
+    console.log('\x1Bc')
+    console.log('Before you can take a single step towards the LEPRECHAUNS, one of them throws some sparkling dust at you. You are immediately frozen to the spot, unable to move a muscle. You watch helplessly as the LEPRECHAUNS rummage through your backpack and run off with all your posessions, leaving your backpack empty.\n')
+    statChange(player, 'luck', -2)
+    Object.keys(player.inv).forEach(item => { player.inv[item] = 0 })
+    console.log('About an hour later the freezing effect of the dust wears off and feeling returns to your limbs. You are angry at your loss and stomp off north, determined to have your revenge.\n')
+    readlineSync.keyInPause()
+    return 29
+  },
   room307: (player) => {
     console.log('\x1Bc')
     console.log('The cupboard contains a wooden mallet and 10 iron spikes, which you put in your backpack while wondering which door to open.\n')
@@ -3701,7 +3734,13 @@ const rooms = {
         return 136
     }
   },
-  room308: () => { },
+  room308: (player) => {
+    console.log('\x1Bc')
+    console.log('The MEDUSA shrieks as you enter her cage, keeping your eyes firmly closed and slashing your sword wildly from side to side. You feel the blade sink deep into her side and hear a loud thud as she slumps heavily to the ground. You open your eyes again and shudder at the sight of the prostrate figure of the MEDUSA. Her gown is fastened by a large brooch bearing a single bright red gem. It is a garnet, and you prise it out of its setting, put it in your pocket and leave the room to head north.\n')
+    player.inv.garnet++
+    readlineSync.keyInPause()
+    return 316
+  },
   room309: (player) => {
     console.log('\x1Bc')
     console.log('You scramble frantically around the floor in search of a pool of water, but do not find one. The acid burns with a searing pain deep down in your throat.\n')
@@ -3718,25 +3757,130 @@ const rooms = {
       }
     }
   },
-  room310: () => { },
-  room311: () => { },
-  room312: () => { },
-  room313: () => { },
-  room314: () => { },
-  room315: () => { },
-  room316: () => { },
-  room317: () => { },
-  room318: () => { },
+  room310: () => {
+    console.log('\x1Bc')
+    console.log('You reach the far wall of the chamber and see two doors.\n')
+    const options = ['Open the door to your left', 'Open the door to your right']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
+    switch (index) {
+      case 0:
+        return 339
+      case 1:
+        return 262
+    }
+  },
+  room311: () => {
+    console.log('\x1Bc')
+    console.log('The Barbarian reluctantly agrees to your alternative suggestion. You both step back and take running jumps over the pit. Landing safely on the other side, you continue down the tunnel. The Barbarian, who is leading the way, suddenly stumbles on a floor stone which tilts forward, triggering a boulder loosely set in the ceiling. It crashes down on top of him, knocking him to the floor and crushing his skull. You must continue your quest alone.\n')
+    readlineSync.keyInPause()
+    return 325
+  },
+  room312: (player) => {
+    console.log('\x1Bc')
+    console.log('The razor-sharp disc whistles past your head and bites deep into one of the pillars. Turning to face your would-be assassin, you prepare yourself as he advances, his long sword drawn.\n')
+    readlineSync.keyInPause()
+    const monster = new Ninja(11, 9)
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        return 232
+    }
+  },
+  room313: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel ends at a junction. The footprints you have been following turn north and you decide to stay with them.\n')
+    readlineSync.keyInPause()
+    return 32
+  },
+  room314: () => {
+    console.log('\x1Bc')
+    console.log('Your sword cleaves the handle and, being separated from its parent body, you watch the membrane shrivel away and drop on to the floor. Having no other choice, you somewhat apprehensively turn the handle of the other door.\n')
+    readlineSync.keyInPause()
+    return 262
+  },
+  room315: (player) => {
+    console.log('\x1Bc')
+    console.log('The tunnel veers sharply to the left and comes to an end at a high wall in which there is a door. You hear a ferocious roar from the other side of the wall and you wonder what gargantuan beast could make such a noise.\n')
+    if (player.inv.rope && player.inv.grapplingIron) {
+      return 129
+    } else {
+      return 245
+    }
+  },
+  room316: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel continues for quite a distance before you reach a junction.\n')
+    const options = ['Head west into the new tunnel', 'Continue north']
+    const index = readlineSync.keyInSelect(options, 'What would you rather do?', { cancel: false })
+    switch (index) {
+      case 0:
+        return 296
+      case 1:
+        return 241
+    }
+  },
+  room317: () => {
+    console.log('\x1Bc')
+    console.log('Tapping the side of the borehole with your sword, you tread your way blindly through the sticky slime. You follow its twisting and turning course for what seems an age and begin to wonder where it might lead. Suddenly you hear a slithering sound up ahead. You freeze with fear, your eyes desperately trying to pierce the pitch-black darkness. Before you realise what is happening, you are gripped round the neck by the powerful mandibles of another ROCK GRUB. It is the mate of the ROCK GRUB you killed and has been attracted by the smell of blood on your sword. It squeezes harder until your neck snaps like a small twig. Your adventure ends here.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
+  room318: (player) => {
+    console.log('\x1Bc')
+    console.log('After crossing the bridge, you run across the cavern floor. At last you see a tunnel in the far wall, which you race down until you reach its end at a heavy wooden door. The door is locked.\n')
+    if (player.inv.ironKey) {
+      return 86
+    } else {
+      return 276
+    }
+  },
   room319: () => {
     console.log('\x1Bc')
-    console.log('Your armour and sword weigh you down more than you think. In mid-air you realize with horror that you are not going to reach the other side of the pit. YOu crash into the side of the pit, some two metres below the rim, and tumble head over heels to the bottom.\n')
+    console.log('Your armour and sword weigh you down more than you think. In mid-air you realize with horror that you are not going to reach the other side of the pit. You crash into the side of the pit, some two metres below the rim, and tumble head over heels to the bottom.\n')
     readlineSync.keyInPause()
     return 285
   },
-  room320: () => { },
-  room321: () => { },
-  room322: () => { },
-  room323: () => { },
+  room320: (player) => {
+    console.log('\x1Bc')
+    console.log(`You decide to search the NINJA and find a cloth bag in the folds of his robes. Inside it is a flask of water, some rice wrapped in a palm leaf, a jar of ointment and a beautiful ${chalk.white('diamond')}.\n`)
+    player.inv.diamond++
+    const options = ['Eat the rice and drink the water', 'Rub some of the ointment into your wounds', `Take only the ${chalk.white('diamond')}`]
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
+    switch (index) {
+      case 0:
+        return 330
+      case 1:
+        return 269
+      case 2:
+        return 127
+    }
+  },
+  room321: () => {
+    console.log('\x1Bc')
+    console.log(`You pull the cord and watch the drape as it rises up the sides of an iron cage. The woman's voice urges you to be quick, telling you that the room is booby-trapped so that the floor will fall away in one minute because of your extra weight.\n`)
+    const options = ['Still help her', 'Leave the room and head north up the tunnel']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
+    switch (index) {
+      case 0:
+        return 289
+      case 1:
+        return 316
+    }
+  },
+  room322: () => {
+    console.log('\x1Bc')
+    console.log('You pass the wooden chair and soon get back to the junction, turning right to head west.\n')
+    readlineSync.keyInPause()
+    return 43
+  },
+  room323: () => {
+    console.log('\x1Bc')
+    console.log('After tying the rope around the rock, you lower yourself slowly to the bottom of the pit. Throm retrieves his rope by shaking it off the rock, and you set off together down the new tunnel.\n')
+    readlineSync.keyInPause()
+    return 194
+  },
   room324: (player) => {
     if (player.abilities.crippledServantSpokenTo) {
       return 256
@@ -3744,7 +3888,12 @@ const rooms = {
       return 79
     }
   },
-  room325: () => { },
+  room325: () => {
+    console.log('\x1Bc')
+    console.log(`You stand up and carry on down the tunnel. Suddenly you see daylight at the end of the tunnel. You run forward towards the most beautiful sight you have seen for a long time, a clear blue sky and green trees. You walk as fast as you can towards the end of the tunnel and emerge expecting to see the welcoming sight of cheering people. But there is no hero's welcome from the people all around you. They are all dead. You are standing in a cold chamber littered with armoured skeletons and bodies. The exit to victory was just an illusion. Only the corpses of the past adventurers are real. Utterly dejected, you walk back towards the tunnel, but hit an invisible barrier. You are trapped in this ghoulish place and destined to end your days in the chamber of the dead.\n`)
+    readlineSync.keyInPause()
+    return -1
+  },
   room326: () => {
     console.log('\x1Bc')
     console.log('Ahead you see that the tunnel turns sharply to the left. You turn the corner and almost bump straight into two fierce-looking ORCS, armed with morning stars and wearing leather armour. You are totally unprepared, and as you draw your sword, one of them swings its morning star at you.\n')
@@ -3758,10 +3907,65 @@ const rooms = {
       return 380
     }
   },
-  room327: () => { },
-  room328: () => { },
-  room329: () => { },
-  room330: () => { },
+  room327: (player) => {
+    // * * * * * ADVANCED COMBAT ROOM * * * * *
+    console.log('\x1Bc')
+    console.log('The MIRROR DEMON, being solely intent on grabbing your arm, makes no attempt to defend itself.\n')
+    readlineSync.keyInPause()
+    const tempStamina = player.stamina
+    player.stamina = 2 // player stamina reduced to 2 to simulate 1 hit KO from mirro demon
+    const monster = new MirrorDemon(10, 10)
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return 8
+      case 1:
+        player.stamina = tempStamina // give player their stamina back (never lost an attack round)
+        return 92
+    }
+  },
+  room328: () => {
+    console.log('\x1Bc')
+    console.log(`You gaze round Ivy's room. Seeing a painting of another troll hanging on the wall, you ask her if he is any relation. Suddenly her mood and expression change. She loosens her grip on you and smiles, saying, "Oh yes. That is my dear beloved brother, Sourbelly. He has done very well for himself down south in Port Blacksand. He is now an Imperial Guard in Lord Azzur's elite troop. I'm very proud of him." Ivy stares at the painting and continues to praise her brother.\n`)
+    const options = ['Slip out of the chamber through the door in the east wall', 'Continue the conversation']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
+    switch (index) {
+      case 0:
+        return 125
+      case 1:
+        return 99
+    }
+  },
+  room329: () => {
+    console.log('\x1Bc')
+    console.log('You steo up to the mirror and are amused by your distorted reflection. Your head looks as large as a pumpkin and your face is exceedingly strange. Suddenly, without warning, a terrible pain pounds through your head and you try to look away from the mirror, but you are unable to. Some evil force is keeping your eyes glued to your own reflection. You grip your head with your hands and realise with horror that it is expanding. You can withstand it no longer and, blacking out with the pain, you fall unconscious to the floor, never to wake.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
+  room330: (player) => {
+    console.log('\x1Bc')
+    if (!player.abilities.ninjaRationsAte) {
+      player.abilities.ninjaRationsAte = true
+      console.log(`The NINJA's rations are basic but welcome.\n`)
+      statChange(player, 'stamina', 1)
+      readlineSync.keyInPause()
+    }
+    console.log('\x1Bc')
+    if (player.abilities.ninjaOintmentRubbed) {
+      console.log(`You leave the hall, taking the ${chalk.white('diamond')} with you.`)
+      readlineSync.keyInPause()
+      return 127
+    } else {
+      const options = ['Rub some of the ointment into your wounds', `Leave the hall, taking just the ${chalk.white('diamond')}`]
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
+      switch (index) {
+        case 0:
+          return 269
+        case 1:
+          return 127
+      }
+    }
+  },
   room331: (player) => {
     console.log('\x1Bc')
     console.log('Touching the parchment has precisely the effect you had feared. The SKELETON lurches forward and, rising from its chair in a series of jerky movements, raises its sword to strike you. Lunging sideways, you draw your sword to defend yourself.\n')
@@ -3775,10 +3979,38 @@ const rooms = {
         return 71
     }
   },
-  room332: () => { },
-  room333: () => { },
-  room334: () => { },
-  room335: () => { },
+  room332: (player) => {
+    console.log('\x1Bc')
+    console.log(`Your gem drops into the pool with a dull 'plop'. As you wait for something to happen, you start to fell faint. The gas rising from the pool is toxic, and you slump to the floor unconscious.\n`)
+    const luck = testYourLuck(player)
+    if (luck === 'lucky') {
+      return 53
+    } else {
+      return 272
+    }
+  },
+  room333: () => {
+    console.log('\x1Bc')
+    console.log('You hear footsteps and suddenly the trapdoor is thrown back. For a few seconds you are completely blinded by the bright light from the room above and do not see the GOBLIN thrusting his spear downwards, or hear his sadistic laughter as the point pierces your neck. Your adventure ends here on the stone steps of the tunnel.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
+  room334: () => {
+    console.log('\x1Bc')
+    console.log('You try to wrench the tongue from your leg with your bare hands, but fail. Slowly you are dragged into the pool of slime, where you will be predigested and later conused by the hideous BLOODBEAST.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
+  room335: (player) => {
+    console.log('\x1Bc')
+    console.log('Still running as fast as you can, you dive into the river.\n')
+    const luck = testYourLuck(player)
+    if (luck === 'lucky') {
+      return 67
+    } else {
+      return 101
+    }
+  },
   room336: (player) => {
     console.log('\x1Bc')
     console.log('The wristband was made and cursed by a HAG. It slows down your reactions and dulls your senses.\n')
@@ -3826,11 +4058,85 @@ const rooms = {
         return 282
     }
   },
-  room339: () => { },
-  room340: () => { },
-  room341: () => { },
-  room342: () => { },
-  room343: () => { },
+  room339: (player) => {
+    console.log('x1Bc')
+    console.log('As you touch the door handle, it goes soft in your hand, and when you try to pull your hand away, you find it is glued to the handle. A giant fist then forms in the centre of the door panel and shoots forward, punching you in the stomach.\n')
+    const alive = statChange(player, 'stamina', -1)
+    readlineSync.keyInPause()
+    if (!alive) {
+      return -1
+    } else {
+      if (player.inv.acid) {
+        return 303
+      } else {
+        return 236
+      }
+    }
+  },
+  room340: () => {
+    console.log('\x1Bc')
+    console.log('Your fear gives you a new surge of energy and somehow your tired legs manage to keep you in front of the boulder. Ahead on your right you see the welcome sight of a doorway. You lunge at the door and mercifully it flies open. The bounder thunders past and you are left lying exhausted on the floor of a large room.\n')
+    readlineSync.keyInPause()
+    return 381
+  },
+  room341: (player) => {
+    console.log('\x1Bc')
+    console.log('A crippled man with shackled feet shuffles into sight carrying a wooden tray laden with bread and water. He looks tired and miersable and, quite unmoved by the sight of you, tries to walk past.\n')
+    if (player.provisions) {
+      const options = ['Talk to him', 'Take the bread and water off his tray', 'Offer him some of your provisions']
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
+      switch (index) {
+        case 0:
+          return 367
+        case 1:
+          return 38
+        case 2:
+          return 169
+      }
+    } else {
+      const options = ['Talk to him', 'Take the bread and water off his tray']
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
+      switch (index) {
+        case 0:
+          return 367
+        case 1:
+          return 38
+      }
+    }
+  },
+  room342: (player) => {
+    console.log('\x1Bc')
+    console.log('Your reactions are slow because of the poison in your system, and although you try to jump over the outstretched tongue, your legs will not lift you high enough. The sticky tongue wraps itself around your leg and starts pulling you towards the pool. You are dragged to the ground and are unable to unsheathe your sword.\n')
+    readlineSync.keyInPause()
+    if (player.inv.opalDagger) {
+      return 294
+    } else {
+      return 334
+    }
+  },
+  room343: (player) => {
+    console.log('\x1Bc')
+    console.log('In their twittering voices, the TROGLODYTES explain the rules of Run of the Arrow. They will shoot an arrow into the distance, and you will be allowed to walk unharmed to the point where it lands. However, you must walk barefoot, and you can see that the floor of the cavern is littered with sharp stones. As soon as you reach the arrow, the TROGLODYTES will start to chase you, and if they catch you, they will kill you.\n')
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log('Suddenly one of the TROGLODYTES releases an arrow high into the air. It lands a long way away, and immediately the TROGLODYTES urge you to walk towards it. As you walk slowly towards the arrow, you hear the TROGLODYTES screaming excitedly behind you. On reaching the arrow, you look round to see the TROGLODYTES wave their arms in the air and set off after you. You start running as fast as you can, your feet bleeding from the cuts inflicted by the sharp stones and rocks.\n')
+    const alive = statChange(player, 'stamina', -1)
+    readlineSync.keyInPause()
+    if (!alive) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log('Ahead you see an underground river running east to west across the cavern floor, with a wooden bridge crossing it.\n')
+      const options = ['Run over the bridge', 'Dive into the river']
+      const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
+      switch (index) {
+        case 0:
+          return 318
+        case 1:
+          return 47
+      }
+    }
+  },
   room344: () => {
     console.log('\x1Bc')
     console.log('The tunnel twists and turns but keeps steadily north. Ahead you see a thing shaft of blue light streaming down from the ceiling to the floor. It sparkles and shimmers, and you can see images of laughing faces in the light.\n')
