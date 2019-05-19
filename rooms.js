@@ -490,7 +490,7 @@ const rooms = {
   },
   room40: (player) => {
     console.log('\x1Bc')
-    console.log('You call out to the DWARF that you are ready to fight the MINOTAUR. THe wooden door rises slowly and you see the fearsome beast, half man, half bull, step into the arena. Steam blows from its nostrils as it works itself up into a rage, ready to attack. Suddenly it rushes forward, swinging its double-headed axe.\n')
+    console.log('You call out to the DWARF that you are ready to fight the MINOTAUR. The wooden door rises slowly and you see the fearsome beast, half man, half bull, step into the arena. Steam blows from its nostrils as it works itself up into a rage, ready to attack. Suddenly it rushes forward, swinging its double-headed axe.\n')
     readlineSync.keyInPause()
     const monster = new Minotaur(9, 9)
     const outcome = battle(player, monster)
@@ -1021,6 +1021,8 @@ const rooms = {
   room82: () => {
     console.log('\x1Bc')
     console.log('As the PIT FIEND slams its body against the wall, you let go of the rope and drop safely to the floor. You run towards the double doors and are relieved to feel them swing open as you push on them. You let them swing shut behind you and head north along the tunnel.\n')
+    readlineSync.keyInPause()
+    return 214
   },
   room83: () => {
     console.log('\x1Bc')
@@ -1142,7 +1144,7 @@ const rooms = {
   room94: (player) => {
     console.log('\x1Bc')
     console.log('Taking a deep breath, you lean over the pit and plunge your forearm into the mass of wriggling worms. They are cold and clammy and feel extremely nasty, but at least they are harmless and you are able to seize the dagger by the hilt. You give it a hard tug and it comes away from the crack in which the tip was embedded. Admiring its beauty, and wondering whether it might once have belonged to some luckless contestant, you put the opal-studded dagger firmly in your belt and leave the cavern.\n')
-    player.inv.opalDagger++
+    player.inv.dagger++
     readlineSync.keyInPause()
     return 174
   },
@@ -1834,7 +1836,7 @@ const rooms = {
           case 0:
             return -1
           case 1:
-            return 9
+            return 175
         }
     }
   },
@@ -1968,7 +1970,7 @@ const rooms = {
   room159: (player) => {
     console.log('\x1Bc')
     console.log('Your reactions are still slow because of the poison in your system, and although you try to jump over the outstretched tongue, your legs let you down. The sticky tongue wraps itself around your leg, flipping you over, and starts to pull you towards the pool. Your sword has slipped out of your hand and you start to panic.\n')
-    if (player.inv.opalDagger) {
+    if (player.inv.dagger) {
       return 294
     } else {
       return 334
@@ -2173,7 +2175,7 @@ const rooms = {
   },
   room175: (player) => {
     console.log('\x1Bc')
-    console.log(`Attached to the collar of one of the GUARD DOGS is a metal capsulre. You prise off the top and find a small tooth inside. It is a Leprechaun's tooth which will bring you good fortune.\n`)
+    console.log(`Attached to the collar of one of the GUARD DOGS is a metal capsule. You prise off the top and find a small tooth inside. It is a Leprechaun's tooth which will bring you good fortune.\n`)
     statChange(player, 'luck', 2)
     player.inv.leprechaunTooth++
     console.log('You put the tooth in your pocket and set off east along the tunnel.\n')
@@ -3410,7 +3412,24 @@ const rooms = {
   },
   room281: (player) => {
     console.log('\x1Bc')
-    console.log('changeme')
+    console.log('With one swipe of your trusty blade you behead the BOA CONSTRICTOR. You uncoil its massive body around the Elf and try to resuscitate her. Her eyes open a little, but you can see that there is no hope. She looks at you and smiles, then says in a whisper,\n')
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log(`"Thank you. I know it's too late for me, but I will tell you what I have learned. Your way out lies ahead, but you need gems to unlock the final door. One of them is a ${chalk.white('diamond')}, but I do not know what the others are. Alas, I have not found a ${chalk.white('diamond')} but would urge you to look for one. Good luck."\n`)
+    readlineSync.keyInPause()
+    console.log('\x1Bc')
+    console.log('Her eyes close and she slumps down on to the cold floor. You watch sadly as she breathes her last. Knowing she would not mind, you take two of her daggers and search her leather backpack. Inside you find some unleavened bread, a mirror and a bone charm in the shape of a monkey.\n')
+    player.inv.boneCharm++
+    player.inv.mirror++
+    player.dagger += 2
+    const options = ['Eat the bread', 'Just take the mirror and charm and return to the tunnel to head north']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
+    switch (index) {
+      case 0:
+        return 399
+      case 1:
+        return 192
+    }
   },
   room282: () => {
     console.log('\x1Bc')
@@ -4109,7 +4128,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Your reactions are slow because of the poison in your system, and although you try to jump over the outstretched tongue, your legs will not lift you high enough. The sticky tongue wraps itself around your leg and starts pulling you towards the pool. You are dragged to the ground and are unable to unsheathe your sword.\n')
     readlineSync.keyInPause()
-    if (player.inv.opalDagger) {
+    if (player.inv.dagger) {
       return 294
     } else {
       return 334
@@ -4339,6 +4358,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The PIT FIEND'S jaws snap at the monkey charm and pluck it out of the air. Suddenly its jaws springs open again, forced apart by the charm, which has expanded to fill its mouth. While the PIT FIEND thrashes around in the pit, trying to get rid of the charm, you lower yourself down into the pit to reach the double doors. In its mad rage, the PIT FIEND tries to crush you against the side of the wall with its massive body.\n`)
     player.inv.boneCharm--
+    readlineSync.keyInPause()
     const luck = testYourLuck(player)
     if (luck === 'lucky') {
       return 82
@@ -4578,7 +4598,10 @@ const rooms = {
     const options = ['Take the parchment from the skeleton', 'Walk over to the alcove']
     const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
-
+      case 0:
+        return 331
+      case 1:
+        return 128
     }
   },
   room382: () => {
@@ -4836,8 +4859,6 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The bread contains secret elven healing herbs.\n')
     statChange(player, 'stamina', 3)
-    player.inv.mirror++
-    player.inv.boneCharm++
     console.log('Feeling sad yet strong, you pack away the mirror and the charm and leave the cavern to head NORTH.\n')
     readlineSync.keyInPause()
     return 192

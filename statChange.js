@@ -1,4 +1,3 @@
-const readlineSync = require('readline-sync')
 const chalk = require('chalk')
 
 module.exports = function (player, stat, change) {
@@ -22,8 +21,10 @@ module.exports = function (player, stat, change) {
         } else {
           return 1
         }
-      } else if (player.stamina < player.initialStamina) {
+      } else if (player.stamina + change < player.initialStamina) {
         player.stamina += change
+      } else {
+        player.stamina = player.initialStamina
       }
       console.log(chalk.green(`Your STAMINA is now ${player.stamina}\n`))
       return 1
