@@ -2041,7 +2041,7 @@ const rooms = {
   room166: (player) => {
     console.log('\x1Bc')
     console.log(`As you touch the ${chalk.green('emerald')} of the idol, you hear a creaking sound below you. Looking down, you are shocked to see the two stuffed birds taking flight. Their wings flap in jerky movements, but they are soon above you and look set to attack. Fight the FLYING GUARDIANS one at a time, however your your skill is reduced during combat because of your restricted position.\n`)
-    statChange(player, 'skill' - 3)
+    statChange(player, 'skill', -3)
     readlineSync.keyInPause()
     const monster1 = new FlyingGuardian(7, 8)
     monster1.type = 'First FLYING GUARDIAN'
