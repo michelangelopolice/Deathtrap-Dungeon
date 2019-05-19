@@ -10,7 +10,7 @@ console.log('\x1Bc')
 console.log('Game starting...')
 readlineSync.keyInPause()
 gameInProgress = true
-let nextRoom = 0     // default is 0
+let nextRoom = 0 // default is 0
 
 // While Player is alive
 while (gameInProgress) {

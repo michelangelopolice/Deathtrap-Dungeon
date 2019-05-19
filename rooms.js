@@ -4,7 +4,7 @@ const rollDie = require('./rollDie')
 const statChange = require('./statChange')
 const testYourLuck = require('./testYourLuck')
 const battle = require('./battle')
-const { Orc, Manticore, Giantfly, Minotaur, Caveman, Hobgoblin, CaveTroll, Scorpion, FlyingGuardian, Ivy, Dwarf, GuardDog, Imitator, Skeleton, RockGrub, PitFiend, Bloodbeast, Throm } = require('./monsters')
+const { Orc, Goblin, Manticore, Giantfly, Minotaur, Caveman, Hobgoblin, CaveTroll, Scorpion, FlyingGuardian, Ivy, Dwarf, GuardDog, Imitator, Skeleton, RockGrub, PitFiend, Bloodbeast, Throm } = require('./monsters')
 
 const rooms = {
   winner: () => {
@@ -506,7 +506,7 @@ const rooms = {
     console.log('You walk slowly over to the alcove, carefully checking the floor for any more hidden traps. You see that the goblet contains a sparkling liquid.\n')
     if (player.abilities.barbarianSearched) {
       const options = ['Drink the red liquid', 'Leave the chamber to continue west']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 98
@@ -643,7 +643,7 @@ const rooms = {
       return 369
     } else {
       const options = ['Open the black book', 'Continue north with Throm']
-      const index = readlineSync.keyInSelect(options, "What do you want to do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What do you want to do?', { cancel: false })
       switch (index) {
         case 0:
           return 138
@@ -655,7 +655,7 @@ const rooms = {
   room53: () => {
     console.log('\x1Bc')
     console.log('The BLOODBEAST is too bulbous to climb out of its pool, but its long tongue whips out and tries to wrap itself around your leg. Fortunately, you have fallen beyond its reach. The air at ground level does not contain any of the poisonous fumes, but you wake with a pain in your throat. You cover your mouth with your sleeve so that you can breathe through it, and decide what to do.\n')
-    options = ['Run round the pool towards the tunnel', 'Attack the BLOODBEAST with your sword']
+    const options = ['Run round the pool towards the tunnel', 'Attack the BLOODBEAST with your sword']
     const index = readlineSync.keyInSelect(options, 'What do you with to do?', { cancel: false })
     switch (index) {
       case 0:
@@ -687,11 +687,11 @@ const rooms = {
     console.log(`"If you rearrange the letters of the words, you will find the names of two creatures. You may choose which one to fight in my Arena of Death"\n`)
     readlineSync.keyInPause()
     console.log('\x1Bc')
-    console.log(`If you can identify the creature by rearranging the letters NO CROP IS or RUIN MOAT you may proceed.\n`);
+    console.log(`If you can identify the creature by rearranging the letters NO CROP IS or RUIN MOAT you may proceed.\n`)
     const choice = readlineSync.question('What do you call out to the DWARF? ').toUpperCase()
-    if (choice == "SCORPION") {
+    if (choice === 'SCORPION') {
       return 143
-    } else if (choice == "MINOTAUR") {
+    } else if (choice === 'MINOTAUR') {
       return 40
     } else {
       return 347
@@ -709,7 +709,7 @@ const rooms = {
         return 215
     }
   },
-  room57: () => {
+  room57: (player) => {
     console.log('\x1Bc')
     console.log('Although you check the chest carefully for any hidden devices, you are unable to see the trap inside it. As you lift the lid, an iron ball hanging on a cord swings back, shattering the glass capsule fixed inside the lid. A cloud of poisonous gas is instantly released into the air and you stagger back coughing and spluttering.\n')
     const alive = statChange(player, 'stamina' - 4)
@@ -720,7 +720,7 @@ const rooms = {
       return 198
     }
   },
-  room58: () => {
+  room58: (player) => {
     console.log('\x1Bc')
     console.log('You step slowly between the poles, taking care not to touch any of them.\n')
     readlineSync.keyInPause()
@@ -730,12 +730,11 @@ const rooms = {
     } else {
       return 246
     }
-
   },
   room59: () => {
     console.log('\x1Bc')
     console.log('Ahead in the far distance you hear the sound of slow footsteps coming towards you. Unsure of who or what might be approaching, you look around for a place to hide. You find a large crack in the tunnel wall which lies in shadow. \n')
-    options = ['Stand your ground with your sword drawn', 'Hide in the shadows']
+    const options = ['Stand your ground with your sword drawn', 'Hide in the shadows']
     const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
@@ -753,8 +752,8 @@ const rooms = {
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log('You look at Throm, suddenly angry that your effective partnership might come to an end. He leans over and whispers in your ear that you should try to kill the DWARF and worry about the exit later.\n')
-    options = ['Join Throm in attacking the DWARF', `Persuade Throm to go through with the DWARF's test`]
-    readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
+    const options = ['Join Throm in attacking the DWARF', `Persuade Throm to go through with the DWARF's test`]
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 179
@@ -849,7 +848,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You walk down the passage and soon find yourself standing at the edge of a deep, dark pit. The passage continues east on the other side of the pit. You think you could probably jump over the put, but you are not sure. There is a rope hanging down from the ceiling over the centre of the pit.\n')
     const options = ['Throw your shield over the put and jump after it', 'Jump over the pit carrying all your possessions', 'Reach for the rope with your sword to enable you to swing across the pit']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 271
@@ -885,7 +884,7 @@ const rooms = {
     readlineSync.keyInPause()
     return 128
   },
-  room72: () => {
+  room72: (player) => {
     console.log('\x1Bc')
     console.log(`The Mirror shatters, sending gragments of glass flying everywhere. The MIRROR DEMON's four faces cry out in agony, and cracks appear all over them. Then they too shatter and fall to the floor in a pile of broken glass. Unfortunately, you cut your sword arm badly while smashing the mirror. Although your strength is unaffected, your weaponskill is dimished.\n`)
     statChange(player, 'skill', -2)
@@ -903,7 +902,7 @@ const rooms = {
       return 83
     } else {
       const options = ['Walk back and search the Barbarian', 'Leave the chamber to continue west']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 126
@@ -917,7 +916,7 @@ const rooms = {
     console.log('The tunnel takes a sharp right turn and you find yourself in a sort of gallery lined with mirrors for some twenty metres. A human skeleton appears to be pulled halfway through the mirror along the right-hand wall. Suddenly a grotesque being with four arms and four screaming faces emerges from the mirror, barring your way ahead. It walks slowly towards you, each arm outstretched to grab you. It is a MIRROR DEMON from another dimensional plane, come to take your spirit.\n')
     if (player.inv.ringOfWishes) {
       const options = ['Make a wish using the Ring of Wishes', 'Try to smash the mirrors', 'Attack the MIRROR DEMON with your sword']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 265
@@ -928,7 +927,7 @@ const rooms = {
       }
     } else {
       const options = ['Try to smash the mirrors', 'Attack the MIRROR DEMON with your sword']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 300
@@ -949,7 +948,7 @@ const rooms = {
       return 369
     } else {
       const options = ['Open the red book', 'Continue north with Throm']
-      const index = readlineSync.keyInSelect(options, "What do you want to do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What do you want to do?', { cancel: false })
       switch (index) {
         case 0:
           return 52
@@ -962,7 +961,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You step round the great bulk of the dead ROCK GRUB and peer into the darkness of its borehole. You can only see a few metres, but are able to make out that it inclines slightly and is wet from the secreted slime of the ROCK GRUB.\n')
     const options = ['Explore the borehole', 'Walk west along the tunnel']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 317
@@ -980,7 +979,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('There is an open pipe in the right-hand wall, about a metre in diameter. It is too dark to see far down it. You shout into it and hear your voice echoing down the iron pipe until eventually the sound fades away.\n')
     const options = ['Crawl down the pipe', 'Continue north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 301
@@ -1009,7 +1008,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The only furniture in the GOBLIN's room is a table, two chairs and a cupboard on the wall. There are two closed doors, one in the west wall and the other in the north wall.\n`)
     const options = ['Open the cupboard', 'Open the west door', 'Open the north door']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 307
@@ -1065,7 +1064,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('As soon as they see you, the TROGLODYTES raise their bows and run to surround you. To your horror, their leader then steps forward and declares that you are their prisoner and must subject yourself to trial by their ancient rite, the Run of the Arrow.\n')
     const options = ['Take part in the Run of the Arrow', 'Fight your way out']
-    const index = readlineSync.keyInSelect(options, "What are you willing to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What are you willing to do?', { cancel: false })
     switch (index) {
       case 0:
         return 343
@@ -1131,7 +1130,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The door opens into a small dark room, which is empty apart from a sturdy wooden chest lying on a shelf on the far wall. The floor is thick with dust, and you can clearly see fresh footprints leading from the door to the chest and back again. You wonder whether one of your rivals is still ahead of you on 'The Walk', or whether the chest has only recently been placed on the shelf by one of the Trialmasters.\n`)
     const options = ['Enter the room and open the chest', 'Keep walking down the tunnel']
-    const index = readlineSync.keyInSelect(options, "What would you rather do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What would you rather do?', { cancel: false })
     switch (index) {
       case 0:
         return 284
@@ -1184,7 +1183,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Smiling, you tell IVY that you think she and Sourbelly look very alike. Then, while she stares admiringly at the painting, you pick up a broken stool, creep up behind her and smash her over the back of the head with it as hard as you can. To your imense relief, she slumps unconscious to the floor.\n')
     const options = ['Search her room', 'Leave by the door in the east wall']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 266
@@ -1199,7 +1198,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Only a few metres further down the passage, you see another closed door in the left-hand wall. The letter X is scratched into its centre panel. Putting your ear to the door, you listen intently but can hear nothing.\n')
     const options = ['Open the door', 'Keep walking north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 87
@@ -1217,7 +1216,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You enter a room which is small and completely empty. As soon as you are inside, the door slams shut behind you. Suddenly a voice booms out of nowhere, shouting, "Welcome to Deathtrap Dungeon, the ingenious killer labyrinth of my master. Adventurer, I trust you will pay your respects to my master by shouting out his name?"\n')
     const options = ['Hail, Sukumvit?', 'Sukumvit is a worm?']
-    const index = readlineSync.keyInSelect(options, "What will you shout?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you shout?', { cancel: false })
     switch (index) {
       case 0:
         return 133
@@ -1258,7 +1257,7 @@ const rooms = {
       return 83
     } else {
       const options = ['Walk back and search the Barbarian', 'Leave the chamber to continue west']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 126
@@ -1278,7 +1277,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You come to an arched doorway set in the right-hand wall of the tunnel. The heavy stone door is closed, but there is an iron latch and a round handle.\n')
     const options = ['Try the door', 'Continue along the tunnel']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 168
@@ -1290,7 +1289,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`There is a large panel of glass in the left-hand wall of the tunnel. Through it you can see a bright, torch-lit room teeming with GIANT INSECTS of every possible description. Bees, wasps, beetles, ticks - even the mites are over six centimetres long. The noise is threatening. In the middle of the room, a jewelled crown lies on top of a small table. What looks like a large ${chalk.white('diamond')} is set in the middle of the crown.\n`)
     const options = ['Break the glass and try to snatch the crown', 'Continue west', 'Return to the junction to head north']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 394
@@ -1304,7 +1303,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You arrive at another junction in the tunnel.\n')
     const options = ['Keep heading west', 'Go north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 43
@@ -1316,7 +1315,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The tunnel soon takes another sharp right turn. Following it east, you arrive at a strange obstruction: a line of twelve wooden poles across the tunnel. They are fixed to the walls about half a metre off the floor and spaced a metre apart.\n')
     const options = ['Step between the poles', 'Walk across the top of the poles']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 58
@@ -1344,7 +1343,7 @@ const rooms = {
     console.log(`The wooden ball whistles past the skull, hitting the far wall with a loud 'crack'.\n`)
     if (player.skullThrows < 2) {
       const options = ['Try again', 'Close the door and continue west']
-      const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
       switch (index) {
         case 0:
           return 371
@@ -1372,7 +1371,7 @@ const rooms = {
   room115: (player) => {
     console.log('\x1Bc')
     console.log(`Your body continues to vibrate intensely and you feel as if you are about to pass out. But your strength is great, and you manage to withstand the tremendous shock to your system. Finally you calm down and begin to feel the ring's beneficial powers working on you.\n`)
-    statChange(player, "stamina", 3)
+    statChange(player, 'stamina', 3)
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log('You see Throm looking at you anxiously, so you reassure him that you are fully recovered. He strides off east and you follow him eagerly.\n')
@@ -1389,7 +1388,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('After a long walk down the tunnel, you come to a dead end. A large mirror reaching from the ceiling to the floor hangs on the end wall, and in the dim light you can just about make out your own reflection.\n')
     const options = ['Take a closer look in the mirror', 'Make the long walk back to the last junction in the tunnel in order to head east']
-    const index = readlineSync.keyInSelect(options, "What would you rather do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What would you rather do?', { cancel: false })
     switch (index) {
       case 0:
         return 329
@@ -1431,7 +1430,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The DWARF looks at the dice. "Not very good at playing the odds, are you?" he sneers. "I regret you must suffer a penalty before you can continue." From out of his pocket he produces two pills. One is stamped with the letter S and the other stamped with the letter L. He asks you to choose one and swallow it.\n`)
     const options = ['The pill stamped with the letter S', 'The pill stamped with the letter L']
-    const index = readlineSync.keyInSelect(options, "Which pill do you wish to swallow?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'Which pill do you wish to swallow?', { cancel: false })
     switch (index) {
       case 0:
         return 26
@@ -1443,7 +1442,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('In front of you are two flights of stone steps separated by a banister of rat skulls.\n')
     const options = ['The left-hand flight of steps', 'The right-hand flight of steps']
-    const index = readlineSync.keyInSelect(options, "Which flight of steps will you climb?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'Which flight of steps will you climb?', { cancel: false })
     switch (index) {
       case 0:
         return 176
@@ -1455,12 +1454,12 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The necklace is an amulet of strength.\n')
     player.inv.amuletOfStrength++
-    statChange(player, "skill", 1)
-    statChange(player, "stamina", 1)
+    statChange(player, 'skill', 1)
+    statChange(player, 'stamina', 1)
     readlineSync.keyInPause()
     return 282
   },
-  room124: () => {
+  room124: (player) => {
     //  * * * * * * * * ADVANCED COMBAT ROOM  * * * * * * * *
     console.log('\x1Bc')
     console.log('You throw the trapdoor open and run up the steps into a bright, lantern-lit room. Two GOBLINS are sharpening their short swords on a stone set in the middle of the floor. You catch them momentarily off guard, but they quickly recover and both rush forward to attack you.\n')
@@ -1499,7 +1498,7 @@ const rooms = {
     console.log(`The pouch on the Barbarian's belt is empty apart from some strange-looking dried meat wrapped in a cloth.\n`)
     if (player.abilities.alcoveSearched) {
       const options = ['Eat the dried meat', 'Leave the chamber and head west']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 226
@@ -1508,7 +1507,7 @@ const rooms = {
       }
     } else {
       const options = ['Eat the dried meat', 'Leave the meat and walk over to the alcove', 'Leave the chamber and head west']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 226
@@ -1529,7 +1528,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('At the back of the alcove are some steps leading down into a cellar. Cobwebs brush your face as you descend. The Cellar ceiling is quite low, and the floor is strewn with rubbish and debris. in the middle of the wall opposite you is an archway which leads into another crystal-lit tunnel. There are large mushrooms growing on the rubbish to your right.\n')
     const options = ['Step through the archway', 'Eat some of the mushrooms']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 35
@@ -1542,7 +1541,7 @@ const rooms = {
     console.log('You tie the rope to the grappling iron and hurl it over the top of the wall. Its hooks dig into the stone and you begin to haul yourself up. Peering over the top of the wall, you see an enormous dinosaur-like monster thrashing about in a sand-covered pit. Its tough hide is a mottled green colour, and it stands some ten metres tall on its muscular hind legs. Rows of razor-sharp teeth line its gigantic jaws, which open and close with bone-snapping power. There is a large double door in the wall on the far side of the pit, which appears to be the only way out of this section of the dungeon.\n')
     if (player.inv.boneCharm) {
       const options = ['Lower yourself down on the rope into the put to fight the PIT FIEND', 'Throw your bone monkey charm into the pit', 'Try to hook the PIT FIEND with the grappling iron while sitting on top of the wall']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 349
@@ -1553,7 +1552,7 @@ const rooms = {
       }
     } else {
       const options = ['Lower yourself down on the rope into the put to fight the PIT FIEND', 'Try to hook the PIT FIEND with the grappling iron while sitting on top of the wall']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 349
@@ -1661,7 +1660,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The door opens into another tunnel, which rises gently into the distance. After walking uphill for a while, the tunnel levels out and you soon arrive at a door in the right-hand wall, to which a withered hand is nailed.\n')
     const options = ['Open the door', 'Continue north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 210
@@ -1687,7 +1686,7 @@ const rooms = {
     let options = ['Drink the liquid', 'Rub the liquid into your wounds', 'Leave the bottle and book to continue north with Throm']
     if (!player.abilities.redBookRead) {
       options.splice(2, 0, 'Open the red book')
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 397
@@ -1699,7 +1698,7 @@ const rooms = {
           return 369
       }
     } else {
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 397
@@ -1734,7 +1733,7 @@ const rooms = {
     readlineSync.keyInPause()
     return -1
   },
-  room141: () => {
+  room141: (player) => {
     console.log('\x1Bc')
     console.log('The MIRROR DEMON is almost on top of you when, summoning all your strength, you strike one final blow against the mirror with your sword.\n')
     const skillTest = rollDie(2)
@@ -1820,7 +1819,7 @@ const rooms = {
         return -1
       case 1:
         const options = ['Escape', 'Fight the Second GUARD DOG']
-        const index = readlineSync.keyInSelect(options, "What do you want to do?", { cancel: false })
+        const index = readlineSync.keyInSelect(options, 'What do you want to do?', { cancel: false })
         switch (index) {
           case 0:
             console.log('\x1Bc')
@@ -1852,7 +1851,7 @@ const rooms = {
   room150: (player) => {
     console.log('\x1Bc')
     console.log('Having had the sense not to put your sword arm into the hole, the effects of the tentacled arm are not too serious.\n')
-    statChange(player, "skill", -1)
+    statChange(player, 'skill', -1)
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log('You reach back into the hole and pull out the grappling iron and the leather pouch. Inside the pouch you find a tiny brass bell. You pack away your new possessions and continue north.\n')
@@ -1865,7 +1864,7 @@ const rooms = {
   room151: (player) => {
     console.log('\x1Bc')
     console.log(`As you touch the idol's ${chalk.green('emerald')} eye you hear a creaking sound below you. Looking down, you are shocked to see the two stuffed birds flying off. Their wings flap in jerky movements, but they are soon above you and look set to attack. Fight the FLYING GUARDIANS one at a time, however your your skill is reduced during combat because of your restricted position.\n`)
-    statChange(player, "skill", -2)
+    statChange(player, 'skill', -2)
     readlineSync.keyInPause()
     const monster1 = new FlyingGuardian(7, 8)
     monster1.type = 'First FLYING GUARDIAN'
@@ -1903,7 +1902,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The door opens into a small room in which there is a human skull with jewelled eyes resting on top of a marble plinth. A row of loaded crossbows is fixed to the left-hand wall, and two small wooden balls lie on the floor just inside the door.\n')
     const options = ['Walk into the room and pick up the skull', 'Throw a wooden ball at the skull from the doorway', 'Close the door and continue west, taking the wooden balls with you']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 390
@@ -1924,7 +1923,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The words of the spirit girl's poem flash through your mind: "When corridor doth water meet, do not make a quick retreat..." Of course, it is here that she wants you to dive into the water. Now you must decide what to do.\n`)
     const options = ['Dive into the water', 'Walk back down the tunnel']
-    const index = readlineSync.keyInSelect(options, "What do you decide?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you decide?', { cancel: false })
     switch (index) {
       case 0:
         return 378
@@ -1936,7 +1935,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The small plate slides open easily, and you find yourself peering into a room with a deep pit in the floor behind the door. On the opposite wall there are two iron hooks, on one of which hangs a coil of rope.\n')
     const options = ['Open the door, jump over the pit and take the rope', 'Continue north along the tunnel']
-    const index = readlineSync.keyInSelect(options, "What would you rather do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What would you rather do?', { cancel: false })
     switch (index) {
       case 0:
         return 208
@@ -1948,7 +1947,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The casket opens easily, and inside there is a black velvet bag containing a large pearl.\n')
     player.inv.largePearl++
-    statChange(player, "luck", 1)
+    statChange(player, 'luck', 1)
     console.log('After putting the pearl in your pocket, you press on through the cobwebs.\n')
     readlineSync.keyInPause()
     return 310
@@ -1980,17 +1979,21 @@ const rooms = {
     readlineSync.keyInPause()
     return 237
   },
-  room161: () => {
+  room161: (player) => {
     console.log('\x1Bc')
     console.log('You push past the two LEPRECHAUNS and head off north, the noise of jeering and laughter ringing in your ears. Further up the tunnel you stop to rest and check your belongings. If you had any gems, they are now gone; the LEPRECHAUN who landed on your back stole them from your backpack. You curse the thieving LEPRECHAUNS and set off north again.\n')
-    player.inv.diamond, player.inv.emerald, player.inv.ruby, player.inv.sapphire, player.inv.topaz = 0
+    player.inv.diamond = 0
+    player.inv.emerald = 0
+    player.inv.ruby = 0
+    player.inv.sapphire = 0
+    player.inv.topaz = 0
     readlineSync.keyInPause()
     return 29
   },
   room162: (player) => {
     console.log('\x1Bc')
     console.log(`Removing the box lid by the light of the tunnel, you find an iron key and a large gem. It is a ${chalk.blue('sapphire')}.\n`)
-    statChange(player, "luck", 1)
+    statChange(player, 'luck', 1)
     player.inv.ironKey++
     player.inv.sapphire++
     readlineSync.keyInPause()
@@ -2003,7 +2006,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The DWARF calls down from the balcony, congratulating you on your victory. He throws a sack down into the arena and tells you to relax and regain your strength for the final part of the test. Then he walks off, saying he will return in about ten minutes. You open the sack and find a jug of wine and a cooked chicken.\n')
     const options = [`Eat and drink the DWARF'S offerings`, `Just sit down and await his return`]
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 363
@@ -2015,7 +2018,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('As you walk along, droplets of water again start falling from the tunnel ceiling. You see wet footprints, made by the same boots that you followed earlier, heading west. The footprints lead to a closed iron door in the right-hand wall of the tunnel, but do not seem to go any further.\n')
     const options = ['Open the door', 'Keep going west']
-    const index = readlineSync.keyInSelect(options, "What would you rather do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What would you rather do?', { cancel: false })
     switch (index) {
       case 0:
         return 299
@@ -2032,10 +2035,10 @@ const rooms = {
     readlineSync.keyInPause()
     return 234
   },
-  room166: () => {
+  room166: (player) => {
     console.log('\x1Bc')
     console.log(`As you touch the ${chalk.green('emerald')} of the idol, you hear a creaking sound below you. Looking down, you are shocked to see the two stuffed birds taking flight. Their wings flap in jerky movements, but they are soon above you and look set to attack. Fight the FLYING GUARDIANS one at a time, however your your skill is reduced during combat because of your restricted position.\n`)
-    statChange(player, "skill" - 3)
+    statChange(player, 'skill' - 3)
     readlineSync.keyInPause()
     const monster1 = new FlyingGuardian(7, 8)
     monster1.type = 'First FLYING GUARDIAN'
@@ -2074,7 +2077,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Lifting the latch and pushing the heavy stone door open, you find yourself in a large cavern. The light is dim and murky, but as your eyes begin to adjust, you see that the walls are covered in green algae and running with moisture. The floor is strewn with straw. The atmosphere is warm, damp and fetid, and a soft humming sound fills the air. You step gingerly through the straw towards a corner of the cavern, where there appears to be a shallow pit. Peering warily into the pit, you are disgusted to see a mass of pale writhing worms, some as much as half a metre long. Utterly nauseated, you are about to turn away when you notice that their undulating bodies are swarming round a dagger, its point held fast in a crack in the pit floor. The hilt is cased in black leather studded with opals, and the blade is fashioned from a strange reddish-black burnished metal you have never seen before. You long to touch the dagger, but this would mean plunging your hand in among the writhing worms.\n')
     const options = ['Reach for the dagger', 'Back away in disgust and leave the cavern']
-    const index = readlineSync.keyInSelect(options, "What do you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you do?', { cancel: false })
     switch (index) {
       case 0:
         return 94
@@ -2094,7 +2097,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('As you approach the prostrate figure, you see that it is one of your rivals in the Trial of Champions. It is in fact the Elf, and she is fighting for her life in the bone-crushing grip of an enormous BOA CONSTRICTOR.\n')
     const options = ['Help her', 'Leave her to defend herself and walk back to the tunnel to head north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 281
@@ -2117,7 +2120,7 @@ const rooms = {
       return 326
     }
   },
-  room172: () => {
+  room172: (player) => {
     // * * * * * ADVANCED COMBAT ROOM * * * * *
     console.log('\x1Bc')
     console.log(`Remembering the description of the vile BLOODBEAST and the warning about toxic gas rising from its pool, you cover your mouth with your sleeve and step forward with your sword drawn, wary of the BLOODBEAST's tongue. As you step round the side of its pool, it rolls forward and flicks out its tongue, but you are ready for it and cleave it with one swipe of your sword. The beast howls in pain and stretches forward frantically, trying to clasp you between its blood-filled jaws. You start hacking at its hideous face in an attempt to pierce its real eyes.\n`)
@@ -2135,8 +2138,8 @@ const rooms = {
     if (!player.abilities.pixieFountainDrank) {
       console.log('\x1Bc')
       console.log('The cool water is refreshing and comes from a source which has been sprinkled with Pixie dust.\n')
-      statChange(player, "stamina", 1)
-      statChange(player, "skill", 2)
+      statChange(player, 'stamina', 1)
+      statChange(player, 'skill', 2)
       player.abilities.pixieFountainDrank = true
       readlineSync.keyInPause()
     }
@@ -2147,7 +2150,7 @@ const rooms = {
       return 368
     } else {
       const options = ['Drink from the other fountain', 'Continue north']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 337
@@ -2170,7 +2173,7 @@ const rooms = {
   room175: (player) => {
     console.log('\x1Bc')
     console.log(`Attached to the collar of one of the GUARD DOGS is a metal capsulre. You prise off the top and find a small tooth inside. It is a Leprechaun's tooth which will bring you good fortune.\n`)
-    statChange(player, "luck", 2)
+    statChange(player, 'luck', 2)
     player.inv.leprechaunTooth++
     console.log('You put the tooth in your pocket and set off east along the tunnel.\n')
     readlineSync.keyInPause()
@@ -2212,7 +2215,7 @@ const rooms = {
       console.log('\x1Bc')
       console.log(`The DWARF beckons you to follow him, telling Throm to await his return. He opens a secret door in the chamber wall and you follow him into a small circular room. He closes the door behind you and hands you two bone dice, telling you to throw them on the floor. You roll a six and a two, a total of eight. The DWARF asks you to roll again, but this time you must predict the total: will it be the same, or higher or lower than eight?\n`)
       const options = ['It will be the same', 'It will total less than eight', 'It will total more than eight']
-      const index = readlineSync.keyInSelect(options, "What do you guess?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What do you guess?', { cancel: false })
       switch (index) {
         case 0:
           return 290
@@ -2234,7 +2237,7 @@ const rooms = {
       return 272
     }
   },
-  room181: () => {
+  room181: (player) => {
     console.log('\x1Bc')
     console.log('The tunnel leads into a marble-floored hall with pillars rising right up to the ceiling. As you cross the floor, your footsteps echo through the hall. The hairs on the back of your neck start to prickle as you sense unseen eyes watching you. Unknown to you, one of your rivals is hiding behind a pillar. It is the NINJA, the deadly assassin dressed in black robes. Without a sound, he steps out from behind the pillar and throws a star-edged disc at your back. Instinctively, an inner voice tells you to duck.\n')
     readlineSync.keyInPause()
@@ -2260,7 +2263,7 @@ const rooms = {
     console.log('You climb on to your stilts and take a few tentative steps across the floor. Your confidence grows, and you soon feel able to tackle the walk across the slime. Smoke rises from the base of the stilts as the slime starts to burm them away. You plod stolidly on and finally reach firm ground again. Unfortunately, the stilts are still covered in slime and you are forced to dump them. Setting off north, you come to a junction.\n')
     player.inv.stilts--
     const options = ['Go west', 'Continue north']
-    const index = readlineSync.keyInSelect(options, "Where do you wish to go?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'Where do you wish to go?', { cancel: false })
     switch (index) {
       case 0:
         return 386
@@ -2272,7 +2275,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The Barbarian, who tells you he is called Throm, ties the rope around his waist, giving you the free end. As he lights the torch, you see a look of distrust in his eyes. Slowly, he climbs over the edge of the pit while you brace yourself and take the strain of the rope. As you lower him little by little, you see the smooth sides of the pit illiminated by Throm's torch. He finally reaches the bottom and calls up to you, saying that there is another tunnel running north. He tells you to secure the rope around a rock protruding from the edge of the pit and lower yourself to the bottom.\n`)
     const options = ['Stay with the Barbarian and head north down the lower tunnel', 'Abandon him by jumping over the pit to head west']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 323
@@ -2284,7 +2287,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The TROGLODYTES are too involved in their tribal dancing to hear the clatter of your sword, and you crawl past. When you think you are far enough away, you stand up and run across the cavern floor. Ahead you see an underground river running east to west through the cavern with a wooden bridge crossing over it. Hearing a noise, you glance back and realise you have been spotted. The TROGLODYTES are chasing you.\n')
     const options = ['Run over the bridge', 'Dive into the river']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 318
@@ -2307,7 +2310,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The tunnel bends sharply to the right, and around the corner you see a little old man with a long beard, cowering behind a large wicker basket. The basket is tied to a rope, the other end of which disappears into the ceiling. The old man sounds very worried as he says, "Do not attack me, stranger. I pose no threat to you. I am here simply to help you. If you would be so kind as to offer me some sort of remuneration, I will gladly haul you up in the basket to the upper level. And believe me, that is where you ought to be."\n`)
     const options = ['Give the man something from your backpack for his services', 'Walk past him down the tunnel']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 360
@@ -2379,7 +2382,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Walking along the tunnel, you notice an iron grille in the floor.\n')
     const options = ['Stop and lift it up', 'Keep walking']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 120
@@ -2397,7 +2400,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('On a stone ledge in the tunnel wall you see two dusty leather-bound books. Throm grunts his contempt for the written word, urging you to leave the books and hurry on.\n')
     const options = ['Open the red leather book', 'Open the black leather book', 'Continue north along the tunnel']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 52
@@ -2475,7 +2478,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The door opens into a small room with a straw-covered floor. In the centre of the room there is a large draped cage standing some two metres high. There is a cord fixed to the top of the drape which runs up through an iron ring in the ceiling and hangs down to the floor.\n')
     const options = ['Pull the drape up', 'Leave the room and head north along the tunnel']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 321
@@ -2533,7 +2536,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Running after the LEPRECHAUNS, you hear more laughter, only now its behind you. You look round and see six more LEPRECHAUNS emerging from behind a hidden door in the tunnel wall. Suddenly, yet another LEPRECHAUN drops on your back from a ledge fixed to the ceiling. Shaking him off your back, you draw your sword, whereupon the LEPRECHAUNS laugh even louder.\n')
     const options = ['Attack them', 'Try and walk past them']
-    const index = readlineSync.keyInSelect(options, "What would you rather do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What would you rather do?', { cancel: false })
     switch (index) {
       case 0:
         return 306
@@ -2545,7 +2548,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The stalactites continue to fall around you, but you haven't enough strength to do more than crawl towards the archway. Suddenly you feel an arm around your waist picking you up, and realise in your semi-conscious state that Throm is carrying you. He lays you down in the safety of the tunnel and tends your wounds. You decide to eat some of your Provisions to help regain your strength, and you also give one portion to Throm in gratitude for his rescuing you.\n`)
     player.provisions -= 2
-    statChange(player, "stamina", 4)
+    statChange(player, 'stamina', 4)
     console.log(`You now have ${player.provisions} provisions.\n`)
     readlineSync.keyInPause()
     console.log('\x1Bc')
@@ -2564,7 +2567,7 @@ const rooms = {
       console.log('\x1Bc')
       console.log('Setting off north again, you come to a junction.\n')
       const options = ['Go west', 'Continue north']
-      const index = readlineSync.keyInSelect(options, "Where do you wish to go?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'Where do you wish to go?', { cancel: false })
       switch (index) {
         case 0:
           return 386
@@ -2595,7 +2598,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You enter a room in which a man in tattered clothing is standing chained to the wall by his left arm. You see that his right hand is missing and realize that his must be the hand nailed to the door. Pleading for mercy, he cowers back from you as far as his chains will allow.\n')
     const options = ['Cut him free from his chains', 'Leave the room to head north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 27
@@ -2626,7 +2629,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The tunnel soon divides into two. You hear a buzzing sound coming from the western branch.\n')
     const options = ['Walk west to investigate who or what is making the noise', 'Continue north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 108
@@ -2638,7 +2641,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`Walking along, you see a red line painted across the tunnel floor and notice a sign on the wall which reads: 'No weapons beyond this point'.\n`)
     const options = ['Abandon any weapons before continuing north', 'Ignore the notice and carry on north']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 389
@@ -2664,7 +2667,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Recognising the snake-like head of the MEDUSA, you close your eyes to avoid her deadly stare that would turn you to stone.\n')
     const options = ['Enter her cage with your eyes closed to dispose of her with your sword', 'Retreat out of the room with your eyes closed to continue north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 308
@@ -2677,9 +2680,8 @@ const rooms = {
     console.log('The passage slowly starts to climb, leading you relentlessly northwards. You do not come across a single junction. There are no doorways or even an alcove to investigate, and you become less guarded as you plod on. After a while you become so nonchalant that you fail to notice a thin tripwire stretched low across the passage. It is only when your foot catches it and you hear a distant rumble that you realise your mistake. The rumbling sound swells to an almost deafening level, and suddenly out of the gloom of the tunnel ahead you see a massive boulder rolling towards you, gathering speed with every second.\n')
     if (player.inv.ironShield) {
       console.log('Dropping your shield, you turn to flee the oncoming boulder.\n')
-      statChange(player, "skill", -1)
+      statChange(player, 'skill', -1)
       player.inv.ironShield--
-
     } else {
       console.log('You turn to flee the oncoming boulder.\n')
     }
@@ -2690,7 +2692,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`You soon arrive at a double door in the left-hand wall. You listen at the door but hear nothing. You tru the handle, it turns and you open the left door slightly and peer through the crack. An armed warrior is lying face down on the floor of a bare room with smooth walls and a low ceiling. He is presumable dead, for he makes no movement even when you call out to him. A large jewel, perhaps a ${chalk.white('diamond')}, lies just beyond his outstretched arm.\n`)
     const options = ['Enter the room and take the jewel', 'Continue north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 65
@@ -2750,7 +2752,7 @@ const rooms = {
   room223: (player) => {
     console.log('\x1Bc')
     console.log('You step confidently on to the first pole and stride across to the next. As you land on the third pole, it immediately releases a shower of splinters, each several centimetres long.\n')
-    statChange(player, "luck", -2)
+    statChange(player, 'luck', -2)
     const splinters = rollDie(2)
     console.log(`They fly out in all directions at great speed, and you cannot avoid behind hit. ${splinters} splinters sink into your flesh.\n`)
     const alive = statChange(player, 'stamina', splinters * -1)
@@ -2804,7 +2806,7 @@ const rooms = {
       return 83
     } else {
       const options = ['Walk over to the alcove', 'Leave the chamber to continue west']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 41
@@ -2915,7 +2917,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The fist retracts and prepares to strike again. With your free hand you draw your sword and try to cut the handle of the door. Although you do not recognize it, you are being attacked by the fluid form of an IMITATOR.\n')
     readlineSync.keyInPause()
-    const monster = new Imitator(9, 2)  // nerfed health should be 8 but first Attack Round win yields victory result anyway
+    const monster = new Imitator(9, 2) // nerfed health should be 8 but first Attack Round win yields victory result anyway
     const outcome = battle(player, monster)
     switch (outcome) {
       case 0:
@@ -2928,7 +2930,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The tunnel makes a sudden left turn and continues north for as far as you can see. You soon arrive at a closed wooden door in the left-hand wall.\n')
     const options = ['Open the door', 'Keep going north']
-    const index = readlineSync.keyInSelect(options, "What do you want to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you want to do?', { cancel: false })
     switch (index) {
       case 0:
         return 12
@@ -2940,17 +2942,17 @@ const rooms = {
     console.log('x1Bc')
     console.log('As you fall, you manage to grab the rope with your hands. Slowly you haul yourself over to the far side and scramble up on to the floor. You lift the helmet off the pole and put it on your head. It has been made by a highly skilled ironsmith.\n')
     player.inv.wingedHelmet++
-    statChange(player, "skill", 1)
+    statChange(player, 'skill', 1)
     readlineSync.keyInPause()
     console.log('Not wishing to risk walking back across the tightrope, you decide to crawl along it. Safely back on firm ground, you step through the archway and head north up the tunnel.\n')
     readlineSync.keyInPause()
     return 291
   },
   room239: () => {
-    console.log("\x1Bc")
-    console.log("Not much farther down the tunnel you come to a closed door on your left. Putting your ear to the door, you listen intently but hear nothing.\n")
-    const options = ["Open the door", "Keep walking north"]
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    console.log('\x1Bc')
+    console.log('Not much farther down the tunnel you come to a closed door on your left. Putting your ear to the door, you listen intently but hear nothing.\n')
+    const options = ['Open the door', 'Keep walking north']
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 102
@@ -3026,7 +3028,7 @@ const rooms = {
   room246: (player) => {
     console.log('\x1Bc')
     console.log('Despite being as careful as possible, your leg brushes against on of the poles. It immediately releases a shower of sharp splinters, each several centimetres long.\n')
-    statChange(player, "luck", -2)
+    statChange(player, 'luck', -2)
     const splinters = rollDie(2)
     console.log(`They fly out at great speed and in all directions, and you cannot avoid behind hit. ${splinters} splinters sink into your flesh.\n`)
     const alive = statChange(player, 'stamina', splinters * -1)
@@ -3108,7 +3110,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`As you run for the door, the old man calls out behind you, "Do not run, nobody escapes me. Stop, or I shall turn you to stone this instant!"\n`)
     const options = ['Keep on running', 'Turn to attack him with your sword', 'Tell him you will answer his question']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 44
@@ -3178,7 +3180,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You are exhausted and sit down for a rest on the tail of the dead beast. Looking down at your feet, you suddenly notice an iron ring poking up through the sand.\n')
     const options = ['Pull the ring', 'Leave the pit via the double doors']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 95
@@ -3190,7 +3192,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Ignoring the pain, you run on. Ahead you see an underground river running east to west through the cavern, with a wooden bridge crossing over it. You look behind and see the TROGLODYTES in hot pursuit.\n')
     const options = ['Run over the bridge', 'Dive into the river']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 318
@@ -3202,7 +3204,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`You just manage to grab the idol's earlobe and regain your footing. You scramble over its face and sit down on the bridge of its nose. You draw your sword and consider which jewelled eye to prise out.\n`)
     const options = ['Prise out the left eye', 'Prise out the right eye']
-    const index = readlineSync.keyInSelect(options, "Which eye will you prise out?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'Which eye will you prise out?', { cancel: false })
     switch (index) {
       case 0:
         return 166
@@ -3221,7 +3223,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The door opens into another tunnel running north. Ahead you see two stone fountains, one on either side of the tunnel, carved in the shape of cherubs. Water spouts from their mouths and cascades into small bowls at their feet.\n')
     const options = ['Drink at the fountain on your left', 'Drink at the fountain on your right', 'Continue your walk north']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 337
@@ -3235,7 +3237,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The door opens into another tunnel. Walking west, you soon arrive at a door in the north wall.\n')
     const options = ['Open the door', 'Continue west']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 153
@@ -3280,7 +3282,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The tunnel ends shortly at a junction. Looking left and right, you see a narrow passage disappearing into the dim distance.\n')
     const options = ['Head west', 'Go east']
-    const index = readlineSync.keyInSelect(options, "Where do you wish to go?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'Where do you wish to go?', { cancel: false })
     switch (index) {
       case 0:
         return 352
@@ -3297,7 +3299,7 @@ const rooms = {
   room269: (player) => {
     console.log('\x1Bc')
     console.log('You empty the contents of the jar into your hand and apply them to your wounds. Their healing powers take immediate effect and you feel yourself growing stronger.\n')
-    statChange(player, "stamina", 3)
+    statChange(player, 'stamina', 3)
     readlineSync.keyInPause()
     // ** CHECK TO EAT RICE
   },
@@ -3316,12 +3318,12 @@ const rooms = {
     readlineSync.keyInPause()
     return -1
   },
-  room273: () => {
+  room273: (player) => {
     console.log('\x1Bc')
     console.log(`The wooden ball smashes into the skull, knocking it off the plinth and on to the floor. Much to your surprise, the crossbows do not release their deadly bolts. You step into the room cautiously and pick the skull up off the floor. You recognize the yellow stones as ${chalk.yellow('topaz')}, and eagerly pluck them from their sockets.You put them in your backpack, wondering whether or not a trap still awaits you in this room.\n`)
     player.inv.topaz++
     const options = ['Get down on all fours and crawl out of the room holding the skull', 'Replace the skull on the plinth before leaving the room']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 15
@@ -3389,7 +3391,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The tunnel soon ends at a junction. Standing there alone and wondering which way to go is one of your rivals. It is one of the Barbarians. You call out to him, but at first he does not answer, he merely stares at you coldly, his hands firmly gripping his axe. You walk to him and ask which way he is heading. He grunts his reply, saying that he is going west, and you may go with him if you wish.\n')
     const options = ['Head west with the Barbarian', 'Decline his offer and head east alone']
-    const index = readlineSync.keyInSelect(options, "What would you like to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What would you like to do?', { cancel: false })
     switch (index) {
       case 0:
         return 22
@@ -3515,7 +3517,7 @@ const rooms = {
   room292: () => {
     console.log('\x1Bc')
     console.log('A door comes into view in the left-hand wall of the tunnel. You listen carefully at the door but hear nothing. The door is not locked and the handle turns easily.\n')
-    options = ['Open the door', 'Keep walking along the tunnel']
+    const options = ['Open the door', 'Keep walking along the tunnel']
     const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
@@ -3540,7 +3542,7 @@ const rooms = {
     // * * * * * ADVANCED COMBAT ROOM * * * * *
     console.log('\x1Bc')
     console.log(`You pull the dagger from your belt with your free hand and hack at the BLOODBEAST'S tongue. The beast screams in pain and rolls forward as far as it can to try and clasp you between its blood-filled jaws. You must fight it from the floor with your dagger.\n`)
-    statChange(player, "skill", -2)
+    statChange(player, 'skill', -2)
     readlineSync.keyInPause()
     const monster = new Bloodbeast(12, 2) // stamina should be 10, nerfed to 2 to simulate test your luck on first Attack Round win
     const outcome = battle(player, monster)
@@ -3603,7 +3605,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The door opens into a large chamber, where you are shocked to see one of your rivals, who has obviously met a sudden gory death. it is one of the Barbarians, and he is impaled on several long iron spikes which are fixed to a frame that has sprung out of the floor. A lot of rubbish and debris litters the floor, concealing a hidden trip-wire which he must have stepped on and thus released the spiked frame. In the far wall is an alcove, in which you can see a silver goblet standing on a small wooden table.\n')
     const options = ['Walk over to search the Barbarian', 'Walk towards the alcove', 'Close the door and continue west']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 126
@@ -3629,7 +3631,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The pipe is wet and slimy, but you crawl on into the dank darkness, slithering and sliding as you go. Suddenly your hand touches something hard and square which feels as if it is made of wood. It rattles as you shake it, and you decide you must be holding a box.\n')
     const options = ['Crawl back out of the pipe and examine your find', 'Press on further down the pipe, taking the box with you to examine later']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 162
@@ -3637,7 +3639,7 @@ const rooms = {
         return 4
     }
   },
-  room302: () => {
+  room302: (player) => {
     console.log('\x1Bc')
     console.log(`After about twenty minutes the DWARF reappears on the balcony. He calls down to you saying, "Well, I do have an interesting problem on my hands. Prepare to fight your next opponent."\n`)
     readlineSync.keyInPause()
@@ -3691,7 +3693,7 @@ const rooms = {
       player.inv.ironSpikes += 10
     }
     const options = ['Open the west door', 'Open the north door']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 263
@@ -3791,8 +3793,8 @@ const rooms = {
     if (!player.abilities.hagFountainDrank) {
       console.log('\x1Bc')
       console.log('The cool water is refreshing, but comes from a source which has been cursed by a HAG. It slows down your reactions and dulls your senses.\n')
-      statChange(player, "stamina", 1)
-      statChange(player, "luck", -2)
+      statChange(player, 'stamina', 1)
+      statChange(player, 'luck', -2)
       player.abilities.hagFountainDrank = true
       readlineSync.keyInPause()
     }
@@ -3803,7 +3805,7 @@ const rooms = {
       return 368
     } else {
       const options = ['Drink from the other fountain', 'Continue north']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 173
@@ -3816,7 +3818,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The bodies are those of two ORC guards. At least one of your rivals in the Trial of Champions must still be ahead of you. A quick search of the bodies produces nothing apart from a necklace of teeth hanging around the neck of one of the ORCS.\n')
     const options = ['Wear the necklace yourself', 'Set off north without the necklace']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 123
@@ -3833,7 +3835,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The tunnel twists and turns but keeps steadily north. Ahead you see a thing shaft of blue light streaming down from the ceiling to the floor. It sparkles and shimmers, and you can see images of laughing faces in the light.\n')
     const options = ['Walk through the light', 'Walk round the light']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 229
@@ -3912,7 +3914,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Ahead you hear the sound of rocks being ground and crushed. The noise grows louder and suddenly you realise that the wall on your right is starting to collapse. Terrified, yo uwatch as a large, hideous worm-like creature with a gaping mouth and extraordinarily powerful mandibles slithers through a hole in the wall. Its great jaws continue to crunch the rock as it turns its head slowly from side to side, feeling the cool air in the tunnel. It appears to be totally blind, but seems to know of your presence, perhaps sensing the heat of your body. It starts to slither towards you with its mandibles wide apart to attack.\n')
     const options = ['Fight the ROCK GRUB', 'Run back down the tunnel to the junction to head east']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 254
@@ -3923,7 +3925,7 @@ const rooms = {
   room353: (player) => {
     console.log('\x1Bc')
     console.log('Before you have time to get out of the way, the boulder smashes into your shoulder.\n')
-    statChange(player, "skill", -1)
+    statChange(player, 'skill', -1)
     const alive = statChange(player, 'stamina', -4)
     readlineSync.keyInPause()
     if (!alive) {
@@ -3935,7 +3937,7 @@ const rooms = {
   room354: (player) => {
     console.log('\x1Bc')
     console.log('The pill makes you feel as though the whole world is against you.\n')
-    statChange(player, "luck", -2)
+    statChange(player, 'luck', -2)
     console.log('The DWARF tells you that you can now go on to the second stage of the test. He reaches for a wicker basket which, he informs you, contains a snake. He tips up the basket and the snake drops out on to the floor. It is a cobra and it rears up in the air, ready to strike. The DWARF tells you that he wishes to test your reactions. You must grasp the cobra bare-handed below its head, avoiding its deadly fangs. You crouch down on the floor, tensing yourself for the moment at which to seize it.\n')
     readlineSync.keyInPause()
     const skillTest = rollDie(2)
@@ -3955,7 +3957,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`There is an opening on the left-hand side of the tunnel wall. You are standing at the entrance of a large cavern, from which you hear a girl's voice crying for help. You can just make out the shape of a human figure rolling about on the floor at the back of the cavern.\n`)
     const options = ['Enter the cavern and investigate', 'Continue north along the tunnel']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 170
@@ -3968,7 +3970,7 @@ const rooms = {
     console.log('The BLOODBEAST flops around awkwardly in its pool, and the smell of the poisonous fumes makes you retch as gas bubbles break the surface and contaminate the atmosphere.\n')
     if (player.inv.diamond || player.inv.emerald || player.inv.ruby || player.inv.sapphire || player.inv.topaz) {
       const options = ['Run round the side of its pool towards the tunnel', 'Throw a gem into its pool', 'Attack it with your sword']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 255
@@ -3979,7 +3981,7 @@ const rooms = {
       }
     } else {
       const options = ['Run round the side of its pool towards the tunnel', 'Attack it with your sword']
-      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
       switch (index) {
         case 0:
           return 255
@@ -4016,7 +4018,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The basket goes through the ceiling and you find yourself in a small chamber, face to face with an ugly old female TROLL. Her face is hairy and covered with warts. With a huge hand she reaches forward and hauls you out of the basket, which she then lets fall to the floor below. She grabs you round the and says in a husky voice, "I want paying too!"\n`)
     const options = ['Offer her something from your backpack', 'Try to talk your way out of giving her anything', 'Attack her with your sword']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 297
@@ -4046,7 +4048,7 @@ const rooms = {
   room363: (player) => {
     console.log('\x1Bc')
     console.log('The food and drink are excellent, and you feel much better.\n')
-    statChange(player, "stamina", 2)
+    statChange(player, 'stamina', 2)
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log(`Fully satisfied, you sit down and await the DWARF's return\n`)
@@ -4070,7 +4072,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`You tell Throm that there is no point in killing the DWARF as you will never find your way out of the chamber alone. You argue that an opportunity of tricking the DWARF might arise later, once you have found the exit from the chamber, so you intend to go through with the DWARF's test. You tell the DWARF that you are ready and he beckons you to follow him, telling Throm to wait for his return. A secret door opens in the chamber wall and you follow the DWARF into a small circular room. He closes the door behind you and hands you two bone dice, telling you to throw them on to the floor. You roll a six and a two: a total of eight. The DWARF asks you to roll them again, but this time you must predict whether the total will be the same as, or less or more than eight.\n`)
     const options = ['It will be the same', 'It will total less than eight', 'It will total more than eight']
-    const index = readlineSync.keyInSelect(options, "What do you guess?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you guess?', { cancel: false })
     switch (index) {
       case 0:
         return 290
@@ -4129,7 +4131,7 @@ const rooms = {
     console.log(`The tunnel turns sharply to the right, continuing east for as far as you can see. Throm stops and tells you to halt as well. He turns his head slowly from side to side, listening. "I hear footsteps coming down the tunnel towards us," he whispers. "Draw your sword."\n`)
     readlineSync.keyInPause()
     console.log('\x1Bc')
-    console.log("You both crouch down to hide in the shadows, and not a minute too soon, for a moment later you see the silhouette of two armed figures approaching. Throm jumps up and dashes forward, screaming a loud battle-cry. There are two CAVE TROLLS in front of you. Throm attacks the first one with his battleaxe, and you run to his aid and attack the second CAVE TROLL.\n")
+    console.log('You both crouch down to hide in the shadows, and not a minute too soon, for a moment later you see the silhouette of two armed figures approaching. Throm jumps up and dashes forward, screaming a loud battle-cry. There are two CAVE TROLLS in front of you. Throm attacks the first one with his battleaxe, and you run to his aid and attack the second CAVE TROLL.\n')
     readlineSync.keyInPause()
     const monster = new CaveTroll(10, 11)
     const outcome = battle(player, monster)
@@ -4174,7 +4176,7 @@ const rooms = {
     readlineSync.keyInPause()
     return 13
   },
-  room374: () => {
+  room374: (player) => {
     console.log('\x1Bc')
     console.log(`You walk around the cavern, but find nothing of interest. Throm calls out behind you, saying that he has found a leather pouch under a pile of rocks. Opening the pouch he laughs out loud as a tiny mouse runs through his fingers and scurries off into a crevice between two boulders. Suddenly you hear the sound of cracking rock above you, and look up to see stalactites breaking off the roof. Throm's booming laugh, which still echoes through the chamber, has made the stalactites vibrate and break off. You yell at Throm to run through the archway as the stalactites start to crash to the floor.\n`)
     readlineSync.keyInPause()
@@ -4234,7 +4236,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`Back in the chamber, he crosses over to the northern wall and pushes against one of its stones. A door-like section of the wall swings out, opening into another crystal-lit tunnel. With his crossbow still aimed at your chest, the DWARF smiles, saying, "Good luck."\n`)
     const options = ['Walk straight into the tunnel', 'Take a punch at the DWARF']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 213
@@ -4267,7 +4269,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You look round the room and see nothing of interest apart from an alcove in the west wall and a stone chair in the middle of the room. Sitting in the chair is the skeleton of an armed warrior, possibly a contestant from years gone by. The skeletal fingers of its right hand are gripped round a piece of parchment.\n')
     const options = ['Take the parchment from the skeleton', 'Walk over to the alcove']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
 
     }
@@ -4276,7 +4278,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`The old man points at one of the statues, and you recognise it immediately. It is the knight who started the Trial of Champions, the agonised look on his face locked in stone for eternity. The old man smiles, saying, "This man weighs 100 pounds plus half his weight. How much does he weigh?"\n`)
     const options = ['100 pounds', '150 pounds', '200 pounds']
-    const index = readlineSync.keyInSelect(options, "What will you answer?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you answer?', { cancel: false })
     switch (index) {
       case 0:
         return 144
@@ -4311,7 +4313,7 @@ const rooms = {
     player.inv.doppelgangerPotion--
     console.log('You pour the contents of the glass phial into your mouth and swallow the clear liquid. Although you do not feel any immediate change, you hope that the potion will create the illusion that you are a TROGLODYTE just like the ones in front of you. Taking a deep breath, you step boldly into the cavern. The TROGLODYTES continue their tribal dance, believing you to be one of them. You walk past them casually and head north. Unfortunately, the effects of the potion are short-lived. Suddenly you hear a shriek behind you as one of the TROGLODYTES spots you, and you are forced to run across the cavern floor. Ahead you see an underground river running east to west through the cavern and a wooden bridge crossing over it.\n')
     const options = ['Run over the bridge', 'Dive into the river']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 318
@@ -4350,7 +4352,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The tunnel soon comes to a dead end. A piece of paper, brown and curled with age, is pinnsed to the end wall.\n')
     const options = ['Pull it off the wall to see whether there is a message written on it', 'Hurry back down the tunnel to join the Barbarian']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 23
@@ -4362,7 +4364,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('Without your weapons you are more vulnerable, and the loss of your sword leaves you feeling almost naked.\n')
     player.abilities.unarmed = true
-    statChange(player, "skill", -4)
+    statChange(player, 'skill', -4)
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log('Wondering whether you have made the right decision, you follow the tunnel north.\n')
@@ -4372,13 +4374,13 @@ const rooms = {
   room390: (player) => {
     console.log('\x1Bc')
     console.log(`You crouch down beside the plinth below the crossbows' line of fire. You reach up and pull the skill off the plinth, expecting your action to trigger off the crossbows. Much to your surprise, nothing happens.\n`)
-    statChange(player, "luck", 1)
+    statChange(player, 'luck', 1)
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log(`Still crouching, you plug the jewelled eyes out of the skull. You recognize the yellow stones as ${chalk.yellow('topaz')}, and place them in your backpack. Looking at the row of crossbows, you wonder whether a trap still awaits you in this room.\n`)
     player.inv.topaz++
     const options = ['Crawl out of the room holding the skull', 'Replace the skull on the plinth before crawling out of the room']
-    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
         return 15
@@ -4389,9 +4391,9 @@ const rooms = {
   room391: (player) => {
     console.log('\x1Bc')
     console.log(`Still smiling, the old man looks at you and says,"Well done, Stranger. You have answered correctly. I wish you good fortune during the rest of the Trial of Champions, and, to this end, I shall increase your powers." He then mutters a few more unintelligible words and you feel a powerful surge soar through your body.\n`)
-    statChange(player, "skill", 1)
-    statChange(player, "stamina", 1)
-    statChange(player, "luck", 1)
+    statChange(player, 'skill', 1)
+    statChange(player, 'stamina', 1)
+    statChange(player, 'luck', 1)
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log('You bid the old man farewell and leave his room to continue north along the passage.\n')
@@ -4437,7 +4439,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('You enter a cold room divided by a deep chasm. A rope is stretched taut across the chasm to the far side, where a magnificent winged helmet rests on top of a pole.\n')
     const options = ['Walk across the tightrope', 'Return to the tunnel to continue north']
-    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
       case 0:
         return 274
@@ -4460,7 +4462,7 @@ const rooms = {
       console.log('\x1Bc')
       console.log(`The GIANT INSECTS do not chase you, preferring the bright light of the room they are in. You examine the crown, and see with disgust that it is merely painted iron, and the 'diamond' is just glass and totally worthless. You throw it on the ground in a rage and wonder which way to go next.\n`)
       const options = ['Head west', 'Return to the junction to head north']
-      const index = readlineSync.keyInSelect(options, "Where do you wish to go?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'Where do you wish to go?', { cancel: false })
       switch (index) {
         case 0:
           return 59
@@ -4484,7 +4486,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`You make the rope into a lasso, whirl it above your head and throw it at the idol's head, smiling happily as it falls around its neck. You then tighten the noose and start to climb, hauling yourself up the rope. You are soon at the top of the idol, sitting on the bridge of its nose and holding on to the rope. You draw your sword and wonder which jewelled eye to prise out first.\n`)
     const options = ['Prise out the left eye', 'Prise out the right eye']
-    const index = readlineSync.keyInSelect(options, "Which eye will you prise out?", { cancel: false })
+    const index = readlineSync.keyInSelect(options, 'Which eye will you prise out?', { cancel: false })
     switch (index) {
       case 0:
         return 151
@@ -4508,7 +4510,7 @@ const rooms = {
       return 369
     } else {
       const options = ['Open the red book', 'Continue north with Throm']
-      const index = readlineSync.keyInSelect(options, "What do you want to do?", { cancel: false })
+      const index = readlineSync.keyInSelect(options, 'What do you want to do?', { cancel: false })
       switch (index) {
         case 0:
           return 52

@@ -14,6 +14,13 @@ class Orc extends Monster {
     this.name = names[Math.floor(Math.random() * names.length)]
   }
 }
+class Goblin extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'Goblin'
+    this.name = names[Math.floor(Math.random() * names.length)]
+  }
+}
 
 class Manticore extends Monster {
   constructor (skill, stamina) {
@@ -137,6 +144,7 @@ class Throm extends Monster {
 module.exports = {
   Monster,
   Orc,
+  Goblin,
   Manticore,
   GiantFly,
   Minotaur,
