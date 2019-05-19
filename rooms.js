@@ -3981,7 +3981,8 @@ const rooms = {
   },
   room332: (player) => {
     console.log('\x1Bc')
-    console.log(`Your gem drops into the pool with a dull 'plop'. As you wait for something to happen, you start to fell faint. The gas rising from the pool is toxic, and you slump to the floor unconscious.\n`)
+    console.log(`Your gem drops into the pool with a dull 'plop'. As you wait for something to happen, you start to feel faint. The gas rising from the pool is toxic, and you slump to the floor unconscious.\n`)
+    readlineSync.keyInPause()
     const luck = testYourLuck(player)
     if (luck === 'lucky') {
       return 53
