@@ -216,12 +216,12 @@ const rooms = {
       console.log('\x1Bc')
       console.log(`You come to and are told by the GNOME to try again. You chose the wrong gems last time, so you won't that combination again.\n`)
       const options = [
-        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.green('Emerald')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.green('Emerald')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
+        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.green('Emerald')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.green('Emerald')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
       const index = readlineSync.keyInSelect(options, 'Decide which gems you will place in the labelled slots:', { cancel: false })
       switch (index) {
         case 0:
@@ -386,7 +386,7 @@ const rooms = {
   },
   room31: (player) => {
     console.log('\x1Bc')
-    console.log('The GNOME smiles and says, \'Good. Now, have you a ' + chalk.blue('sapphire') + ' in your poession?\'\n')
+    console.log('The GNOME smiles and says, \'Good. Now, have you a ' + chalk.blueBright('sapphire') + ' in your poession?\'\n')
     readlineSync.keyInPause()
     if (player.inv.sapphire) {
       return 376
@@ -774,12 +774,12 @@ const rooms = {
     console.log('\x1Bc')
     console.log(`"As you can see, the lock on this door has three slots, labelled A, B and C, each of which is built to accept a specific gem. You have to put one of your three gems in each of the slots in the correct order. If you manage this at the first attempt, fine. However, if you put the gems in the wrong slots, you will be blasted by a bolt of energy from the lock, causing you injury. Anyway, as I said, I am allowed to help you a little. If you place one gem in its correct slot but get the other two wrong, I shall shout, "One crown and two skulls." If you place all three gems all three gems incorrectly, I shall shout, "Three skulls." You will be allowed to try again and again until you either succeed or die. Are you ready?"\n\nYou signal your readiness with a nod of the head, and walk forward to place the three gems in the slots.\n`)
     const options = [
-      `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blue('Sapphire')}`,
-      `A: ${chalk.white('Diamond')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.green('Emerald')}`,
-      `A: ${chalk.blue('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
-      `A: ${chalk.green('Emerald')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.white('Diamond')}`,
-      `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blue('Sapphire')}`,
-      `A: ${chalk.blue('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
+      `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blueBright('Sapphire')}`,
+      `A: ${chalk.white('Diamond')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.green('Emerald')}`,
+      `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
+      `A: ${chalk.green('Emerald')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.white('Diamond')}`,
+      `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blueBright('Sapphire')}`,
+      `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
     const index = readlineSync.keyInSelect(options, 'Decide which gems you will place in the labelled slots:', { cancel: false })
     switch (index) {
       case 0:
@@ -1603,12 +1603,12 @@ const rooms = {
       console.log('\x1Bc')
       console.log(`You come to and are told by the GNOME to try again. You know you placed one gem in the correct slot, but which one? You sigh and tentatively try a new combination.\n`)
       const options = [
-        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.green('Emerald')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.green('Emerald')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
+        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.green('Emerald')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.green('Emerald')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
       const index = readlineSync.keyInSelect(options, 'Decide which gems you will place in the labelled slots:', { cancel: false })
       switch (index) {
         case 0:
@@ -1995,7 +1995,7 @@ const rooms = {
   },
   room162: (player) => {
     console.log('\x1Bc')
-    console.log(`Removing the box lid by the light of the tunnel, you find an iron key and a large gem. It is a ${chalk.blue('sapphire')}.\n`)
+    console.log(`Removing the box lid by the light of the tunnel, you find an iron key and a large gem. It is a ${chalk.blueBright('sapphire')}.\n`)
     statChange(player, 'luck', 1)
     player.inv.ironKey++
     player.inv.sapphire++
@@ -3086,12 +3086,12 @@ const rooms = {
       console.log('\x1Bc')
       console.log(`You come to and are told by the GNOME to try again. You know you placed one gem in the correct slot, but which one? You sigh and tentatively try a new combination.\n`)
       const options = [
-        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.green('Emerald')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.green('Emerald')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
+        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.green('Emerald')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.green('Emerald')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
       const index = readlineSync.keyInSelect(options, 'Decide which gems you will place in the labelled slots:', { cancel: false })
       switch (index) {
         case 0:
@@ -3469,7 +3469,7 @@ const rooms = {
       console.log('The darkness is almost pitch black at the bottom of the pit, and you crawl along the floor, groping in front of you. Suddenly your hand touches something cold, hard and smooth. The object is small and round, but you cannot figure out what it is. You place it in your backpack, hoping to see what it is once out of the pit. You continue to crawl forward and soon reach the pit wall. It is too smooth to climb, and you have to cut hand-and-toe-holds in it with your sword. This takes a long time, but you finally climb out of the pit on the east side.\n')
       readlineSync.keyInPause()
       console.log('\x1Bc')
-      console.log('You immediately check out the object in your backpack, and discover that you have found an orb of blood-red ruby. You are absolutely delighted and head off east in high spirits, whistling softly under your breath.\n')
+      console.log(`You immediately check out the object in your backpack, and discover that you have found an orb of blood-red ${chalk.red('ruby')}. You are absolutely delighted and head off east in high spirits, whistling softly under your breath.\n`)
       player.inv.ruby++
       readlineSync.keyInPause()
       return 237
@@ -3495,12 +3495,12 @@ const rooms = {
       console.log('\x1Bc')
       console.log(`You come to and are told by the GNOME to try again. You know you placed one gem in the correct slot, but which one? You sigh and tentatively try a new combination.\n`)
       const options = [
-        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.green('Emerald')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.green('Emerald')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
+        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.green('Emerald')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.green('Emerald')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
       const index = readlineSync.keyInSelect(options, 'Decide which gems you will place in the labelled slots:', { cancel: false })
       switch (index) {
         case 0:
@@ -4516,7 +4516,7 @@ const rooms = {
   },
   room375: (player) => {
     console.log('\x1Bc')
-    console.log('Acrid smoke rises from the jug as you lower the cloth into it. The liquid is unmistakably acid. You recork the jug and place it in your backpack, hoping it may be of use later. You sheathe your sword and press on NORTHWARDS.\n')
+    console.log('Acrid smoke rises from the jug as you lower the cloth into it. The liquid is unmistakably acid. You recork the jug and place it in your backpack, hoping it may be of use later. You sheathe your sword and press on northwards.\n')
     player.inv.acid++
     readlineSync.keyInPause()
     return 110
@@ -4742,12 +4742,12 @@ const rooms = {
       console.log('\x1Bc')
       console.log(`You come to and are told by the GNOME to try again. You chose the wrong gems last time, so you won't that combination again.\n`)
       const options = [
-        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.green('Emerald')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.green('Emerald')}     B: ${chalk.blue('Sapphire')}    C: ${chalk.white('Diamond')}`,
-        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blue('Sapphire')}`,
-        `A: ${chalk.blue('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
+        `A: ${chalk.green('Emerald')}     B: ${chalk.white('Diamond')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.green('Emerald')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.green('Emerald')}     C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.green('Emerald')}     B: ${chalk.blueBright('Sapphire')}    C: ${chalk.white('Diamond')}`,
+        `A: ${chalk.white('Diamond')}     B: ${chalk.green('Emerald')}     C: ${chalk.blueBright('Sapphire')}`,
+        `A: ${chalk.blueBright('Sapphire')}    B: ${chalk.white('Diamond')}     C: ${chalk.green('Emerald')}`]
       const index = readlineSync.keyInSelect(options, 'Decide which gems you will place in the labelled slots:', { cancel: false })
       switch (index) {
         case 0:
