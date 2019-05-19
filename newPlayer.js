@@ -71,6 +71,8 @@ module.exports = function () {
     blackBookRead: false,
     barbarianSearched: false,
     alcoveSearched: false,
+    pixieFountainDrank: false,
+    hagFountainDrank: false,
     crippledServantSpokenTo: false,
     unarmed: false
   }

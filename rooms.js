@@ -4,7 +4,7 @@ const rollDie = require('./rollDie')
 const statChange = require('./statChange')
 const testYourLuck = require('./testYourLuck')
 const battle = require('./battle')
-const { Orc, Manticore, Giantfly, Minotaur, Caveman, Hobgoblin, CaveTroll, Scorpion, FlyingGuardian, Ivy, Dwarf, GuardDog, Imitator, Skeleton, PitFiend, Throm } = require('./monsters')
+const { Orc, Manticore, Giantfly, Minotaur, Caveman, Hobgoblin, CaveTroll, Scorpion, FlyingGuardian, Ivy, Dwarf, GuardDog, Imitator, Skeleton, RockGrub, PitFiend, Bloodbeast, Throm } = require('./monsters')
 
 const rooms = {
   winner: () => {
@@ -275,6 +275,22 @@ const rooms = {
     // * * * * * ADVANCED COMBAT ROOM * * * * *
     console.log('\x1Bc')
     console.log('The wound has had no effect on the BLOODBEAST, and it continues to attack you as furiously as before.')
+    readlineSync.keyInPause()
+    // reutrn to combat and test your luck if win first Attack Round
+    readlineSync.keyInPause()
+    const monster = new Bloodbeast(12, 2) // stamina should be 10, nerfed to 2 to simulate test your luck on first Attack Round win
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        const luck = testYourLuck(player)
+        if (luck === 'lucky') {
+          return 97
+        } else {
+          return 116
+        }
+    }
   },
   room22: () => {
     console.log('\x1Bc')
@@ -1928,7 +1944,7 @@ const rooms = {
         return 326
     }
   },
-  room157: (player) => { 
+  room157: (player) => {
     console.log('\x1Bc')
     console.log('The casket opens easily, and inside there is a black velvet bag containing a large pearl.\n')
     player.inv.largePearl++
@@ -1985,7 +2001,15 @@ const rooms = {
   },
   room163: () => {
     console.log('\x1Bc')
-    console.log('')
+    console.log('The DWARF calls down from the balcony, congratulating you on your victory. He throws a sack down into the arena and tells you to relax and regain your strength for the final part of the test. Then he walks off, saying he will return in about ten minutes. You open the sack and find a jug of wine and a cooked chicken.\n')
+    const options = [`Eat and drink the DWARF'S offerings`, `Just sit down and await his return`]
+    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 363
+      case 1:
+        return 302
+    }
   },
   room164: () => {
     console.log('\x1Bc')
@@ -1999,7 +2023,15 @@ const rooms = {
         return 83
     }
   },
-  room165: () => { },
+  room165: (player) => {
+    console.log('\x1Bc')
+    console.log('There is a slot in the padlock into which you place the coin. Immediately the lock clciks apart, and you are able to unchain the stilts. YOu place them on your shoulder and once again set off north.\n')
+    player.inv.stilts++
+    player.gold--
+    console.log(chalk.yellow(`\nYou now have ${player.gold} Gold Pieces.`))
+    readlineSync.keyInPause()
+    return 234
+  },
   room166: () => {
     console.log('\x1Bc')
     console.log(`As you touch the ${chalk.green('emerald')} of the idol, you hear a creaking sound below you. Looking down, you are shocked to see the two stuffed birds taking flight. Their wings flap in jerky movements, but they are soon above you and look set to attack. Fight the FLYING GUARDIANS one at a time, however your your skill is reduced during combat because of your restricted position.\n`)
@@ -2027,16 +2059,129 @@ const rooms = {
         }
     }
   },
-  room167: () => { },
-  room168: () => { },
-  room169: () => { },
-  room170: () => { },
-  room171: () => { },
-  room172: () => { },
-  room173: () => { },
-  room174: () => { },
-  room175: () => { },
-  room176: () => { },
+  room167: (player) => {
+    console.log('\x1Bc')
+    console.log(`You swing the grappling iron around your head and hurl it at the beast below. The PIT FIEND'S huge jaws snap tight over the grappling iron, then it jerks its head back. Still holding the rope, you are pulled off the wall and tumble to the bottom of the pit.\n`)
+    const alive = statChange(player, 'stamina', -4)
+    readlineSync.keyInPause()
+    if (!alive) {
+      return -1
+    } else {
+      return 203
+    }
+  },
+  room168: () => {
+    console.log('\x1Bc')
+    console.log('Lifting the latch and pushing the heavy stone door open, you find yourself in a large cavern. The light is dim and murky, but as your eyes begin to adjust, you see that the walls are covered in green algae and running with moisture. The floor is strewn with straw. The atmosphere is warm, damp and fetid, and a soft humming sound fills the air. You step gingerly through the straw towards a corner of the cavern, where there appears to be a shallow pit. Peering warily into the pit, you are disgusted to see a mass of pale writhing worms, some as much as half a metre long. Utterly nauseated, you are about to turn away when you notice that their undulating bodies are swarming round a dagger, its point held fast in a crack in the pit floor. The hilt is cased in black leather studded with opals, and the blade is fashioned from a strange reddish-black burnished metal you have never seen before. You long to touch the dagger, but this would mean plunging your hand in among the writhing worms.\n')
+    const options = ['Reach for the dagger', 'Back away in disgust and leave the cavern']
+    const index = readlineSync.keyInSelect(options, "What do you do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 94
+      case 1:
+        return 267
+    }
+  },
+  room169: (player) => {
+    console.log('\x1Bc')
+    console.log(`He eyes you suspiciously as you offer him a portion of your Provisions.But hunger overcomes his fear and he crams the food into his mouth. You ask him what he is doing in the tunnels, and he explains that he is a servant of one of the Trialmasters, Baron Sukumvit's appointed controllers of sections of his dungeon. He tells you he would like to escape, but no one is allowed to leave the dungeon in case the secret of its construction is revealed. You tell him that you are a contestant in the Trial of Champions and that you would appreciate any help. Rubbing his chin, he turns to you and says. "One good turn deserves another. All I can tell you is that in a northern tunnel there is a wooden chair carved in the shape of a demon bird. There is a secret panel in the arm of the chair which contains a potion in a glass phial. It's a Doppelganger Potion. I hope we meet again outside these infernal tunnels." The man shuffles off and you continue your journey west.\n`)
+    player.abilities.crippledServantSpokenTo = true
+    player.provisions--
+    readlineSync.keyInPause()
+    return 109
+  },
+  room170: () => {
+    console.log('\x1Bc')
+    console.log('As you approach the prostrate figure, you see that it is one of your rivals in the Trial of Champions. It is in fact the Elf, and she is fighting for her life in the bone-crushing grip of an enormous BOA CONSTRICTOR.\n')
+    const options = ['Help her', 'Leave her to defend herself and walk back to the tunnel to head north']
+    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 281
+      case 1:
+        return 192
+    }
+  },
+  room171: (player) => {
+    console.log('\x1Bc')
+    console.log('The door swings open into a small room, but before you know what is happening, you find yourself falling through thin air - there was a pit behind the door which you did not see. You land heavily at the bottom and wince with pain.\n')
+    const alive = statChange(player, 'stamina', -4)
+    readlineSync.keyInPause()
+    if (!alive) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log('The pit walls are roughly chiselled and have plenty of toe- and finger-holds, so you are able to clamber out quite easily. You curse your own eagerness and tell yourself to be more careful in future when entering rooms. Inside the room you see two iron hooks on the wall opposite the door. A coil of rope is hanging on one of them. You put it in your backpack, jump back over the pit to leave the room and head north.\n')
+      player.inv.rope++
+      readlineSync.keyInPause()
+      return 326
+    }
+  },
+  room172: () => {
+    // * * * * * ADVANCED COMBAT ROOM * * * * *
+    console.log('\x1Bc')
+    console.log(`Remembering the description of the vile BLOODBEAST and the warning about toxic gas rising from its pool, you cover your mouth with your sleeve and step forward with your sword drawn, wary of the BLOODBEAST's tongue. As you step round the side of its pool, it rolls forward and flicks out its tongue, but you are ready for it and cleave it with one swipe of your sword. The beast howls in pain and stretches forward frantically, trying to clasp you between its blood-filled jaws. You start hacking at its hideous face in an attempt to pierce its real eyes.\n`)
+    readlineSync.keyInPause()
+    const monster = new Bloodbeast(12, 4) // should be 10 stamina, but nerfed for 2nd attack round
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        return 278
+    }
+  },
+  room173: (player) => {
+    if (!player.abilities.pixieFountainDrank) {
+      console.log('\x1Bc')
+      console.log('The cool water is refreshing and comes from a source which has been sprinkled with Pixie dust.\n')
+      statChange(player, "stamina", 1)
+      statChange(player, "skill", 2)
+      player.abilities.pixieFountainDrank = true
+      readlineSync.keyInPause()
+    }
+    console.log(`\x1Bc`)
+    if (player.abilities.hagFountainDrank) {
+      console.log('You have no choice but to continue north.\n')
+      readlineSync.keyInPause()
+      return 368
+    } else {
+      const options = ['Drink from the other fountain', 'Continue north']
+      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      switch (index) {
+        case 0:
+          return 337
+        case 1:
+          return 368
+      }
+    }
+  },
+  room174: (player) => {
+    console.log('\x1Bc')
+    console.log(`As you make your way back to the doorway, the buzzing sound increases in intensity, and you look around desperately to discover where it is coming from. Glancing up in the nick of time, you see the huge and grotesque black shape of a GIANT FLY emerging from a recess high up in the cavern wall. As it gets closer, you realise that it is at least one and a half metres long. Its opaque wings vibrate, making the sickening buzzing noise you can hear, and its six black hairy legs are poised to grasp your body. Below its multi-faceted eyes is a long, shiny,  black proboscis, which darts in and out venomously. You have stolen the GIANT FLY'S treasure from her brood of maggots, and you must take the consequences.\n`)
+    readlineSync.keyInPause()
+    const luck = testYourLuck(player)
+    if (luck === 'lucky') {
+      return 39
+    } else {
+      return 350
+    }
+  },
+  room175: (player) => {
+    console.log('\x1Bc')
+    console.log(`Attached to the collar of one of the GUARD DOGS is a metal capsulre. You prise off the top and find a small tooth inside. It is a Leprechaun's tooth which will bring you good fortune.\n`)
+    statChange(player, "luck", 2)
+    player.inv.leprechaunTooth++
+    console.log('You put the tooth in your pocket and set off east along the tunnel.\n')
+    readlineSync.keyInPause()
+    return 315
+  },
+  room176: () => {
+    console.log('\x1Bc')
+    console.log('Treading carefully, you slowly make your way up the steps. You soon reach the top without mishap and continue along the new tunnel.\n')
+    readlineSync.keyInPause()
+    return 277
+  },
   room177: (player) => {
     console.log('\x1Bc')
     console.log(`You just have time to hear the GNOME yell, 'Three crowns!', before the lock clicks open. As the heavy door swings slowly outwards, the GNOME rushes towards it, hurling the glass ball at your feet. Green gas escapes from the broken glass, and you try to avoid inhaling it.\n`)
@@ -2048,10 +2193,58 @@ const rooms = {
       return 103
     }
   },
-  room178: () => { },
-  room179: () => { },
-  room180: () => { },
-  room181: () => { },
+  room178: () => {
+    console.log('\x1Bc')
+    console.log('The door cannot withstand the furious battering you are giving it. The centre panel cracks and splinters, enabling you to kick a hole in it large enough for you to squeeze through. Wet but happy to have survived your ordeal, you set off north again.\n')
+    readlineSync.keyInPause()
+    return 344
+  },
+  room179: (player) => {
+    console.log('\x1Bc')
+    console.log(`As you rush towards the DWARF, he pulls two hand darts from his belt and throws them at you and Throm, hitting both of you in the leg. You are both instantly paralysed by the poison on the tip of the dart.\n`)
+    const alive = statChange(player, 'stamina', -2)
+    readlineSync.keyInPause()
+    if (!alive) {
+      return -1
+    } else {
+      console.log(`As though glued to the floor, you can only watch as the DWARF retrieves his dart from your thigh. He asks you whether you are willing to entre his contest now. You strain to nod your head. Slowly, the effects of the poison wear off and mobility returns.\n`)
+      readlineSync.keyInPause()
+      console.log('\x1Bc')
+      console.log(`The DWARF beckons you to follow him, telling Throm to await his return. He opens a secret door in the chamber wall and you follow him into a small circular room. He closes the door behind you and hands you two bone dice, telling you to throw them on the floor. You roll a six and a two, a total of eight. The DWARF asks you to roll again, but this time you must predict the total: will it be the same, or higher or lower than eight?\n`)
+      const options = ['It will be the same', 'It will total less than eight', 'It will total more than eight']
+      const index = readlineSync.keyInSelect(options, "What do you guess?", { cancel: false })
+      switch (index) {
+        case 0:
+          return 290
+        case 1:
+          return 191
+        case 2:
+          return 84
+      }
+    }
+  },
+  room180: (player) => {
+    console.log('\x1Bc')
+    console.log('As you make a lunge at the BLOODBEAST, you suddenly start to feel faint. The gas rising up from the pool is highly toxic and you slump to the floor unconscious.\n')
+    readlineSync.keyInPause()
+    const luck = testYourLuck(player)
+    if (luck === 'lucky') {
+      return 53
+    } else {
+      return 272
+    }
+  },
+  room181: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel leads into a marble-floored hall with pillars rising right up to the ceiling. As you cross the floor, your footsteps echo through the hall. The hairs on the back of your neck start to prickle as you sense unseen eyes watching you. Unknown to you, one of your rivals is hiding behind a pillar. It is the NINJA, the deadly assassin dressed in black robes. Without a sound, he steps out from behind the pillar and throws a star-edged disc at your back. Instinctively, an inner voice tells you to duck.\n')
+    readlineSync.keyInPause()
+    const luck = testYourLuck(player)
+    if (luck === 'lucky') {
+      return 312
+    } else {
+      return 45
+    }
+  },
   room182: (player) => {
     console.log('\x1Bc')
     console.log('The temperature continues to rise and you find yourself dripping with sweat. As you struggle on, the heat intensifies until it feels like white heat and becomes so unbearable that you begin to pass out.\n')
@@ -2062,9 +2255,43 @@ const rooms = {
       return 242
     }
   },
-  room183: () => { },
-  room184: () => { },
-  room185: () => { },
+  room183: (player) => {
+    console.log('\x1Bc')
+    console.log('You climb on to your stilts and take a few tentative steps across the floor. Your confidence grows, and you soon feel able to tackle the walk across the slime. Smoke rises from the base of the stilts as the slime starts to burm them away. You plod stolidly on and finally reach firm ground again. Unfortunately, the stilts are still covered in slime and you are forced to dump them. Setting off north, you come to a junction.\n')
+    player.inv.stilts--
+    const options = ['Go west', 'Continue north']
+    const index = readlineSync.keyInSelect(options, "Where do you wish to go?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 386
+      case 1:
+        return 218
+    }
+  },
+  room184: () => {
+    console.log('\x1Bc')
+    console.log(`The Barbarian, who tells you he is called Throm, ties the rope around his waist, giving you the free end. As he lights the torch, you see a look of distrust in his eyes. Slowly, he climbs over the edge of the pit while you brace yourself and take the strain of the rope. As you lower him little by little, you see the smooth sides of the pit illiminated by Throm's torch. He finally reaches the bottom and calls up to you, saying that there is another tunnel running north. He tells you to secure the rope around a rock protruding from the edge of the pit and lower yourself to the bottom.\n`)
+    const options = ['Stay with the Barbarian and head north down the lower tunnel', 'Abandon him by jumping over the pit to head west']
+    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 323
+      case 1:
+        return 149
+    }
+  },
+  room185: () => {
+    console.log('\x1Bc')
+    console.log('The TROGLODYTES are too involved in their tribal dancing to hear the clatter of your sword, and you crawl past. When you think you are far enough away, you stand up and run across the cavern floor. Ahead you see an underground river running east to west through the cavern with a wooden bridge crossing over it. Hearing a noise, you glance back and realise you have been spotted. The TROGLODYTES are chasing you.\n')
+    const options = ['Run over the bridge', 'Dive into the river']
+    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 318
+      case 1:
+        return 47
+    }
+  },
   room186: (player) => {
     console.log('\x1Bc')
     console.log('Slowly and carefully, you begin to climb the idol. You are about to grab hold of its large when suddenly your foot slips.\n')
@@ -2076,8 +2303,27 @@ const rooms = {
       return 358
     }
   },
-  room187: () => { },
-  room188: () => { },
+  room187: () => {
+    console.log('\x1Bc')
+    console.log(`The tunnel bends sharply to the right, and around the corner you see a little old man with a long beard, cowering behind a large wicker basket. The basket is tied to a rope, the other end of which disappears into the ceiling. The old man sounds very worried as he says, "Do not attack me, stranger. I pose no threat to you. I am here simply to help you. If you would be so kind as to offer me some sort of remuneration, I will gladly haul you up in the basket to the upper level. And believe me, that is where you ought to be."\n`)
+    const options = ['Give the man something from your backpack for his services', 'Walk past him down the tunnel']
+    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 360
+      case 1:
+        return 280
+    }
+  },
+  room188: (player) => {
+    console.log('\x1Bc')
+    console.log('The tunnel starts to slope downwards and finally comes to an end at a deep pool enclosed by the tunnel wall.\n')
+    if (player.inv.spiritGirlPoem) {
+      return 155
+    } else {
+      return 224
+    }
+  },
   room189: (player) => {
     console.log('\x1Bc')
     console.log(`The ORC's morning star sinks agonizingly into your left thigh.\n`)
@@ -2414,13 +2660,53 @@ const rooms = {
       return 13
     }
   },
-  room216: () => { },
-  room217: () => { },
-  room218: () => { },
-  room219: () => { },
+  room216: () => {
+    console.log('\x1Bc')
+    console.log('Recognising the snake-like head of the MEDUSA, you close your eyes to avoid her deadly stare that would turn you to stone.\n')
+    const options = ['Enter her cage with your eyes closed to dispose of her with your sword', 'Retreat out of the room with your eyes closed to continue north']
+    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 308
+      case 1:
+        return 316
+    }
+  },
+  room217: (player) => {
+    console.log('\x1Bc')
+    console.log('The passage slowly starts to climb, leading you relentlessly northwards. You do not come across a single junction. There are no doorways or even an alcove to investigate, and you become less guarded as you plod on. After a while you become so nonchalant that you fail to notice a thin tripwire stretched low across the passage. It is only when your foot catches it and you hear a distant rumble that you realise your mistake. The rumbling sound swells to an almost deafening level, and suddenly out of the gloom of the tunnel ahead you see a massive boulder rolling towards you, gathering speed with every second.\n')
+    if (player.inv.ironShield) {
+      console.log('Dropping your shield, you turn to flee the oncoming boulder.\n')
+      statChange(player, "skill", -1)
+      player.inv.ironShield--
+
+    } else {
+      console.log('You turn to flee the oncoming boulder.\n')
+    }
+    readlineSync.keyInPause()
+    return 36
+  },
+  room218: () => {
+    console.log('\x1Bc')
+    console.log(`You soon arrive at a double door in the left-hand wall. You listen at the door but hear nothing. You tru the handle, it turns and you open the left door slightly and peer through the crack. An armed warrior is lying face down on the floor of a bare room with smooth walls and a low ceiling. He is presumable dead, for he makes no movement even when you call out to him. A large jewel, perhaps a ${chalk.white('diamond')}, lies just beyond his outstretched arm.\n`)
+    const options = ['Enter the room and take the jewel', 'Continue north']
+    const index = readlineSync.keyInSelect(options, "What do you wish to do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 65
+      case 1:
+        return 252
+    }
+  },
+  room219: () => {
+    console.log('\x1Bc')
+    console.log('The pain in your lungs forces you to rise to the surface for air. Unfortunately, one of the TROGLODYTES sees you and yells to his comrades. You watch helplessly as the bowmen take aim, and a hail of arrows falls on you with fatal impact. Your lifeless body floats down-river, down into the hidden depths of the mountain.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
   room220: (player) => {
     console.log('\x1Bc')
-    console.log('A dull \'bong\' sounds from the bell like a death toll. Everything around you starts to vibrate, and you grit your teeth as your head too starts to shudder. Your whole body is trembling and you fall to the floor. You quiver and shake, writhing convulsively on the floor as the vibrations intensify.\n')
+    console.log(`A dull 'bong' sounds from the bell like a death toll. Everything around you starts to vibrate, and you grit your teeth as your head too starts to shudder. Your whole body is trembling and you fall to the floor. You quiver and shake, writhing convulsively on the floor as the vibrations intensify.\n`)
     statChange(player, 'skill', -2)
     const alive = statChange(player, 'stamina', -2)
     readlineSync.keyInPause()
@@ -2451,10 +2737,58 @@ const rooms = {
         return 60
     }
   },
-  room222: () => { },
-  room223: () => { },
-  room224: () => { },
-  room225: () => { },
+  room222: (player) => {
+    console.log('\x1Bc')
+    console.log(`You recognise the beast - it is a MANTICORE. Taking heed of the poem's warning, you watch out for its tail which sprouts a profusion of sharp spikes, thick and hard as iron bolts, at its tip.\n`)
+    readlineSync.keyInPause()
+    if (player.inv.ironShield) {
+      return 196
+    } else {
+      return 6
+    }
+  },
+  room223: (player) => {
+    console.log('\x1Bc')
+    console.log('You step confidently on to the first pole and stride across to the next. As you land on the third pole, it immediately releases a shower of splinters, each several centimetres long.\n')
+    statChange(player, "luck", -2)
+    const splinters = rollDie(2)
+    console.log(`They fly out in all directions at great speed, and you cannot avoid behind hit. ${splinters} splinters sink into your flesh.\n`)
+    const alive = statChange(player, 'stamina', splinters * -1)
+    readlineSync.keyInPause()
+    if (!alive) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log('You manage to scramble over the remaining poles and sit down to the painful task of removing the splinters from your body. After resting for a while, you set off east again.\n')
+      readlineSync.keyInPause()
+      return 313
+    }
+  },
+  room224: () => {
+    console.log('\x1Bc')
+    console.log('There does not appear to be any way of travelling further north. You turn around and walk back down the tunnel, passing the wooden chair. You soon arrive at the junction and turn right to head west.\n')
+    readlineSync.keyInPause()
+    return 43
+  },
+  room225: (player) => {
+    // * * * * * ADVANCED COMBAT ROOM * * * * *
+    console.log('\x1Bc')
+    console.log(`You react quickly and manage to cleave the BLOODBEAST's outstretched tongue with one swipe of your blade. The beast screams in pain and hurls itself forward to try and clasp you between its blood-filled jaws. This will be a fight to the death.\n`)
+    readlineSync.keyInPause()
+    const monster = new Bloodbeast(12, 2) // stamina should be 10, nerfed to 2 to simulate test your luck on first Attack Round win
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        const luck = testYourLuck(player)
+        if (luck === 'lucky') {
+          return 97
+        } else {
+          return 21
+        }
+    }
+  },
   room226: (player) => {
     if (!player.abilities.barbarianSearched) {
       console.log('\x1Bc')
@@ -2479,8 +2813,23 @@ const rooms = {
       }
     }
   },
-  room227: () => { },
-  room228: () => { },
+  room227: () => {
+    console.log('\x1Bc')
+    console.log(`Still smiling, the old man looks at you. "Wrong," he says quietly.\n`)
+    readlineSync.keyInPause()
+    return 85
+  },
+  room228: (player) => {
+    console.log('\x1Bc')
+    console.log('You reach down into the hole. Suddenly your blood runs cold as you feel somethign warm and sticky wrapping itself around your arm. You manage to pull your arm out of the hole, but a hideous tentacled limb with unbelievably strong suckers is clinging to your arm. By the time you manage to cut yourself free, your arm is trembling with pain.\n')
+    readlineSync.keyInPause()
+    const luck = testYourLuck(player)
+    if (luck === 'lucky') {
+      return 150
+    } else {
+      return 33
+    }
+  },
   room229: (player) => {
     console.log('\x1Bc')
     console.log(`As soon as your head goes under the blue light, you hear the sound of muffled voices. The faces are no longer laughing, but have changed their expressions to ones of despair and anguish. A young girl's sad face hovers in front of you, and she begins to whisper a poem.\n`)
@@ -2566,7 +2915,7 @@ const rooms = {
     console.log('\x1Bc')
     console.log('The fist retracts and prepares to strike again. With your free hand you draw your sword and try to cut the handle of the door. Although you do not recognize it, you are being attacked by the fluid form of an IMITATOR.\n')
     readlineSync.keyInPause()
-    const monster = new Imitator(9, 8)
+    const monster = new Imitator(9, 2)  // nerfed health should be 8 but first Attack Round win yields victory result anyway
     const outcome = battle(player, monster)
     switch (outcome) {
       case 0:
@@ -2657,14 +3006,69 @@ const rooms = {
     player.abilities.crippledServantSpokenTo = true
     player.gold--
     console.log(chalk.yellow(`\nYou now have ${player.gold} Gold Pieces.`))
-    console.log('\The man shuffles off and you continue your journey.\n')
+    console.log('The man shuffles off and you continue your journey.\n')
     readlineSync.keyInPause()
     return 109
   },
-  room245: () => { },
-  room246: () => { },
-  room247: () => { },
-  room248: () => { },
+  room245: (player) => {
+    console.log('\x1Bc')
+    console.log(`You have no choice but to open the door, as the wall is too smooth to climb. Taking a deep breath, you turn the handle and enter a sand-covered pit. There, standing some ten metres tall on its huge hind legs in front of the large double doors in the opposite wall, is an enormous dinosaur-like monster. It has a tough, mottled green hide and a mouth lined with razor-sharp teeth. Its jaws open and close with bone-snapping power, and even you cannot help trembling as you approach it with your sword drawn.\n`)
+    readlineSync.keyInPause()
+    const monster = new PitFiend(12, 15)
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        return 258
+    }
+  },
+  room246: (player) => {
+    console.log('\x1Bc')
+    console.log('Despite being as careful as possible, your leg brushes against on of the poles. It immediately releases a shower of sharp splinters, each several centimetres long.\n')
+    statChange(player, "luck", -2)
+    const splinters = rollDie(2)
+    console.log(`They fly out at great speed and in all directions, and you cannot avoid behind hit. ${splinters} splinters sink into your flesh.\n`)
+    const alive = statChange(player, 'stamina', splinters * -1)
+    readlineSync.keyInPause()
+    if (!alive) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log('You sit down to the painful task of removing the splinters from your body before setting off east.\n')
+      readlineSync.keyInPause()
+      return 313
+    }
+  },
+  room247: (player) => {
+    console.log('\x1Bc')
+    console.log('The beast before you is the dreaded MANTICORE. The tip of its tail sprouts a profusion of sharp spikes, thick and hard as iron bolts. Suddenly it flicks its tail, sending a volley of spikes flying towards you.\n')
+    const spikes = rollDie(1)
+    console.log(`${spikes} spikes sink into your body.\n`)
+    const alive = statChange(player, 'stamina', spikes * -1)
+    readlineSync.keyInPause()
+    if (!alive) {
+      return -1
+    } else {
+      console.log('\x1Bc')
+      console.log('You stagger forward to attack the MANTICORE with your sword before it has time to unleash any more of its deadly spikes.\n')
+      readlineSync.keyInPause()
+      const monster = new Manticore(11, 11)
+      const outcome = battle(player, monster)
+      switch (outcome) {
+        case 0:
+          return -1
+        case 1:
+          return 364
+      }
+    }
+  },
+  room248: () => {
+    console.log('\x1Bc')
+    console.log('The doors open into a tunnel running north. You close the doors behind you and set off once again.\n')
+    readlineSync.keyInPause()
+    return 214
+  },
   room249: (player) => {
     console.log('\x1Bc')
     console.log(`You just have time to hear the GNOME say, 'One crown and two skulls', before a white bolt of energy shoots out from the lock into your chest, knocking you unconscious.\n`)
@@ -2700,12 +3104,60 @@ const rooms = {
       }
     }
   },
-  room250: () => { },
-  room251: () => { },
-  room252: () => { },
-  room253: () => { },
-  room254: () => { },
-  room255: () => { },
+  room250: () => {
+    console.log('\x1Bc')
+    console.log(`As you run for the door, the old man calls out behind you, "Do not run, nobody escapes me. Stop, or I shall turn you to stone this instant!"\n`)
+    const options = ['Keep on running', 'Turn to attack him with your sword', 'Tell him you will answer his question']
+    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 44
+      case 1:
+        return 195
+      case 2:
+        return 382
+    }
+  },
+  room251: (player) => {
+    console.log('\x1Bc')
+    console.log(`Once again the mysterious voice calls ou, only this time, to your great surprise, in a far less threatening tone, "Good, my master likes those who show spirit. Take this gift to help you. It will grant you one wish, but one with only. Farewell." A gold ring magically appears out of nowhere and lands at your feet with a gentle tinkle. You pick it up and put it on one of your fingers. The door opens and you step back into the tunnel to continue north.\n`)
+    player.inv.ringOfWishes++
+    readlineSync.keyInPause()
+    return 344
+  },
+  room252: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel continues north for quite a distance before coming to a dead end. The mouth of a chute protrudes from the western wall, and it appears to be the only alternative to turning back. You decide to risk it and climb into the chute. You slide gently down and emerge into a room; landing on your back.\n')
+    readlineSync.keyInPause()
+    return 90
+  },
+  room253: (player) => {
+    console.log('\x1Bc')
+    console.log('You take the bone out of your backpack and throw it down the stairs. The barking grows louder, changing to snarls and growls when the bone lands on the floor. You walk slowly down the steps with your sword drawn and see two huge black GUARD DOGS fighting over the bone. You run quickly past them and on down the tunnel.\n')
+    player.inv.oldBone--
+    readlineSync.keyInPause()
+    return 315
+  },
+  room254: (player) => {
+    // * * * * * ADVANCED COMBAT ROOM * * * * *
+    console.log('\x1Bc')
+    console.log('You draw your sword and advance slowly towards the huge, slimy ROCK GRUB.\n')
+    readlineSync.keyInPause()
+    const monster = new RockGrub(7, 11)
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        return 315
+    }
+  },
+  room255: () => {
+    console.log('\x1Bc')
+    console.log(`As you run around the narrow path, you suddenly start to feel dizzy. The gas from the pool is taking effect: your vision starts to blur and you lose your balance. You are only half aware of the BLOODBEAST'S tongue as it wraps itself around your leg and drags you into the pool of slime. After being predigested by the vile slime, the hideous BLOODBEAST will consume you at its leisure.\n`)
+    readlineSync.keyInPause()
+    return -1
+  },
   room256: (player) => {
     console.log('\x1Bc')
     console.log(`Remembering the old man's advice, you search the arm of the chair for a secret panel. You find an almost invisible crack in the arm, which you start to press and squeeze. Suddenly a tiny panel springs out of the arm and you see a glass phial lying in a cavity. You pick it out and read the label: 'Doppelganger Potion - one dose only. This liquid will make you assume the shape of any nearby living being.' You place the strange potion in your backpack and continue north.\n`)
@@ -2765,7 +3217,20 @@ const rooms = {
     readlineSync.keyInPause()
     return 239
   },
-  room262: () => { },
+  room262: () => {
+    console.log('\x1Bc')
+    console.log('The door opens into another tunnel running north. Ahead you see two stone fountains, one on either side of the tunnel, carved in the shape of cherubs. Water spouts from their mouths and cascades into small bowls at their feet.\n')
+    const options = ['Drink at the fountain on your left', 'Drink at the fountain on your right', 'Continue your walk north']
+    const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 337
+      case 1:
+        return 173
+      case 2:
+        return 368
+    }
+  },
   room263: () => {
     console.log('\x1Bc')
     console.log('The door opens into another tunnel. Walking west, you soon arrive at a door in the north wall.\n')
@@ -2792,7 +3257,13 @@ const rooms = {
         return 355
     }
   },
-  room265: () => { },
+  room265: (player) => {
+    console.log('\x1Bc')
+    console.log('You rub your magic ring and wish for the MIRROR DEMON to be transported back to its own world, never to return. Still advancing towards you it starts to shimmer and fade away. Then it vanishes completely, and you are able to continue your quest north.\n')
+    player.inv.ringOfWishes--
+    readlineSync.keyInPause()
+    return 122
+  },
   room266: (player) => {
     console.log('\x1Bc')
     console.log(`You search through the cupboards and boxes in IVY's room, but you find nothing except an old bone, which you may take with you if you wish.\n`)
@@ -2817,8 +3288,19 @@ const rooms = {
         return 68
     }
   },
-  room268: () => { },
-  room269: () => { },
+  room268: () => {
+    console.log('\x1Bc')
+    console.log('You leap forward and try to grab the leader to use as a hostage. However, the TROGLODYTES are ready for your move, and six of their bowmen immediately shoot their arrows at you. Their aim is deadly accurate and all six arrows find their mark. Lifeless, you fall to the floor. The TROGLODYTES have ended your journey abruptly.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
+  room269: (player) => {
+    console.log('\x1Bc')
+    console.log('You empty the contents of the jar into your hand and apply them to your wounds. Their healing powers take immediate effect and you feel yourself growing stronger.\n')
+    statChange(player, "stamina", 3)
+    readlineSync.keyInPause()
+    // ** CHECK TO EAT RICE
+  },
   room270: (player) => {
     console.log('\x1Bc')
     console.log('The lid of the box lifts off easily. Inside you find two Gold Pieces and a note written on a small piece of parchment addressed to you. After placing the gold in your pocket, you read the message, which says: \'Well done. At least you have the sense to stop and take advantage of the token aid given to you. Now I can advise you that you will need to find and use several items if you hope to pass triumphantly through my Deathtrap Dungeon. Signed Sukumvit.\' Memorising the advice on the note, you tear it into tiny pieces and continue north along the tunnel.\n')
@@ -2828,7 +3310,12 @@ const rooms = {
     return 66
   },
   room271: () => { },
-  room272: () => { },
+  room272: () => {
+    console.log('\x1Bc')
+    console.log('Although the BLOODBEAST is too bulbous and heavy to climb out of its pool, its long tongue stretches and wraps itself around your leg. Still unconscious, you are dragged into its pool of slime, the hideous BLOODBEAST will consume at its leisure.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
   room273: () => {
     console.log('\x1Bc')
     console.log(`The wooden ball smashes into the skull, knocking it off the plinth and on to the floor. Much to your surprise, the crossbows do not release their deadly bolts. You step into the room cautiously and pick the skull up off the floor. You recognize the yellow stones as ${chalk.yellow('topaz')}, and eagerly pluck them from their sockets.You put them in your backpack, wondering whether or not a trap still awaits you in this room.\n`)
@@ -2842,7 +3329,17 @@ const rooms = {
         return 204
     }
   },
-  room274: () => { },
+  room274: (player) => {
+    console.log('\x1Bc')
+    console.log('You step nervously on to the rope, not daring to look down. Halfway across, you start to panic and lose your footing.\n')
+    readlineSync.keyInPause()
+    const skillTest = rollDie(2)
+    if (skillTest <= player.skill) {
+      return 238
+    } else {
+      return 359
+    }
+  },
   room275: (player) => {
     console.log('\x1Bc')
     console.log('Thick smoke rises up from the floor where the acid has fallen from the broken jug. You crawl along the floor desperately trying to find drinkable water in the shallow pools of the the dripping tunnel.\n')
@@ -2854,20 +3351,65 @@ const rooms = {
       return 309
     }
   },
-  room276: () => { },
-  room277: () => { },
-  room278: () => { },
+  room276: () => {
+    console.log('\x1Bc')
+    console.log('As you try to charge down the door with your shoulder, you hear the shrieking voices of the TROGLODYTES coming down the tunnel. You are trapped and draw your sword. The TROGLODYTES approach you, their bows drawn, and a hail of arrows strikes you with fatal impact. Your lifeless body slumps to the ground in the depths of Deathtrap Dungeon.\n')
+    readlineSync.keyInPause()
+    return -1
+  },
+  room277: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel takes a sharp right turn and then, a hundred metres ahead, comes to a junction. Looking left, you see two bodies lying on the floor. You decide to go and investigate.\n')
+    readlineSync.keyInPause()
+    return 338
+  },
+  room278: () => {
+    console.log('\x1Bc')
+    console.log(`Your blade strikes one of the BLOODBEAST'S real eyes with devastating effect. It slumps back into its pool, thrashing about in a frenzy. You seize your opportunity and run around the side of the pool to the tunnel exit.\n`)
+    readlineSync.keyInPause()
+    return 134
+  },
   room279: () => {
     console.log('\x1Bc')
     console.log('You arrive at a junction in the tunnel. A new branch leads WEST, but the wet footprints you have been following continue NORTH. You decide to keep following the footprints.\n')
     readlineSync.keyInPause()
     return 32
   },
-  room280: () => { },
-  room281: () => { },
-  room282: () => { },
-  room283: () => { },
-  room284: () => { },
+  room280: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel continues east for quite a long way before reaching a junction. The walls, ceiling and floor of the tunnel leading south are covered with a thick green slime. You decide it would be safer to head north.\n')
+    readlineSync.keyInPause()
+    return 218
+  },
+  room281: (player) => {
+    console.log('\x1Bc')
+    console.log('changeme')
+  },
+  room282: () => {
+    console.log('\x1Bc')
+    console.log('The tunnel soon ends at a junction. Standing there alone and wondering which way to go is one of your rivals. It is one of the Barbarians. You call out to him, but at first he does not answer, he merely stares at you coldly, his hands firmly gripping his axe. You walk to him and ask which way he is heading. He grunts his reply, saying that he is going west, and you may go with him if you wish.\n')
+    const options = ['Head west with the Barbarian', 'Decline his offer and head east alone']
+    const index = readlineSync.keyInSelect(options, "What would you like to do?", { cancel: false })
+    switch (index) {
+      case 0:
+        return 22
+      case 1:
+        return 388
+    }
+  },
+  room283: () => {
+    console.log('\x1Bc')
+    console.log('You have to squeeze yourself deep into the crack to conceal yourself completely. From this cramped position you are unable to see the owner of the feet that shuffle slowly by. A minute later all is quiet again, so you pull yourself back out into the tunnel and head west.\n')
+    readlineSync.keyInPause()
+    return 109
+  },
+  room284: (player) => {
+    if (player.abilities.trapDetection) {
+      return 398
+    } else {
+      return 57
+    }
+  },
   room285: (player) => {
     console.log('\x1Bc')
     console.log('You land heavily on your back, but luckily your backpack cushions your fall.\n')
@@ -2997,6 +3539,22 @@ const rooms = {
   room294: (player) => {
     // * * * * * ADVANCED COMBAT ROOM * * * * *
     console.log('\x1Bc')
+    console.log(`You pull the dagger from your belt with your free hand and hack at the BLOODBEAST'S tongue. The beast screams in pain and rolls forward as far as it can to try and clasp you between its blood-filled jaws. You must fight it from the floor with your dagger.\n`)
+    statChange(player, "skill", -2)
+    readlineSync.keyInPause()
+    const monster = new Bloodbeast(12, 2) // stamina should be 10, nerfed to 2 to simulate test your luck on first Attack Round win
+    const outcome = battle(player, monster)
+    switch (outcome) {
+      case 0:
+        return -1
+      case 1:
+        const luck = testYourLuck(player)
+        if (luck === 'lucky') {
+          return 97
+        } else {
+          return 21
+        }
+    }
   },
   room295: (player) => {
     console.log('\x1Bc')
@@ -3229,7 +3787,31 @@ const rooms = {
     readlineSync.keyInPause()
     return 298
   },
-  room337: () => { },
+  room337: (player) => {
+    if (!player.abilities.hagFountainDrank) {
+      console.log('\x1Bc')
+      console.log('The cool water is refreshing, but comes from a source which has been cursed by a HAG. It slows down your reactions and dulls your senses.\n')
+      statChange(player, "stamina", 1)
+      statChange(player, "luck", -2)
+      player.abilities.hagFountainDrank = true
+      readlineSync.keyInPause()
+    }
+    console.log(`\x1Bc`)
+    if (player.abilities.pixieFountainDrank) {
+      console.log('You have no choice but to continue north.\n')
+      readlineSync.keyInPause()
+      return 368
+    } else {
+      const options = ['Drink from the other fountain', 'Continue north']
+      const index = readlineSync.keyInSelect(options, "What will you do?", { cancel: false })
+      switch (index) {
+        case 0:
+          return 173
+        case 1:
+          return 368
+      }
+    }
+  },
   room338: () => {
     console.log('\x1Bc')
     console.log('The bodies are those of two ORC guards. At least one of your rivals in the Trial of Champions must still be ahead of you. A quick search of the bodies produces nothing apart from a necklace of teeth hanging around the neck of one of the ORCS.\n')
@@ -3429,6 +4011,7 @@ const rooms = {
   room360: () => {
     console.log('\x1Bc')
     console.log(`After paying off the old man, you climb into the wicker basket and watch as he tilts his head back and shouts, "Pull it up, Ivy!" The rope goes taut and the basket rises jerkily off the ground. As you are hauled higher and higher, the old man calls out to you, saying, "You'll like Ivy, she's a nice girl. We call her Poison Ivy!" He starts to laugh uncontrollably and you wonder somewhat apprehensively just who is hauling you up.\n`)
+    // * * * * remove something from the backpack????
     readlineSync.keyInPause()
     console.log('\x1Bc')
     console.log(`The basket goes through the ceiling and you find yourself in a small chamber, face to face with an ugly old female TROLL. Her face is hairy and covered with warts. With a huge hand she reaches forward and hauls you out of the basket, which she then lets fall to the floor below. She grabs you round the and says in a husky voice, "I want paying too!"\n`)

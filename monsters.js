@@ -106,10 +106,24 @@ class Skeleton extends Monster {
   }
 }
 
+class RockGrub extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'ROCK GRUB'
+  }
+}
+
 class PitFiend extends Monster {
   constructor (skill, stamina) {
     super(skill, stamina)
     this.type = 'PIT FIEND'
+  }
+}
+
+class Bloodbeast extends Monster {
+  constructor (skill, stamina) {
+    super(skill, stamina)
+    this.type = 'BLOODBEAST'
   }
 }
 
@@ -136,6 +150,8 @@ module.exports = {
   GuardDog,
   Imitator,
   Skeleton,
+  RockGrub,
   PitFiend,
+  Bloodbeast,
   Throm
 }
