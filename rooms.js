@@ -4,7 +4,7 @@ const rollDie = require('./rollDie')
 const statChange = require('./statChange')
 const testYourLuck = require('./testYourLuck')
 const battle = require('./battle')
-const { Orc, Goblin, Manticore, Giantfly, Minotaur, Caveman, Hobgoblin, CaveTroll, Scorpion, FlyingGuardian, Ivy, Dwarf, GuardDog, Imitator, Skeleton, RockGrub, PitFiend, Bloodbeast, Throm, Ninja, MirrorDemon } = require('./monsters')
+const { Orc, Goblin, Manticore, GiantFly, Minotaur, Caveman, Hobgoblin, CaveTroll, Scorpion, FlyingGuardian, Ivy, Dwarf, GuardDog, Imitator, Skeleton, RockGrub, PitFiend, Bloodbeast, Throm, Ninja, MirrorDemon } = require('./monsters')
 
 const rooms = {
   winner: () => {
@@ -475,7 +475,7 @@ const rooms = {
     const index = readlineSync.keyInSelect(options, 'What do you do?', { cancel: false })
     switch (index) {
       case 0:
-        const monster = new Giantfly(7, 8)
+        const monster = new GiantFly(7, 8)
         const outcome = battle(player, monster)
         switch (outcome) {
           case 0:
@@ -580,7 +580,7 @@ const rooms = {
   },
   room46: () => {
     console.log('\x1Bc')
-    console.log('You lower yourself carefully down the idol and, wasting no more time in the cavern, run forward to the tunnel in the NORTHERN wall.\n')
+    console.log('You lower yourself carefully down the idol and, wasting no more time in the cavern, run forward to the tunnel in the northern wall.\n')
     readlineSync.keyInPause()
     return 239
   },
