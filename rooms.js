@@ -162,7 +162,7 @@ const rooms = {
   },
   room12: () => {
     console.log('\x1Bc')
-    console.log(`The door opens into a large, candle-lit room filled with the most extraordinary lifelike statues of knights and warriors. A white-haired old man dressed in tattered rags suddenly jumps out from behind one of the statues and starts to giggle. Though he looks like a fool, the sparkle in his eyes makes you think there is more to him than is apparent. In a high-pitched voice he says, 'Oh good, another stone for my garden. I'm glad you havecome to join your friends. Now, I'm a fair man and so I'll ask you a question. If you answer correctly, I'll let you go free - but if your answer is wrong, I'll turn you to stone!' He starts to chuckle again, obviously pleased with your arrival.\n`)
+    console.log(`The door opens into a large, candle-lit room filled with the most extraordinary lifelike statues of knights and warriors. A white-haired old man dressed in tattered rags suddenly jumps out from behind one of the statues and starts to giggle. Though he looks like a fool, the sparkle in his eyes makes you think there is more to him than is apparent. In a high-pitched voice he says, 'Oh good, another stone for my garden. I'm glad you have come to join your friends. Now, I'm a fair man and so I'll ask you a question. If you answer correctly, I'll let you go free - but if your answer is wrong, I'll turn you to stone!' He starts to chuckle again, obviously pleased with your arrival.\n`)
     const options = ['Wait for his question', 'Attack him with your sword', 'Make a run for the door']
     const index = readlineSync.keyInSelect(options, 'What do you do?', { cancel: false })
     switch (index) {
@@ -846,8 +846,8 @@ const rooms = {
   },
   room68: () => {
     console.log('\x1Bc')
-    console.log('You walk down the passage and soon find yourself standing at the edge of a deep, dark pit. The passage continues east on the other side of the pit. You think you could probably jump over the put, but you are not sure. There is a rope hanging down from the ceiling over the centre of the pit.\n')
-    const options = ['Throw your shield over the put and jump after it', 'Jump over the pit carrying all your possessions', 'Reach for the rope with your sword to enable you to swing across the pit']
+    console.log('You walk down the passage and soon find yourself standing at the edge of a deep, dark pit. The passage continues east on the other side of the pit. You think you could probably jump over the pit, but you are not sure. There is a rope hanging down from the ceiling over the centre of the pit.\n')
+    const options = ['Throw your shield over the pit and jump after it', 'Jump over the pit carrying all your possessions', 'Reach for the rope with your sword to enable you to swing across the pit']
     const index = readlineSync.keyInSelect(options, 'What will you do?', { cancel: false })
     switch (index) {
       case 0:
@@ -2415,7 +2415,7 @@ const rooms = {
   },
   room195: (player) => {
     console.log('\x1Bc')
-    console.log(`You draw your sword and rush towards the old man. He raises his left arm and suddenly you hit and bounce off an invisible shield. "Do not be foolish, my powers are great," the old man says calmly. "If you do not believe me, watch this." From out of nowhere a flying fist appears, whichi smashes into your face before you can duck.\n`)
+    console.log(`You draw your sword and rush towards the old man. He raises his left arm and suddenly you hit and bounce off an invisible shield. "Do not be foolish, my powers are great," the old man says calmly. "If you do not believe me, watch this." From out of nowhere a flying fist appears, which smashes into your face before you can duck.\n`)
     const alive = statChange(player, 'stamina', -1)
     readlineSync.keyInPause()
     if (!alive) {
@@ -4159,7 +4159,7 @@ const rooms = {
   },
   room344: () => {
     console.log('\x1Bc')
-    console.log('The tunnel twists and turns but keeps steadily north. Ahead you see a thing shaft of blue light streaming down from the ceiling to the floor. It sparkles and shimmers, and you can see images of laughing faces in the light.\n')
+    console.log('The tunnel twists and turns but keeps steadily north. Ahead you see a thin shaft of blue light streaming down from the ceiling to the floor. It sparkles and shimmers, and you can see images of laughing faces in the light.\n')
     const options = ['Walk through the light', 'Walk round the light']
     const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
@@ -4238,7 +4238,7 @@ const rooms = {
   },
   room352: () => {
     console.log('\x1Bc')
-    console.log('Ahead you hear the sound of rocks being ground and crushed. The noise grows louder and suddenly you realise that the wall on your right is starting to collapse. Terrified, yo uwatch as a large, hideous worm-like creature with a gaping mouth and extraordinarily powerful mandibles slithers through a hole in the wall. Its great jaws continue to crunch the rock as it turns its head slowly from side to side, feeling the cool air in the tunnel. It appears to be totally blind, but seems to know of your presence, perhaps sensing the heat of your body. It starts to slither towards you with its mandibles wide apart to attack.\n')
+    console.log('Ahead you hear the sound of rocks being ground and crushed. The noise grows louder and suddenly you realise that the wall on your right is starting to collapse. Terrified, you watch as a large, hideous worm-like creature with a gaping mouth and extraordinarily powerful mandibles slithers through a hole in the wall. Its great jaws continue to crunch the rock as it turns its head slowly from side to side, feeling the cool air in the tunnel. It appears to be totally blind, but seems to know of your presence, perhaps sensing the heat of your body. It starts to slither towards you with its mandibles wide apart to attack.\n')
     const options = ['Fight the ROCK GRUB', 'Run back down the tunnel to the junction to head east']
     const index = readlineSync.keyInSelect(options, 'What do you wish to do?', { cancel: false })
     switch (index) {
